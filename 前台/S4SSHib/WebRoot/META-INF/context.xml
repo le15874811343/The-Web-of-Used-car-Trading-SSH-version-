@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+<Context>
+<!--  
+ <Resource
+name="jdbc/mysql"
+factory="com.alibaba.druid.pool.DruidDataSourceFactory"
+auth="Container"
+type="javax.sql.DataSource"
+driverClassName="com.mysql.jdbc.Driver"
+username="root"
+password="mysql" 
+maxActive="50"
+maxWait="10000"
+url="jdbc:mysql://172.16.50.251:3306/database?useUnicode=true&amp;characterEncoding=utf-8"
+/>
+-->
+<!-- oracle -->
+
+<Resource 
+        name="jdbc/oracle"
+          factory="com.alibaba.druid.pool.DruidDataSourceFactory"
+          auth="Container"
+          type="javax.sql.DataSource"
+          driverClassName="oracle.jdbc.driver.OracleDriver"
+          url="jdbc:oracle:thin:@127.0.0.1:1521:orcl"
+         username="scott"
+         password="le353480"
+         maxActive="50"
+         maxWait="10000"
+       />
+       
+</Context>

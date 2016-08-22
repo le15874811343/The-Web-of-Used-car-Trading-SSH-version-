@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/aop 
+	 http://www.springframework.org/schema/aop/spring-aop.xsd
+	 http://www.springframework.org/schema/tx 
+   http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+	 ">
+	 <!-- 配置组件 -->
+	<!--管理Hibernate资源 -->
+	<!-- class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"> -->
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="configLocation" value="classpath:hibernate.cfg.xml">
+		</property>
+	</bean>
+	
+	<!--配置hibernateTemplate -->
+	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+		<!-- 注入sessionFactory -->
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<!-- 配置事务管理 器 trnasactionManager -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<!-- 注入sessionFactory -->
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+
+	<!-- 配置声明式事务Spring ================= -->
+	<tx:advice id="advice" transaction-manager="transactionManager">
+		<!-- 哪些方法需要什么 样的事务去管理 -->
+		<tx:attributes>
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="delete" propagation="REQUIRED" />
+			<tx:method name="query*" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+	<!-- 当前系统 中哪些类中的方法需要事务去管理 -->
+	<aop:config>
+		<!-- 配置切入点 -->
+		<aop:pointcut id="pointcut"
+			expression="execution(public * cn.com.dao.impl.*.*(..) )"></aop:pointcut>
+		<!-- 建立事务与切入点的关联 -->
+		<aop:advisor advice-ref="advice" pointcut-ref="pointcut" />
+		<!-- 配置通知类型 -->
+	</aop:config>
+	<!-- 项目组件配置 -->
+	<!-- 管理Dao组件 细节 属性注入 -->
+	<bean id="baseDao" class="cn.com.dao.impl.BaseDao">
+		<property name="hibernateTemplate" ref="hibernateTemplate"></property>
+	</bean>
+	<bean id="basicInfoDao" class="cn.com.dao.impl.BasicInfoDaoImpl" parent="baseDao">
+	</bean>
+	<bean id="carAgeDao" class="cn.com.dao.impl.CarAgeDaoImpl" parent="baseDao">
+	</bean>
+	<bean id="carBrandDao" class="cn.com.dao.impl.CarBrandDaoImpl" parent="baseDao">
+	</bean>
+	<bean id="carImagesDao" class="cn.com.dao.impl.CarImagesInfoDaoImpl" parent="baseDao">
+	</bean>
+	<bean id="carInfoDao" class="cn.com.dao.impl.CarInfoDaoImpl" parent="baseDao">
+	</bean>
+	<bean id="carTypeDao" class="cn.com.dao.impl.CarTypeDaoImpl" parent="baseDao">
+	</bean>
+	<bean id="commentDao" class="cn.com.dao.impl.CommentDaoImpl" parent="baseDao">
+	</bean>
+	<bean id="distanceDao" class="cn.com.dao.impl.DistanceDaoImpl" parent="baseDao">
+	</bean>
+	<bean id="emisDao" class="cn.com.dao.impl.EmissionstandardDaoImpl" parent="baseDao">
+	</bean>
+	<bean id="hardwaerDao" class="cn.com.dao.impl.HardwareConfigDaoImpl" parent="baseDao">
+	</bean>
+	<bean id="modelDao" class="cn.com.dao.impl.ModelDaoImpl" parent="baseDao">
+	</bean>
+	<bean id="personCarDao" class="cn.com.dao.impl.PersonCarDaoImpl" parent="baseDao">
+	<property name="carInfoDao" ref="carInfoDao"></property>
+	</bean>
+	<bean id="personNeedDao" class="cn.com.dao.impl.PersonNeedDaoImpl" parent="baseDao">
+	</bean>
+	<bean id="priceIntervalDao" class="cn.com.dao.impl.PriceIntervalDaoImpl" parent="baseDao">
+	</bean>
+	<bean id="procedureDao" class="cn.com.dao.impl.ProcedureInfoDaoImpl" parent="baseDao">
+	</bean>
+	<bean id="sellDao" class="cn.com.dao.impl.SellInfoDaoImpl" parent="baseDao">
+	</bean>
+	<bean id="systemConfigDao" class="cn.com.dao.impl.SystemConfigDaoImpl" parent="baseDao">
+	</bean>
+	<bean id="trendsDao" class="cn.com.dao.impl.TrendsDaoImpl" parent="baseDao">
+	</bean>
+	<bean id="userInfoDao" class="cn.com.dao.impl.UserInfoDaoImpl" parent="baseDao">
+	</bean>
+	<!-- 管理service组件 -->
+	<bean id="basicInfoService" class="cn.com.service.impl.BasicInfoServiceImpl">
+	<property name="basicInfoDaoImpl" ref="basicInfoDao"></property>
+	</bean>
+	<bean id="carAgeService" class="cn.com.service.impl.CarAgeServiceImpl">
+	<property name="carAgeDao" ref="carAgeDao"></property>
+	</bean>
+	<bean id="carBrandService" class="cn.com.service.impl.CarBrandServiceImpl">
+	<property name="brandDao" ref="carBrandDao"></property>
+	</bean>
+	<bean id="carImagesService" class="cn.com.service.impl.CarImagesInfoServiceImpl">
+	<property name="carImagesInfoDao" ref="carImagesDao"></property>
+	</bean>
+	<bean id="carInfoService" class="cn.com.service.impl.CarInfoServiceImpl">
+	<property name="carInfoDao" ref="carInfoDao"></property>
+	<property name="pageCar" ref="carInfoDao"></property>
+	</bean>
+	<bean id="carTypeService" class="cn.com.service.impl.CarTypeServiceImpl">
+	<property name="carTypeDao" ref="carTypeDao"></property>
+	</bean>
+	<bean id="commentService" class="cn.com.service.impl.CommentServiceImpl">
+	<property name="commentDao" ref="commentDao"></property>
+	<property name="pageCom" ref="commentDao"></property>
+	</bean>
+	<bean id="distanceService" class="cn.com.service.impl.DistanceServiceImpl">
+	<property name="distanceDao" ref="distanceDao"></property>
+	</bean>
+	<bean id="emisService" class="cn.com.service.impl.EmissionstandardServiceImpl">
+	<property name="emissionstandardDao" ref="emisDao"></property>
+	</bean>
+	<bean id="hardwareService" class="cn.com.service.impl.HardwareConfigServiceImpl">
+	<property name="hardwareConfigDaoImpl" ref="hardwaerDao"></property>
+	</bean>
+	<bean id="modelService" class="cn.com.service.impl.ModelServiceImpl">
+	<property name="modelDao" ref="modelDao"></property>
+	</bean>
+	<bean id="personCarService" class="cn.com.service.impl.PersonCarServiceImpl">
+	<property name="personCarDao" ref="personCarDao"></property>
+	<property name="pagePersc" ref="personCarDao"></property>
+	</bean>
+	<bean id="personNeedService" class="cn.com.service.impl.PersonNeedServiceImpl">
+	<property name="personNeedDao" ref="personNeedDao"></property>
+	<property name="pagePersn" ref="personNeedDao"></property>
+	</bean>
+	<bean id="priceIntervalService" class="cn.com.service.impl.PriceIntervalServiceImpl">
+	<property name="intervalDao" ref="priceIntervalDao"></property>
+	</bean>
+	<bean id="procedureService" class="cn.com.service.impl.ProcedureInfoServiceImpl">
+	<property name="procedureInfoDaoImpl" ref="procedureDao"></property>
+	</bean>
+	<bean id="sellService" class="cn.com.service.impl.SellInfoServiceImpl">
+	<property name="sellInfoDao" ref="sellDao"></property>
+	</bean>
+	<bean id="systemConfigService" class="cn.com.service.impl.SystemConfigServiceImpl">
+	<property name="systemConfigDao" ref="systemConfigDao"></property>
+	</bean>
+	<bean id="trendsService" class="cn.com.service.impl.TrendsServiceImpl">
+	<property name="trendsDao" ref="trendsDao"></property>
+	<property name="pageTrends" ref="trendsDao"></property>
+	</bean>
+	<bean id="userInfoService" class="cn.com.service.impl.UserInfoServiceImpl">
+	<property name="userInfoDao" ref="userInfoDao"></property>
+	<property name="pageUser" ref="userInfoDao"></property>
+	</bean>
+	
+	
+
+	<!-- 管理 action -->
+	<bean id="carInfoAction" class="cn.com.action.CarInfoAction">
+	<property name="carInfoService" ref="carInfoService"></property>
+	<property name="carPage" ref="carInfoService"></property>
+	<property name="carBrandService" ref="carBrandService"></property>
+	<property name="carTypeService" ref="carTypeService"></property>
+	<property name="trendsService" ref="trendsService"></property>
+	<property name="priceIntervalService" ref="priceIntervalService"></property>
+	<property name="carAgeService" ref="carAgeService"></property>
+	<property name="commentService" ref="commentService"></property>
+	<property name="distanceService" ref="distanceService"></property>
+	<property name="emissionstandardService" ref="emisService"></property>
+	<property name="basicInfoService" ref="basicInfoService"></property>
+	<property name="carImagesInfoService" ref="carImagesService"></property>
+	<property name="hardwareConfigService" ref="hardwareService"></property>
+	<property name="procedureInfoService" ref="procedureService"></property>
+	<property name="sellInfoService" ref="sellService"></property>
+	<property name="systemConfigService" ref="systemConfigService"></property>
+	 </bean>
+	 <bean id="userInfoAction" class="cn.com.action.UserInfoAction">
+	 <property name="userInfoService" ref="userInfoService"></property>
+	 </bean>
+	 <bean id="TrendsAction" class="cn.com.action.TrendsAction">
+	 <property name="trendsService" ref="trendsService"></property>
+	 <property name="trendsPage" ref="trendsService"></property>
+	 <property name="commentService" ref="commentService"></property>
+	 <property name="commentsPage" ref="commentService"></property>
+	 </bean>
+	 <bean id="MemberCenterAction" class="cn.com.action.MemberCenterAction">
+	 <property name="perSonCarService" ref="personCarService"></property>
+	 <property name="personCarPage" ref="personCarService"></property>
+	 <property name="carInfoService" ref="carInfoService"></property>
+	 <property name="personNeedService" ref="personNeedService"></property>
+	 <property name="personNeedPage" ref="personNeedService"></property>
+	 <property name="carTypeService" ref="carTypeService"></property>
+	 <property name="basicInfoService" ref="basicInfoService"></property>
+	 <property name="hardwareConfigService" ref="hardwareService"></property>
+	 <property name="systemConfigService" ref="systemConfigService"></property>
+	 <property name="procedureInfoService" ref="procedureService"></property>
+	 <property name="sellInfoService" ref="sellService"></property>
+	 <property name="carImagesInfoService" ref="carImagesService"></property>
+	 <property name="commentServiceImpl" ref="commentService"></property>
+	 </bean>
+	 <bean id="ModelAction" class="cn.com.action.ModelAction">
+	 <property name="modelService" ref="modelService"></property>
+	 </bean>
+	 <bean id="UploadAction" class="cn.com.action.UploadAction">
+	 </bean>
+	
+	</beans>
+	

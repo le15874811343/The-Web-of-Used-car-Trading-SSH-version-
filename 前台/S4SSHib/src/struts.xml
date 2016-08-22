@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+    "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<!-- 全局变量，初始化变量 -->
+	<!--配置编码 -->
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<!--配置action后缀 -->
+	<constant name="struts.action.extension" value="do,action" />
+	<!--节点改变时,自动重新加载配置文件 ，开发模式为true -->
+	<constant name="struts.configuration.xml.reload" value="true" />
+	<!--支持动态方法调用 -->
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<constant name="struts.devMode" value="true"></constant>
+	<!-- spring管理Action对象 -->
+	<constant name="struts.objectFactory" value="spring"></constant>
+	<!-- 虚拟目录 -->
+	<constant name="struts.multipart.saveDir" value="/tepimages" />
+
+	<package name="CarInfo" extends="struts-default">
+		<action name="CarInfo_*" class="carInfoAction" method="{1}">
+			<result name="success">/index.jsp</result>
+			<result name="showlist">/maiche_list.jsp</result>
+			<result name="showdetails">/maiche_show.jsp</result>
+			<result name="showshdea">/admin/maiche_show.jsp</result>
+			<result name="showsrdz">/admin/srdz.jsp</result>
+			<result name="showCompare">/compareCar.jsp</result>
+			<result name="zjbj">/compareCar.jsp</result>
+			<result name="djbd">/count_list.jsp</result>
+			<result name="jybd">/jy_list.jsp</result>
+		</action>
+	</package>
+	<package name="UserInfo" extends="struts-default">
+		<action name="UserInfo_*" class="userInfoAction" method="{1}">
+			<result name="execute" type="chain">CarInfo_${url}</result>
+			<result name="update">/admin/memberMyAccount.jsp</result>
+			<result name="updatepwdok">/admin/memberMyAccount.jsp</result>
+			<result name="updatepwdno">/admin/memberMyAccount.jsp</result>
+				<result name="hsy" type="chain">CarInfo_${url}</result>
+		</action>
+	</package>
+
+	<package name="Trends" extends="struts-default">
+		<action name="Trends_*" class="TrendsAction" method="{1}">
+			<result name="showNewsList">/news_list.jsp</result>
+			<result name="showTei">/news_show.jsp</result>
+			<result name="showActive">/active_list.jsp</result>
+			<result name="showTeia">/active_show.jsp</result>
+			<result name="showCom">/comment_list.jsp</result>
+			<result name="showComd">/comment_show.jsp</result>
+		</action>
+	</package>
+	<package name="MemberCenter" extends="json-default">
+	<interceptors>
+		
+			<interceptor name="AdminInterceptor" class="cn.com.interceptor.AdminInterceptor"></interceptor>
+			<!-- 多个拦截器功能：拦截栈 stack -->
+			<interceptor-stack name="Mystack">
+				
+				<interceptor-ref name="AdminInterceptor"></interceptor-ref>
+				<!-- 细节 :在自定义的 栈 stack 引用 系统默认 -->
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		<global-results>
+			<result name="Login" type="redirectAction">CarInfo_execute</result>
+		</global-results>
+		<action name="MemberCenter_*" class="MemberCenterAction"
+			method="{1}">
+			<result name="showmenber">/admin/menber.jsp</result>
+			<result name="showmenberSc">/admin/memberMySc.jsp</result>
+			<result name="showmenberOrder">/admin/memberMyOrder.jsp</result>
+			<result name="showmenberMc">/admin/memberMyMc.jsp</result>
+			<result name="showmenberYbcar">/admin/memberMyCar.jsp</result>
+			<result name="showmenberSh">/admin/memberMyRz.jsp</result>
+			<result name="showmenberbjj">/admin/memberMyBjj.jsp</result>
+			<result name="showmenberJyz">/admin/memberMyJyz.jsp</result>
+			<result name="showmenberymw">/admin/memberMyYmc.jsp</result>
+			<result name="showmenberzzmr">/admin/memberMyzzmr.jsp</result>
+			<result name="showmenberXj">/admin/memberMyXj.jsp</result>
+			<result name="showmenberSj" type="chain">MemberCenter_showmenberMc
+			</result>
+			<result name="qxsc" type="chain">MemberCenter_showmenberSc</result>
+			<result name="qrsh" type="chain">MemberCenter_showmenberYbcar</result>
+			<result name="qxdd" type="chain">MemberCenter_showmenberzzmr</result>
+			<result name="tjbjj" type="chain">MemberCenter_showmenberSh</result>
+			<result name="needsc">/admin/menber.jsp</result>
+			<result name="needmaiche">/admin/wymc.jsp</result>
+			<result name="logincar">/admin/logincarinfo.jsp</result>
+			<result name="tjmc" type="redirectAction"><param name="actionName">CarInfo_showshdea</param><param name="uid" >${tzUid}</param>
+			<param name="cid">${tzCid}</param></result>
+			<result name="uptj" type="redirectAction"><param name="actionName">CarInfo_showshdea</param><param name="uid" >${tzUid}</param>
+			<param name="cid">${tzCid}</param></result>
+			<result name="showdea" type="chain">CarInfo_showshdea</result>
+			<result name="upmc">/admin/upcarinfo.jsp</result>
+			<result name="showsrdz">/admin/memberMySr.jsp</result>
+			<result name="josn" type="json"></result>
+			<result name="nouser" type="chain">CarInfo_execute</result>
+        <interceptor-ref name="Mystack"></interceptor-ref>
+		</action>
+	</package>
+	<package name="Model" extends="json-default">
+		<action name="Model_*" class="ModelAction" method="{1}">
+			<result type="json"></result>
+		</action>
+	</package>
+	<package name="UploadAction" extends="json-default">
+		<action name="ScImage_*" class="UploadAction" method="{1}">
+			<result type="json" name="josn">
+			<param name="contentType">
+                    text/html
+                </param>
+			</result>
+			
+		</action>
+	</package>
+
+</struts>
