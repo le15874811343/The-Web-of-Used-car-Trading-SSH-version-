@@ -19,5 +19,5 @@
         <property name="MName" type="java.lang.String">
             <column name="M_NAME" length="20"  />
         </property>
-    </class>
+    </class> 
 </hibernate-mapping>
