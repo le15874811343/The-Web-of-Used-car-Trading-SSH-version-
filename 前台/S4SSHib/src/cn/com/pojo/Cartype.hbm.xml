@@ -25,5 +25,5 @@
 		<property name="TClass" type="java.lang.String">
 			<column name="T_CLASS" length="300" />
 		</property>
-	</class>
+	</class> 
 </hibernate-mapping>
