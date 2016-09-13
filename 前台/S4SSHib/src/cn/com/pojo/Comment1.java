@@ -11,10 +11,10 @@ public class Comment1 implements java.io.Serializable {
 
 	// Fields
 
-	private Long CId; //用户编号
-	private Long UId; //评价正文
-	private String CText; //评价日期
-	private Date CDate; //评价编号
+	private Long CId;  //评价编号
+	private Long UId;   //用户编号
+	private String CText; //评价正文
+	private Date CDate;   //评价日期
 	private String CImg; //评价图片
 	private String CBt; //评价标题
 	private String CAdmin; //评价等级
