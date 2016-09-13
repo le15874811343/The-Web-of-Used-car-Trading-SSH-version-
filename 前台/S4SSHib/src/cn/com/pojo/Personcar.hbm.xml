@@ -26,4 +26,4 @@
             <column name="P_STATE" length="25" />
         </property>
     </class>
-</hibernate-mapping>
+</hibernate-mapping> 
