@@ -22,7 +22,7 @@
         <property name="trDate" type="java.util.Date">
             <column name="TR_DATE" length="7" />
         </property>
-        <property name="trType" type="java.lang.String">
+        <property name="trType" type="java.lang.String"> 
             <column name="TR_TYPE" length="25" />
         </property>
         <property name="trImg" type="java.lang.String">
