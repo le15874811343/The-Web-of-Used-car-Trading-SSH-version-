@@ -1,16 +1,18 @@
 package cn.com.pojo;
 
 /**
- * Priceinterval entity. @author MyEclipse Persistence Tools
+ * 价格区间信息类
+ * @author lej
  */
 
 public class Priceinterval implements java.io.Serializable {
 
 	// Fields
 
-	private int PId;
-	private String PName;
-	private Long PCount;
+
+	private int PId; //价格编号
+	private String PName; //价格名称
+	private Long PCount;  //热度
 
 	// Constructors
 
