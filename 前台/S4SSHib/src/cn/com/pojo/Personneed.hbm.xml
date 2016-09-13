@@ -30,7 +30,7 @@
         </property>
         <property name="PTime" type="java.util.Date">
             <column name="P_TIME" length="7" />
-        </property>
+        </property> 
         <property name="PMiaoshu" type="java.lang.String">
             <column name="P_MIAOSHU" length="1000" />
         </property>
