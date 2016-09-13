@@ -1,18 +1,19 @@
 package cn.com.pojo;
 
 /**
- * Cartype entity. @author MyEclipse Persistence Tools
+ * 车型信息类
+ * @author  lej
  */
-
 public class Cartype implements java.io.Serializable {
 
 	// Fields
 
-	private int TId;
-	private String TName;
-	private String TImg;
-	private Long TCount;
-	private String TClass;
+	private int TId; //车型编号
+	private String TName; //车型名称
+	private String TImg;  //车型logo
+	private Long TCount; //热度
+	private String TClass;  //车型logo
+
 
 	// Constructors
 
