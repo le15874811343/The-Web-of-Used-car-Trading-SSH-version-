@@ -17,7 +17,7 @@
             <column name="PURCHASETAX" length="25" />
         </property>
         <property name="drivinglicense" type="java.lang.String">
-            <column name="DRIVINGLICENSE" length="25" />
+            <column name="DRIVINGLICENSE" length="25" /> 
         </property>
         <property name="ncw" type="java.lang.String">
             <column name="NCW" length="25" />
