@@ -3,20 +3,21 @@ package cn.com.pojo;
 import java.util.Date;
 
 /**
- * Comment1 entity. @author MyEclipse Persistence Tools
+ * 评价信息类
+ * @author lej
  */
 
 public class Comment1 implements java.io.Serializable {
 
 	// Fields
 
-	private Long CId;
-	private Long UId;
-	private String CText;
-	private Date CDate;
-	private String CImg;
-	private String CBt;
-	private String CAdmin;
+	private Long CId; //用户编号
+	private Long UId; //评价正文
+	private String CText; //评价日期
+	private Date CDate; //评价编号
+	private String CImg; //评价图片
+	private String CBt; //评价标题
+	private String CAdmin; //评价等级
 
 	// Constructors
 
