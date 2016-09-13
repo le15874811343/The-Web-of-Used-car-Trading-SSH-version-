@@ -22,7 +22,7 @@
         <property name="CDate" type="java.util.Date">
             <column name="C_DATE" length="7"  />
         </property>
-        <property name="CImg" type="java.lang.String">
+        <property name="CImg" type="java.lang.String"> 
             <column name="C_IMG" length="1000" />
         </property>
         <property name="CBt" type="java.lang.String">
