@@ -1,18 +1,19 @@
 package cn.com.pojo;
 
 /**
- * Carbrand entity. @author MyEclipse Persistence Tools
+ *品牌信息类 
+ * @author lej
  */
 
 public class Carbrand implements java.io.Serializable {
 
 	// Fields
 
-	private int BId;
-	private String BName;
-	private Long BCount;
-	private String BImg;
-	private String BSzm;
+	private int BId; //品牌编号
+	private String BName; //品牌名称
+	private Long BCount; //热度
+	private String BImg; //品牌LOGO
+	private String BSzm; //品牌首字母
 
 	// Constructors
 
