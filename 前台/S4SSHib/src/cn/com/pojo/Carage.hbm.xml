@@ -19,5 +19,5 @@
         <property name="ACount" type="java.lang.Long">
             <column name="A_COUNT" precision="10" scale="0" />
         </property>
-    </class>
+    </class> 
 </hibernate-mapping>
