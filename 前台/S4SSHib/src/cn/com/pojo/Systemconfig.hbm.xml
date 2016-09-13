@@ -33,7 +33,7 @@
         </property>
         <property name="fsea" type="java.lang.String">
             <column name="FSEA" length="25" />
-        </property>
+        </property> 
         <property name="dlcc" type="java.lang.String">
             <column name="DLCC" length="25" />
         </property>
