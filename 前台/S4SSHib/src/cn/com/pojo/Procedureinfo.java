@@ -1,23 +1,24 @@
 package cn.com.pojo;
 
 /**
- * Procedureinfo entity. @author MyEclipse Persistence Tools
+ * 手续信息类
+ * @author  lej
  */
 
 public class Procedureinfo implements java.io.Serializable {
 
 	// Fields
 
-	private Long CId;
-	private Long UId;
-	private String purchasetax;
-	private String drivinglicense;
-	private String ncw;
-	private String registration;
-	private String newinvoice;
-	private int key;
-	private int transfertimes;
-	private String transferticket;
+	private Long CId; //车辆编号
+	private Long UId; //车主编号
+	private String purchasetax;  //购置税
+	private String drivinglicense; //行驶证
+	private String ncw; //新车质保
+	private String registration; //登记证
+	private String newinvoice;   //新车发票
+	private int key; //钥匙
+	private int transfertimes; //过户次数
+	private String transferticket; //过户票
 
 	// Constructors
 
