@@ -35,7 +35,7 @@
             <column name="IMAGE7" length="200" />
         </property>
         <property name="image8" type="java.lang.String">
-            <column name="IMAGE8" length="200" />
+            <column name="IMAGE8" length="200" /> 
         </property>
         <property name="image9" type="java.lang.String">
             <column name="IMAGE9" length="200" />
