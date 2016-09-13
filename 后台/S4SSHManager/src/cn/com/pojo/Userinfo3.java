@@ -4,24 +4,27 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Userinfo3 entity. @author MyEclipse Persistence Tools
+ * 
+ * 用户信息类
+ * @author lej
  */
 
 public class Userinfo3 implements java.io.Serializable {
 
 	// Fields
 
-	private Long UId;
-	private Long UTel;
-	private String UPwd;
-	private Long UCard;
-	private String UAdr;
-	private Long UQq;
-	private String UEmail;
-	private String UName;
-	private String USex;
-	private String UAdmin;
-	private Set carinfos = new HashSet(0);
+	private Long UId;  //用户编号
+	private Long UTel; //用户手机（账号）
+	private String UPwd; //用户密码
+	private Long UCard;  //用户身份证
+	private String UAdr; //用户地址
+	private Long UQq; //用户QQ
+	private String UEmail; //用户邮箱
+	private String UName;  //用户姓名
+	private String USex; //用户性别
+	private String UAdmin; //用户权限
+
+
 
 	// Constructors
 
@@ -38,8 +41,8 @@ public class Userinfo3 implements java.io.Serializable {
 
 	/** full constructor */
 	public Userinfo3(Long UId, Long UTel, String UPwd, Long UCard, String UAdr,
-			Long UQq, String UEmail, String UName, String USex, String UAdmin,
-			Set carinfos) {
+			Long UQq, String UEmail, String UName, String USex, String UAdmin
+		) {
 		this.UId = UId;
 		this.UTel = UTel;
 		this.UPwd = UPwd;
@@ -50,7 +53,7 @@ public class Userinfo3 implements java.io.Serializable {
 		this.UName = UName;
 		this.USex = USex;
 		this.UAdmin = UAdmin;
-		this.carinfos = carinfos;
+		
 	}
 
 	// Property accessors
@@ -135,12 +138,6 @@ public class Userinfo3 implements java.io.Serializable {
 		this.UAdmin = UAdmin;
 	}
 
-	public Set getCarinfos() {
-		return this.carinfos;
-	}
-
-	public void setCarinfos(Set carinfos) {
-		this.carinfos = carinfos;
-	}
+	
 
 }
