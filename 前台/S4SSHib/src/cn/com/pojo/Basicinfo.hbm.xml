@@ -34,5 +34,5 @@
         <property name="cimd" type="java.lang.String">
             <column name="CIMD" length="25" />
         </property>
-    </class>
+    </class> 
 </hibernate-mapping>
