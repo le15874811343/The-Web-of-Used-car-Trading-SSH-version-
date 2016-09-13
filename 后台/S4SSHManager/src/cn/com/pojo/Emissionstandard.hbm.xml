@@ -20,4 +20,4 @@
             <column name="E_COUNT" precision="10" scale="0" />
         </property>
     </class>
-</hibernate-mapping>
+</hibernate-mapping> 
