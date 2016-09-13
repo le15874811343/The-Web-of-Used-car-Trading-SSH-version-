@@ -1,31 +1,32 @@
 package cn.com.pojo;
 
 /**
- * Systemconfig entity. @author MyEclipse Persistence Tools
+ * 车辆系统配置类
+ * @author lej
  */
 
 public class Systemconfig implements java.io.Serializable {
 
 	// Fields
 
-	private Long CId;
-	private Long UId;
-	private String guidancesystem;
-	private String alb;
-	private String fpg;
-	private String rpg;
-	private String rcpa;
-	private String dsea;
-	private String fsea;
-	private String dlcc;
-	private String hfs;
-	private String hrs;
-	private String fsv;
-	private String rsv;
-	private String fsm;
-	private String rsm;
-	private String rvmh;
-	private String ess;
+	private Long CId;   //车辆编号
+	private Long UId; //车主编号 
+	private String guidancesystem;  //导航系统
+	private String alb; //防抱死制动系统
+	private String fpg; //前驻车雷达
+	private String rpg; //后驻车雷达
+	private String rcpa; //倒车影像系统
+	private String dsea; //驾驶员座椅电动调节
+	private String fsea; //副驾驶座椅电动调节
+	private String dlcc; //定速巡航
+	private String hfs; //前排座椅加热
+	private String hrs; //后排座椅加热
+	private String fsv; //前排座椅通风
+	private String rsv; //后排座椅通风
+	private String fsm; //前排座椅记忆
+	private String rsm; //后排座椅记忆
+	private String rvmh;  //后视镜加热
+	private String ess; //发动机启停
 
 	// Constructors
 
