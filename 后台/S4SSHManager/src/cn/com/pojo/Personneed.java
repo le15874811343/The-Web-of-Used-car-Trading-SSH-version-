@@ -3,23 +3,25 @@ package cn.com.pojo;
 import java.util.Date;
 
 /**
- * Personneed entity. @author MyEclipse Persistence Tools
+ * 个人需求信息类
+ *@author lej
  */
 
 public class Personneed implements java.io.Serializable {
 
 	// Fields
 
-	private Long PId;
-	private Long UId;
-	private String PBrand;
-	private String PSeries;
-	private String PAge;
-	private String PPrice;
-	private Date PTime;
-	private String PMiaoshu;
-	private String PState;
-	private Date PTjtime;
+	private Long PId; //需求编号
+	private Long UId; //用户编号
+	private String PBrand; //需求品牌
+	private String PSeries;  //需求车系
+	private String PAge; //需求车龄
+	private String PPrice; //需求价格
+	private Date PTime; //需求购车时间
+	private String PMiaoshu; //需求描叙
+	private String PState; //需求状态
+	private Date PTjtime;  //需求提交时间
+
 
 	// Constructors
 
