@@ -1,16 +1,17 @@
 package cn.com.pojo;
 
 /**
- * Carage entity. @author MyEclipse Persistence Tools
+ * 车龄信息类
+ * @author lej
  */
 
 public class Carage implements java.io.Serializable {
 
 	// Fields
 
-	private int AId;
-	private String AName;
-	private Long ACount;
+	private int AId;   //车龄编号
+	private String AName;  //车龄名称
+	private Long ACount;  //热度
 
 	// Constructors
 
