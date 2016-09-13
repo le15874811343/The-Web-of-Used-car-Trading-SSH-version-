@@ -1,28 +1,29 @@
 package cn.com.pojo;
 
 /**
- * Hardwareconfig entity. @author MyEclipse Persistence Tools
+ * 车辆硬件配置信息类
+ * @author  lej
  */
 
 public class Hardwareconfig implements java.io.Serializable {
 
 	// Fields
 
-	private Long CId;
-	private Long UId;
-	private String consolelcdscreen;
-	private String autolight;
-	private String headlights;
-	private String lightwash;
-	private String efgv;
-	private int seatnumber;
-	private String fuelform;
-	private String cvt;
-	private String drivingmethod;
-	private String pke;
-	private String keylessgo;
-	private String sunroof;
-	private String leatherseat;
+	private Long CId;  //车辆编号
+	private Long UId; //车主编号
+	private String consolelcdscreen;  //中控台液晶屏
+	private String autolight; //自动头灯
+	private String headlights; //氙气大灯
+	private String lightwash; //大灯清洗
+	private String efgv; //电动折叠后视镜
+	private int seatnumber;  //座位数
+	private String fuelform; //燃料形式
+	private String cvt;   //变速箱
+	private String drivingmethod; //驱动方式
+	private String pke;  //无钥匙进入
+	private String keylessgo;  //无钥匙启动
+	private String sunroof; //全景天窗
+	private String leatherseat;  //真皮座椅
 
 	// Constructors
 
