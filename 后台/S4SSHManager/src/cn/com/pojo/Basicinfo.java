@@ -2,23 +2,27 @@ package cn.com.pojo;
 
 import java.util.Date;
 
-/**
- * Basicinfo entity. @author MyEclipse Persistence Tools
- */
+/** 
+  * 汽车基本信息类 
+  * @author le 
+  * 
+  */ 
+
 
 public class Basicinfo implements java.io.Serializable {
 
 	// Fields
 
-	private Long CId;
-	private Long UId;
-	private Date aidd;
-	private Date srdt;
-	private String bodycolor;
-	private String interiorcolor;
-	private Date domf;
-	private String orgin;
-	private String cimd;
+	private Long CId;  //汽车编号
+	private Long UId;   //车主编号
+	private Date aidd; //年检到期时间
+	private Date srdt; //强险到期时间
+	private String bodycolor; //车身颜色
+	private String interiorcolor;  //内饰颜色
+	private Date domf; //出厂日期
+	private String orgin;  //产地
+	private String cimd;  //商业险到期日期
+
 
 	// Constructors
 
