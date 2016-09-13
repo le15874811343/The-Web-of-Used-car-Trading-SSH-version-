@@ -31,7 +31,7 @@
         <property name="UEmail" type="java.lang.String">
             <column name="U_EMAIL" length="50" />
         </property>
-        <property name="UName" type="java.lang.String">
+        <property name="UName" type="java.lang.String"> 
             <column name="U_NAME" length="25" />
         </property>
         <property name="USex" type="java.lang.String">
