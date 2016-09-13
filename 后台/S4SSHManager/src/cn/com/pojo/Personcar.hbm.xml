@@ -22,7 +22,7 @@
         <property name="CId" type="java.lang.Long">
             <column name="C_ID" precision="11" scale="0" />
         </property>
-        <property name="PState" type="java.lang.String">
+        <property name="PState" type="java.lang.String"> 
             <column name="P_STATE" length="25" />
         </property>
     </class>
