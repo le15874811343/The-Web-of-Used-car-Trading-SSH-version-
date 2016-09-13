@@ -24,7 +24,7 @@
         </property>
         <property name="trType" type="java.lang.String">
             <column name="TR_TYPE" length="25" not-null="true" />
-        </property>
+        </property> 
         <property name="trImg" type="java.lang.String">
             <column name="TR_IMG" length="500" />
         </property>
