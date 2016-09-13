@@ -22,5 +22,5 @@
         <property name="stage" type="java.lang.String">
             <column name="STAGE" length="25" />
         </property>
-    </class>
+    </class> 
 </hibernate-mapping>
