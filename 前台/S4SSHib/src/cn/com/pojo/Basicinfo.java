@@ -2,10 +2,10 @@ package cn.com.pojo;
 
 import java.util.Date;
 /** 
-6  * 汽车基本信息类 
-7  * @author le 
-* 
- */ 
+  * 汽车基本信息类 
+  * @author le 
+  * 
+  */ 
 
 public class Basicinfo implements java.io.Serializable {
 
