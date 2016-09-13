@@ -1,16 +1,17 @@
 package cn.com.pojo;
 
 /**
- * Distance entity. @author MyEclipse Persistence Tools
+ * 行驶距离类
+ * @author  lej
  */
 
 public class Distance implements java.io.Serializable {
 
 	// Fields
 
-	private int DId;
-	private String DName;
-	private Long DCount;
+	private int DId; //行驶距离编号
+	private String DName; //行驶距离名称
+	private Long DCount;  //热度
 
 	// Constructors
 
