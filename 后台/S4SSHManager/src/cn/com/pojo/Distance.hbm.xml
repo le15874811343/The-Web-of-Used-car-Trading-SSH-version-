@@ -17,5 +17,5 @@
         <property name="DCount" type="java.lang.Long">
             <column name="D_COUNT" precision="10" scale="0" />
         </property>
-    </class>
+    </class> 
 </hibernate-mapping>
