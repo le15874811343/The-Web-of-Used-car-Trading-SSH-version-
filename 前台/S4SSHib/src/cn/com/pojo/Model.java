@@ -3,16 +3,17 @@ package cn.com.pojo;
 import java.math.BigDecimal;
 
 /**
- * Model entity. @author MyEclipse Persistence Tools
+ * 车系信息类
+ * @author lej
  */
 
 public class Model implements java.io.Serializable {
 
 	// Fields
 
-	private int MId;
-	private int BId;
-	private String MName;
+	private int MId; //车系ID
+	private int BId; //品牌ID
+	private String MName; //车型名称
 
 	// Constructors
 
