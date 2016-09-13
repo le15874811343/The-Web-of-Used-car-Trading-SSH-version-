@@ -18,6 +18,6 @@
         </property>
         <property name="MName" type="java.lang.String">
             <column name="M_NAME" length="20" not-null="true" />
-        </property>
+        </property> 
     </class>
 </hibernate-mapping>
