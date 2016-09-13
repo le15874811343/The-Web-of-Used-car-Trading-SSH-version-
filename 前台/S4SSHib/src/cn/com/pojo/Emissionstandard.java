@@ -1,16 +1,16 @@
 package cn.com.pojo;
 
 /**
- * Emissionstandard entity. @author MyEclipse Persistence Tools
+ * 排放标准信息类
+ * @author lej
  */
-
 public class Emissionstandard implements java.io.Serializable {
 
 	// Fields
 
-	private int EId;
-	private String EName;
-	private Long ECount;
+	private int EId; //排放标准编号
+	private String EName;  //排放标准名称
+	private Long ECount;  //热度
 
 	// Constructors
 
