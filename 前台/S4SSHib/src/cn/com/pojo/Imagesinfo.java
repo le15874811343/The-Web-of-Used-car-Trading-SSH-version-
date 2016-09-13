@@ -1,15 +1,15 @@
 package cn.com.pojo;
 
 /**
- * Imagesinfo entity. @author MyEclipse Persistence Tools
+ *车辆照片信息类 
+ * @author lej
  */
-
 public class Imagesinfo implements java.io.Serializable {
 
 	// Fields
 
-	private Long CId;
-	private Long UId;
+	private Long CId;  //车辆编号
+	private Long UId; //车主编号
 	private String image1;
 	private String image2;
 	private String image3;
