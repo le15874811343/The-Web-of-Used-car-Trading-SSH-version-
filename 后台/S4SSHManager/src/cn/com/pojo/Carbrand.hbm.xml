@@ -24,6 +24,6 @@
         </property>
         <property name="BSzm" type="java.lang.String">
             <column name="B_SZM" length="25" />
-        </property>
+        </property> 
     </class>
 </hibernate-mapping>
