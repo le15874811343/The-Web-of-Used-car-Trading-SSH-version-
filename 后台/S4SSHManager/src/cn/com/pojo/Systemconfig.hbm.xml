@@ -42,7 +42,7 @@
         </property>
         <property name="hrs" type="java.lang.String">
             <column name="HRS" length="25" />
-        </property>
+        </property> 
         <property name="fsv" type="java.lang.String">
             <column name="FSV" length="25" />
         </property>
