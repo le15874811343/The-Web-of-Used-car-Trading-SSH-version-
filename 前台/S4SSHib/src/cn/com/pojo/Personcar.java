@@ -1,18 +1,19 @@
 package cn.com.pojo;
 
 /**
- * Personcar entity. @author MyEclipse Persistence Tools
+ * 个人汽车订单类
+ * @author lej
  */
 
 public class Personcar implements java.io.Serializable {
 
 	// Fields
 
-	private Long PId;
-	private Long UId;
-	private Long CUid;
-	private Long CId;
-	private String PState;
+	private Long PId; //个人汽车订单编号
+	private Long UId; //用户编号
+	private Long CUid;  //车主编号
+	private Long CId; //车辆编号
+	private String PState;  //订单状态
 
 	// Constructors
 
