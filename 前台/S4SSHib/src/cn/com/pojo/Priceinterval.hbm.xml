@@ -18,6 +18,6 @@
         </property>
         <property name="PCount" type="java.lang.Long">
             <column name="P_COUNT" precision="10" scale="0" />
-        </property>
+        </property> 
     </class>
 </hibernate-mapping>
