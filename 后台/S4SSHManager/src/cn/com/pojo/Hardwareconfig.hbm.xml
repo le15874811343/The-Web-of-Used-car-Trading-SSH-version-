@@ -24,7 +24,7 @@
         </property>
         <property name="lightwash" type="java.lang.String">
             <column name="LIGHTWASH" length="25" />
-        </property>
+        </property> 
         <property name="efgv" type="java.lang.String">
             <column name="EFGV" length="25" />
         </property>
