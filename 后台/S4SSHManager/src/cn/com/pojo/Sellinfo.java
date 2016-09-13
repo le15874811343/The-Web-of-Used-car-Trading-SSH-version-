@@ -1,19 +1,19 @@
 package cn.com.pojo;
 
 /**
- * Sellinfo entity. @author MyEclipse Persistence Tools
+ * 销售信息类
+ * @author lej
  */
 
 public class Sellinfo implements java.io.Serializable {
 
 	// Fields
 
-	private Long CId;
-	private Long UId;
-	private String pricetype;
-	private String transferfee;
-	private String stage;
-
+	private Long CId;    //车辆编号
+	private Long UId;   //车主编号
+	private String pricetype; //价格类型
+	private String transferfee;   //含过户费
+	private String stage;  //支持分期
 	// Constructors
 
 	/** default constructor */
