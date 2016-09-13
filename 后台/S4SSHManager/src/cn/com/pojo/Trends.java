@@ -3,19 +3,19 @@ package cn.com.pojo;
 import java.util.Date;
 
 /**
- * Trends entity. @author MyEclipse Persistence Tools
+ * 公司动态信息类
+ * @author lej
  */
-
 public class Trends implements java.io.Serializable {
 
 	// Fields
 
-	private Long trId;
-	private String trTitle;
-	private String trText;
-	private Date trDate;
-	private String trType;
-	private String trImg;
+	private Long trId; //动态信息编号
+	private String trTitle;  //动态信息标题
+	private String trText; //动态信息正文
+	private Date trDate;  //动态信息日期
+	private String trType;  //动态信息配图
+	private String trImg; //动态信息类型
 
 	// Constructors
 
