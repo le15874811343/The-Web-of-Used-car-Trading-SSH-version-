@@ -40,7 +40,7 @@
         <property name="CLicencetime" type="java.util.Date">
             <column name="C_LICENCETIME" length="7" />
         </property>
-        <property name="CDistance" type="java.lang.Double">
+        <property name="CDistance" type="java.lang.Double"> 
             <column name="C_DISTANCE" precision="2" scale="1"  />
         </property>
         <property name="CEmissionstandard" type="java.lang.String">
