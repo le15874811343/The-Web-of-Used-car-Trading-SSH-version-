@@ -33,7 +33,7 @@
         </property>
         <property name="UName" type="java.lang.String">
             <column name="U_NAME" length="25" />
-        </property>
+        </property> 
         <property name="USex" type="java.lang.String">
             <column name="U_SEX" length="3" />
         </property>
