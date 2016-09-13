@@ -35,7 +35,7 @@
             <column name="FUELFORM" length="25" />
         </property>
         <property name="cvt" type="java.lang.String">
-            <column name="CVT" length="25" />
+            <column name="CVT" length="25" /> 
         </property>
         <property name="drivingmethod" type="java.lang.String">
             <column name="DRIVINGMETHOD" length="25" />
