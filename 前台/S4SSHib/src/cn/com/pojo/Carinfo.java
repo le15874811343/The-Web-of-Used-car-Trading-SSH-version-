@@ -5,35 +5,36 @@ import java.util.Date;
 
 
 /**
- * Carinfo entity. @author MyEclipse Persistence Tools
+ * 车辆概要信息类
+ * @author lej
  */
 
 public class Carinfo implements java.io.Serializable {
 
 	// Fields
 
-	private Long CId;
-	private Long UId;
-	private String CBrand;
-	private String CSeries;
-	private Integer CReleaseyear;
-	private Double CVolume;
-	private String CGeartype;
-	private String CCode;
-	private String CModel;
-	private Date CLicencetime;
-	private Double CDistance;
-	private String CEmissionstandard;
-	private Double CPrice;
-	private Long CCount;
-	private String CImg;
-	private Date CSjtime;
-	private String CType;
-	private String CState;
-	private Long CSccount;
-	private String CCzzx;
-	private Double newprice;
-	private Date CMcsj;
+	private Long CId; //车辆编号
+	private Long UId; //车主编号
+	private String CBrand; //品牌
+	private String CSeries; //车系
+	private Integer CReleaseyear;  //款式年限
+	private Double CVolume; //排量
+	private String CGeartype; //挂档类型
+	private String CCode;   //编号
+	private String CModel; //型号
+	private Date CLicencetime; //上牌时间
+	private Double CDistance; //行驶距离
+	private String CEmissionstandard; //排放标准
+	private Double CPrice; //价格 
+	private Long CCount; //热度
+	private String CImg; //头图片
+	private Date CSjtime; //上架时间
+	private String CType; //车体形式
+	private String CState;  //状态
+	private Long CSccount; //收藏量
+	private String CCzzx; //详情描叙
+	private Double newprice; //新车价
+	private Date CMcsj;  //卖出时间
 
 	// Constructors
 
