@@ -11,13 +11,13 @@ public interface IProcedureInfoDao {
    /**
    * 
    * 获取所有手续信息的方法
-   *@return Map<Long,ProcedureInfo> 
+   *@return Map<Long,Procedureinfo> 
    */
 public Map<Long, Procedureinfo> getAllProcedureInfo();
   /**
    * 
    * 根据编号获取手续信息的方法
-   *@return ProcedureInfo
+   *@return Procedureinfo
    */
 public Procedureinfo getProcedureInfoById(Carinfo carInfo);
   /**
