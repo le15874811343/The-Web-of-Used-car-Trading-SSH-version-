@@ -14,7 +14,7 @@ public interface IPersonCarDao {
        public Long getCarCountByWhere(Personcar perSonCar);
         /**
         * 根据条件获取用户订单信息集合
-        * @return  Map<Long, PerSonCar>
+        * @return  Map<Long, Personcar>
         */
        public Map<Long, Personcar> getPerSonCarMapByWhere(Personcar perSonCar);
        /**
@@ -39,7 +39,7 @@ public interface IPersonCarDao {
        public int updatePerSonCarByState(Personcar perSonCar,String state);
        /**
         * 获取用户订单信息的方法
-        * @return PersonCar
+        * @return Personcar
         */
        public Personcar getPersoncar(Personcar personcar);
 }
