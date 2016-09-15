@@ -10,13 +10,13 @@ public interface IHardwareConfig {
    /**
    * 
    * 获取所有汽车硬件配置信息的方法
-   *@return Map<Long,HardwareConfig> 
+   *@return Map<Long,Hardwareconfig> 
    */
 public Map<Long, Hardwareconfig> getAllHardwareConfig();
 /**
  * 按编号获取汽车硬件配置信息的方法
  * @parma carInfo
- * @return HardwareConfig 
+ * @return Hardwareconfig 
  */
 public Hardwareconfig getHardwareConfigById(Carinfo carInfo);
 /**
