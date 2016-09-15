@@ -8,23 +8,23 @@ import cn.com.pojo.*;
 public interface ICarBrandDao {
    /**
    * 按热度获取品牌信息的方法
-   * @return  Map<Integer, CarBrand>
+   * @return  Map<Integer, Carbrand>
    */
   public Map<Integer, Carbrand> getCarBrandByCount();
   /**
    * 获取所有品牌信息的方法
-   * @return Map<Integer,CarBrand>
+   * @return Map<Integer,Carbrand>
    */
   public Map<Integer, Carbrand> getAllBrand();
   /**
    * 根据品牌编号获取品牌信息的方法
    * @param carBrand
-   * @return CarBrand
+   * @return Carbrand
    */
   public Carbrand getBrandByID(Carbrand carBrand);
    /**
    * 根据品牌名称获取品牌的方法
-   *@return CarBrand 
+   *@return Carbrand 
    */
   public Carbrand getBrandByName(Carbrand carBrand);
 }
