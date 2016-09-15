@@ -10,12 +10,12 @@ import cn.com.pojo.*;
 public interface IBasicInfoDao {
 /**
  * 获取所有基本信息的方法
- * @return Map<Long, BasicInfo>
+ * @return Map<Long, Basicinfo>
 */
 public Map<Long, Basicinfo> getAllBasic();
 /**
  *根据编号获取汽车基本信息的方法 
- *@return BasicInfo
+ *@return Basicinfo
  */
 public Basicinfo getAllBasicById(Carinfo carInfo);
 /**
