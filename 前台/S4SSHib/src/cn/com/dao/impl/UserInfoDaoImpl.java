@@ -6,9 +6,15 @@ import java.util.*;
 import cn.com.pojo.*;
 import cn.com.dao.*;
 import cn.com.util.*;
-
+/**
+ * 用户信息操作实现类
+ * @author
+ */
 public class UserInfoDaoImpl extends BaseDao implements IUserInfoDao, IPageDao {
-
+  /**
+   * 登录的方法
+   * @return UserInfo
+   */
 	@Override
 	public Userinfo3 login(Userinfo3 userInfo) {
 		// TODO Auto-generated method stub
@@ -19,9 +25,9 @@ public class UserInfoDaoImpl extends BaseDao implements IUserInfoDao, IPageDao {
 		try {
 		List<Userinfo3>	_userlist = super.getHibernateTemplate().find(
 					sql.toString(),
-					new Object[] { userInfo.getUTel(), userInfo.getUPwd() });
+					new Object[] { userInfo.getUTel(), userInfo.getUPwd() });//获取结果集
 		if(_userlist.size()>0){
-			_userInfo=_userlist.get(0);
+			_userInfo=_userlist.get(0); //获取结果
 		}
 
 		} catch (Exception e) {
@@ -30,18 +36,23 @@ public class UserInfoDaoImpl extends BaseDao implements IUserInfoDao, IPageDao {
 		}
 		return _userInfo;
 	}
-
+/**
+   * 按唯一条件获取用户信息的方法
+   *@return UserInfo 
+   */
 	@Override
 	public Userinfo3 getUserInfoByUnique(Userinfo3 userInfo) {
 		// TODO Auto-generated method stub
 		Userinfo3 _userInfo = null;
 		StringBuffer sql = new StringBuffer("from Userinfo3 ");
 		sql.append("where 1=1 ");
+		//动态准备参数和延伸HQL语句
 		List<Object> parmas = new ArrayList<Object>();
 		if (userInfo.getUTel() != 0) {
 			sql.append(" and UTel=? ");
 			parmas.add(userInfo.getUTel());
 		}
+		//压入确定有的参数
 		Object[] o = new Object[parmas.size()];
 		for (int i = 0; i < parmas.size(); i++) {
 			o[i] = parmas.get(i);
@@ -49,9 +60,9 @@ public class UserInfoDaoImpl extends BaseDao implements IUserInfoDao, IPageDao {
 
 		try {
 			List<Userinfo3> userlist = super.getHibernateTemplate()
-					.find(sql.toString(), o);
+					.find(sql.toString(), o); //获取结果集
 			if(userlist.size()>0){
-				_userInfo=userlist.get(0);
+				_userInfo=userlist.get(0); //获取结果
 			}
 
 		} catch (Exception e) {
@@ -60,13 +71,16 @@ public class UserInfoDaoImpl extends BaseDao implements IUserInfoDao, IPageDao {
 		}
 		return _userInfo;
 	}
-
+/**
+   * 添加用户信息的方法
+   *@return int 
+   */
 	@Override
 	public int addUserInfo(Userinfo3 userInfo) {
 		// TODO Auto-generated method stub
 		int count = 0;
 		try {
-			super.getHibernateTemplate().save(userInfo);
+			super.getHibernateTemplate().save(userInfo); //加入
 			count = 1;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -75,12 +89,16 @@ public class UserInfoDaoImpl extends BaseDao implements IUserInfoDao, IPageDao {
 
 		return count;
 	}
-
+ /**
+   * 修改用户信息的方法
+   *@return int 
+   */
 	@Override
 	public int updateUserInfo(Userinfo3 userInfo) {
 		// TODO Auto-generated method stub
 		StringBuffer sql = new StringBuffer("update  Userinfo3 set UId=? ");
 		List<Object> params = new ArrayList<Object>();
+		//动态准备参数并延伸HQL语句
 		params.add(userInfo.getUId());
 		if (userInfo.getUName() != null) {
 			sql.append(" , UName=?");
@@ -109,20 +127,24 @@ public class UserInfoDaoImpl extends BaseDao implements IUserInfoDao, IPageDao {
 
 		sql.append(" where UId=?");
 		params.add(userInfo.getUId());
+		//压入确定有的参数
 		Object[] o = new Object[params.size()];
 		for (int i = 0; i < params.size(); i++) {
 			o[i] = params.get(i);
 		}
 
-		return super.getHibernateTemplate().bulkUpdate(sql.toString(), o);
+		return super.getHibernateTemplate().bulkUpdate(sql.toString(), o); //返回受影响的行数
 	}
-
+/**
+   * 修改用户密码的方法
+   *@return int 
+   */
 	@Override
 	public int updateUserPwd(Userinfo3 userInfo) {
 		// TODO Auto-generated method stub
 		StringBuffer sql = new StringBuffer(
 				"update Userinfo3 set UPwd=? where UId=?");
-
+   //返回受影响的行数
 		return super.getHibernateTemplate().bulkUpdate(sql.toString(),
 				new Object[] { userInfo.getUPwd(), userInfo.getUId() });
 	}
@@ -141,7 +163,11 @@ public class UserInfoDaoImpl extends BaseDao implements IUserInfoDao, IPageDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+/**
+     * 获取用户记录条数
+     * 
+     * @return int
+     */
 	@Override
 	public Long queryPersonCarCount(Object object) {
 		// TODO Auto-generated method stub
@@ -150,10 +176,12 @@ public class UserInfoDaoImpl extends BaseDao implements IUserInfoDao, IPageDao {
 		List<Object> parmas = new ArrayList<Object>();
 		StringBuffer sql = new StringBuffer(
 				"select count(*) from Userinfo3 where 1=1");
+				//动态准备参数并延伸HQL语句
 		if (userInfo.getUAdmin() != null) {
 			sql.append(" and UAdmin=?");
 			parmas.add(userInfo.getUAdmin());
 		}
+		//压入确定有的参数
 		Object[] o = new Object[parmas.size()];
 		for (int i = 0; i < parmas.size(); i++) {
 			o[i] = parmas.get(i);
@@ -161,7 +189,7 @@ public class UserInfoDaoImpl extends BaseDao implements IUserInfoDao, IPageDao {
 
 		try {
 			count = (Long) super.getHibernateTemplate()
-					.find(sql.toString(), o).listIterator().next();
+					.find(sql.toString(), o).listIterator().next(); //获取结果
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -169,7 +197,13 @@ public class UserInfoDaoImpl extends BaseDao implements IUserInfoDao, IPageDao {
 		}
 		return count;
 	}
-
+/**
+ * 分页获取用户信息
+ * @param curPage 当前页
+ * @param rowsPrePage 每页显示记录条数
+ * 
+ * @return Map<Long,Object>
+ */
 	@Override
 	public Map<Long, Object> showPersonCarList(int curPage, int rowsPrePage,
 			Object object) {
@@ -178,6 +212,7 @@ public class UserInfoDaoImpl extends BaseDao implements IUserInfoDao, IPageDao {
 		StringBuffer sql = new StringBuffer(
 				"select * from(select rownum rn , b.* from(select  a.* from Userinfo3  a  where 1=1");
 		Map<Long, Object> userMap = new HashMap<Long, Object>();
+			//动态准备参数并延伸HQL语句
 		List<Object> params = new ArrayList<Object>();
 
 		if (userInfo.getUAdmin() != null) {
@@ -187,7 +222,9 @@ public class UserInfoDaoImpl extends BaseDao implements IUserInfoDao, IPageDao {
 	   
 		
 		try {
+			//获取指定行数区间符合条件的结果集
 			List<Userinfo3> ulist = PageUtil.querylist(curPage, rowsPrePage, sql.toString(), params);
+			//遍历结果集加入map中
 			for (Userinfo3 u : ulist) {
 				userMap.put(u.getUId(), u);
 			}
