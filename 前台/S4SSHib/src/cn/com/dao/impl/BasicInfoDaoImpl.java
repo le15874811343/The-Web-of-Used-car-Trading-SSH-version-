@@ -14,7 +14,7 @@ import cn.com.util.*;
 public class BasicInfoDaoImpl extends BaseDao implements IBasicInfoDao{
 /**
  * 获取所有基本信息的方法
- * @return Map<Long, BasicInfo>
+ * @return Map<Long, Basicinfo>
 */
 	@Override
 	public Map<Long, Basicinfo> getAllBasic() {
@@ -32,7 +32,7 @@ public class BasicInfoDaoImpl extends BaseDao implements IBasicInfoDao{
 	}
 /**
  *根据编号获取汽车基本信息的方法 
- *@return BasicInfo
+ *@return Basicinfo
  */
 	@Override
 	public Basicinfo getAllBasicById(Carinfo carInfo) {
