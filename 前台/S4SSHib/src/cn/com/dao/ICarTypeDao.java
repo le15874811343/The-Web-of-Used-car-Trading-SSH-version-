@@ -9,12 +9,12 @@ import cn.com.pojo.*;
 public interface ICarTypeDao {
 	/**
 	 * 按热度获取车型信息的方法
-	 * @return Map<Integer,CarType>
+	 * @return Map<Integer,Cartype>
 	 */
 	public Map<Integer, Cartype> getCarTypeByCount();
 	/**
 	 * 获取所有车型信息的方法
-	 * @return  Map<Integer,CarType>
+	 * @return  Map<Integer,Cartype>
 	 */
 	public Map<Integer, Cartype> getAllCarType();
 }
