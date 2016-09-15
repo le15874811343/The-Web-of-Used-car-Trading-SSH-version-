@@ -7,8 +7,14 @@ import cn.com.dao.IPageDao;
 import cn.com.dao.IUserInfoDao;
 import cn.com.dao.impl.*;
 import cn.com.service.*;
+/**
+ * 用户信息服务实现类
+ * @author
+ */
 public class UserInfoServiceImpl implements IUserInfoService,IPageDao{
+	//用户信息操作接口的引用
    private IUserInfoDao userInfoDao=null;
+   //分页处理操作接口的引用
    private IPageDao pageUser=null;
 	public IUserInfoDao getUserInfoDao() {
 	return userInfoDao;
@@ -21,7 +27,11 @@ public IPageDao getPageUser() {
 }
 public void setPageUser(IPageDao pageUser) {
 	this.pageUser = pageUser;
-}
+} 
+  /**
+   * 登录的服务
+   * @return UserInfo
+   */
 	@Override
 	public Userinfo3 login(Userinfo3 userInfo) {
 		// TODO Auto-generated method stub
@@ -30,11 +40,19 @@ public void setPageUser(IPageDao pageUser) {
 		
 		return userInfoDao.login(userInfo);
 	}
+  /**
+   * 按唯一条件获取用户信息的服务
+   *@return UserInfo 
+   */
 	@Override
 	public Userinfo3 getUserInfoByUnique(Userinfo3 userInfo) {
 		// TODO Auto-generated method stub
 		return userInfoDao.getUserInfoByUnique(userInfo);
 	}
+  /**
+   * 添加用户信息的服务
+   *@return boolean 
+   */
 	@Override
 	public boolean addUserInfo(Userinfo3 userInfo) {
 		// TODO Auto-generated method stub4
@@ -44,6 +62,10 @@ public void setPageUser(IPageDao pageUser) {
 		}
 		return flag;
 	}
+  /**
+   * 修改用户信息的服务
+   *@return boolean 
+   */
 	@Override
 	public boolean updateUserInfo(Userinfo3 userInfo) {
 		// TODO Auto-generated method stub
@@ -53,6 +75,10 @@ public void setPageUser(IPageDao pageUser) {
 		}
 		return flag;
 	}
+  /**
+   * 修改用户密码的服务
+   *@return boolean 
+   */
 	@Override
 	public boolean updateUserPwd(Userinfo3 userInfo) {
 		// TODO Auto-generated method stub
@@ -75,11 +101,22 @@ public void setPageUser(IPageDao pageUser) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	/**
+	 *获取用户信息总记录数
+	 * 
+	 * @return int
+	 */
 	@Override
 	public Long queryPersonCarCount(Object object) {
 		// TODO Auto-generated method stub
 		return pageUser.queryPersonCarCount(object);
 	}
+	/**
+	 * 分页获取用户信息
+	 * @param curPage 当前页
+	 * @param rowsPrePage 每页显示记录条数
+	 * @return Map<Long,Object>
+	 */
 	@Override
 	public Map<Long, Object> showPersonCarList(int curPage, int rowsPrePage,
 			Object object) {
