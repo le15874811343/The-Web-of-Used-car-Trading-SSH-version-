@@ -21,7 +21,7 @@ public int deletePersonNeed(Personneed personNeed);
   /**
    * 
    * 获取个人需求信息的方法
-   *@return PersonNeed
+   *@return Personneed
    */
 public Personneed getPerSonNeed(Personneed personNeed);
 }
