@@ -12,31 +12,42 @@ import cn.com.dao.ICommentDao;
 import cn.com.dao.IPageDao;
 import cn.com.util.DbUtil;
 import cn.com.util.PageUtil;
-
+/**
+ * 评论操作实现类
+ * @author lej
+ */
 public class CommentDaoImpl extends BaseDao implements ICommentDao, IPageDao {
-
+         /**
+           * 添加评论的方法
+           * @parma comment
+           * @return int
+           */
 	@Override
 	public int addComment(Comment1 comment) {
 		// TODO Auto-generated method stub
 
 		int count = 0;
 		try {
-			super.getHibernateTemplate().save(comment);
+			super.getHibernateTemplate().save(comment);  //加入
 			count = 1;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return count;
-	}
-
+ 	}
+          /**
+           * 删除评论的方法
+           * @parma comment
+           * @return int
+           */
 	@Override
 	public int deleteComment(Comment1 comment) {
 		// TODO Auto-generated method stub
 
 		int count = 0;
 		try {
-			super.getHibernateTemplate().delete(comment);
+			super.getHibernateTemplate().delete(comment);  //删除
 			count = 1;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -44,7 +55,11 @@ public class CommentDaoImpl extends BaseDao implements ICommentDao, IPageDao {
 		}
 		return count;
 	}
-
+          /**
+           * 获取评论的方法
+           * @parma comment
+           * @return Comment
+           */
 	@Override
 	public Comment1 getComment(Comment1 comment) {
 		// TODO Auto-generated method stub
@@ -53,7 +68,7 @@ public class CommentDaoImpl extends BaseDao implements ICommentDao, IPageDao {
 
 		try {
 			_comment = (Comment1) super.getHibernateTemplate()
-					.find(sql, comment.getCId()).get(0);
+					.find(sql, comment.getCId()).get(0); //获取结果
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -62,7 +77,13 @@ public class CommentDaoImpl extends BaseDao implements ICommentDao, IPageDao {
 
 		return _comment;
 	}
-
+          /**
+           * 获取两条最新的评论的方法
+           * @parma comment
+           * @parma min 最小行
+           * @parma max 最大行
+           * @return Map<Long,Comment>
+           */
 	@Override
 	public Map<Long, Comment1> getTheTowComment(Comment1 comment, int min, int max) {
 		// TODO Auto-generated method stub
@@ -70,11 +91,12 @@ public class CommentDaoImpl extends BaseDao implements ICommentDao, IPageDao {
 
 	
 		String hql="from Comment1 where CAdmin=?   order by CDate desc";
+		//参数准备
            List<Object> parmas=new ArrayList<Object>();
            parmas.add(comment.getCAdmin());
 		try {
-			List<Comment1> comlist = PageUtil.querylist(min, max, hql, parmas);
-					
+			List<Comment1> comlist = PageUtil.querylist(min, max, hql, parmas); //获取指定行数区间符合条件的结果集
+					//遍历结果集。将结果压入map中
 			for (Comment1 c : comlist) {
 				comMap.put(c.getCId(), c);
 			}
@@ -84,7 +106,7 @@ public class CommentDaoImpl extends BaseDao implements ICommentDao, IPageDao {
 		}
 		return comMap;
 	}
-
+         
 	@Override
 	public Long queryMsgCount(Object object, int minPrice, int maxPrice,
 			int minDis, int maxDis, int minAge, int maxAge) {
@@ -99,7 +121,10 @@ public class CommentDaoImpl extends BaseDao implements ICommentDao, IPageDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+          /**
+           * 获取评论总记录条数的方法
+           * @return int
+           */
 	@Override
 	public Long queryPersonCarCount(Object object) {
 		// TODO Auto-generated method stub
@@ -109,6 +134,7 @@ public class CommentDaoImpl extends BaseDao implements ICommentDao, IPageDao {
 				"select count(*) from Comment1 where 1=1");
                  
 		try {
+			 //获取结果
 			count = (Long) super.getHibernateTemplate().find(sql.toString())
 					.listIterator().next();
 		} catch (Exception e) {
@@ -117,7 +143,12 @@ public class CommentDaoImpl extends BaseDao implements ICommentDao, IPageDao {
 		}
 		return count;
 	}
-
+          /**
+           * 分页获取评论信息
+           * @param curPage 当前页
+           * @param rowsPrePage 每页展示条数
+           * @return Map<Long, Object> 
+           */
 	@Override
 	public Map<Long, Object> showPersonCarList(int curPage, int rowsPrePage,
 			Object object) {
@@ -128,7 +159,8 @@ public class CommentDaoImpl extends BaseDao implements ICommentDao, IPageDao {
 	
    String hql="from Comment1 order by CDate desc";
 		try {
-			List<Comment1> list = PageUtil.querylist(curPage, rowsPrePage, hql, null);
+			List<Comment1> list = PageUtil.querylist(curPage, rowsPrePage, hql, null); //获取结果集
+			//遍历结果集，加入map中
 			for (Comment1 o : list) {
 				trendsMap.put(o.getCId(), o);
 			}
