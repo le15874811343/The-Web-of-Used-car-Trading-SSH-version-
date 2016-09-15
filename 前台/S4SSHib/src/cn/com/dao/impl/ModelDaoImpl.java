@@ -34,6 +34,7 @@ public class ModelDaoImpl extends BaseDao implements IModelDao {
 			parmas.add(model.getMName());
 		}
 		Object[] o=new Object[parmas.size()];
+		//压入确定有的参数
 		for(int i=0;i<parmas.size();i++){
 			o[i]=parmas.get(i);		
 			}
