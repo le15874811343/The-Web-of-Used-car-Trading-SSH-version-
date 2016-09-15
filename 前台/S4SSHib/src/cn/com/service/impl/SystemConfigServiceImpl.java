@@ -6,8 +6,14 @@ import cn.com.pojo.*;
 import cn.com.dao.ISystemConfigDao;
 import cn.com.dao.impl.SystemConfigDaoImpl;
 import cn.com.service.ISystemConfigService;
-
+/**
+ * 
+ * 
+ * 汽车系统配置信息服务实现类
+ * @author lej
+ */
 public class SystemConfigServiceImpl implements ISystemConfigService{
+	//汽车系统配置信息操作接口的引用
 	private ISystemConfigDao systemConfigDao=null;
 	
 	public ISystemConfigDao getSystemConfigDao() {
@@ -17,24 +23,29 @@ public class SystemConfigServiceImpl implements ISystemConfigService{
 		this.systemConfigDao = systemConfigDao;
 	}
 	/**
-	 * ��ȡ����SystemConfig��ϵ�ҵ��
-	 * @return
+	 * 获取所有系统信息
+	 * @return Map<Long, SystemConfig>
 	 */
 	@Override
 	public Map<Long, Systemconfig> getAllSystemConfig() {
 		// TODO Auto-generated method stub
 		return systemConfigDao.getAllSystemConfig();
 	}
-	/**
-	 * ͨ��u��ID��ȡSystemConfig
-	 * @param systemConfig
-	 * @return
-	 */
+/**
+ * 通过Id获取系统销售信息
+ * @param systemConfig
+ * @return carInfo
+ */
 	@Override
 	public Systemconfig getSystemConfigById(Carinfo carInfo) {
 		// TODO Auto-generated method stub
 		return systemConfigDao.getSystemConfigById(carInfo);
 	}
+/**
+ * 添加汽车系统配置信息的方法
+ * @param systemConfig
+ *@return boolean 
+ */
 	@Override
 	public boolean addSystemConfig(Systemconfig systemConfig) {
 		// TODO Auto-generated method stub
@@ -44,6 +55,11 @@ public class SystemConfigServiceImpl implements ISystemConfigService{
 		 }
 		return flag;
 	}
+/**
+ * 修改汽车系统配置信息的方法
+ *  @param systemConfig
+ * @return boolean 
+ */
 	@Override
 	public boolean updateSystemConfig(Systemconfig systemConfig) {
 		// TODO Auto-generated method stub
