@@ -4,20 +4,33 @@ import java.util.Map;
 
 import cn.com.pojo.*;
 
-
+/**
+ * 汽车系统配置信息操作接口
+ * @author lej
+ * /
 public interface ISystemConfigDao {
-	/**
-	 * ��ȡ����ϵͳ��Ϣ
-	 * @return
+        /**
+	 * 获取所有系统信息
+	 * @return Map<Long, Systemconfig>
 	 */
 public Map<Long, Systemconfig> getAllSystemConfig();
 /**
- * ͨ��Id��ȡϵͳ������Ϣ
- * @param systemConfig
- * @return
+ * 通过Id获取系统销售信息
+ * @param carInfo
+ * @return Systemconfig
  */
 public Systemconfig getSystemConfigById(Carinfo carInfo);
+/**
+ * 添加汽车系统配置信息的方法
+ * @param systemConfig
+ *@return int 
+ */
 public int addSystemConfig(Systemconfig systemConfig);
+/**
+ * 修改汽车系统配置信息的方法
+ *  @param systemConfig
+ * @return int 
+ */
 public int updateSystemConfig(Systemconfig systemConfig);
 
 }
