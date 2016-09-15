@@ -23,7 +23,7 @@ public interface ICommentDao {
             /**
            * 获取评论的方法
            * @parma comment
-           * @return Comment
+           * @return Comment1
            */
           public Comment1 getComment(Comment1 comment);
            /**
@@ -31,7 +31,7 @@ public interface ICommentDao {
            * @parma comment
            * @parma min 最小行
            * @parma max 最大行
-           * @return Map<Long,Comment>
+           * @return Map<Long,Comment1>
            */
           public Map<Long, Comment1> getTheTowComment(Comment1  comment,int min,int max);
         
