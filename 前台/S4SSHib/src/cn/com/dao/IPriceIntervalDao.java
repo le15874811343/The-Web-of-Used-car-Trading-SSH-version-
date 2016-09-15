@@ -10,7 +10,7 @@ public interface IPriceIntervalDao {
   /**
    * 
    * 按热度获取价格区间信息的方法
-   * @return Map<Integer,PriceInterval>
+   * @return Map<Integer,Priceinterval>
    */
   public Map<Integer,Priceinterval> getPriceIntervalByCount();
 }
