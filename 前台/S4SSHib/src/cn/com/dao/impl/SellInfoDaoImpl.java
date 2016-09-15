@@ -11,16 +11,16 @@ import cn.com.pojo.*;
 
 import cn.com.dao.ISellInfoDao;
 import cn.com.util.DbUtil;
-
+ /**
+  * 
+  * é”€å”®ä¿¡æ¯æ“ä½œå®ç°ç±»
+  * @author lej
+  */
 public class SellInfoDaoImpl extends BaseDao implements ISellInfoDao{
-/**
- * »ñÈ¡ËùÓĞÏúÊÛĞÅÏ¢
- */
-//	private long u_id;
-//	 private long c_id;
-//	 private String priceType;
-//	 private String transferFee;
-//	 private String stage;
+        /**
+	 * è·å–æ‰€æœ‰é”€å”®ä¿¡æ¯
+	 * @return   Map<Long, SellInfo>
+	 */
 	@Override
 	public Map<Long, Sellinfo> getAllSellInfo() {
 		// TODO Auto-generated method stub
@@ -28,7 +28,8 @@ public class SellInfoDaoImpl extends BaseDao implements ISellInfoDao{
 		Map<Long, Sellinfo> sellInfoMap=new HashMap<Long, Sellinfo>();
 		
 		try {
-		List<Sellinfo> slist=	super.getHibernateTemplate().find(sql);
+		List<Sellinfo> slist=	super.getHibernateTemplate().find(sql); //è·å–ç»“æœé›†
+		//éå†ç»“æœé›†ï¼ŒåŠ å…¥mapä¸­
 		for(Sellinfo s:slist){
 			sellInfoMap.put(s.getCId(), s);
 		}
@@ -40,7 +41,8 @@ public class SellInfoDaoImpl extends BaseDao implements ISellInfoDao{
 		return sellInfoMap;
 	}
 /**
- * ¸ù¾İ³µ±àºÅ»ñÈ¡ÏúÊÛÇé¿ö
+ * æ ¹æ®è½¦ç¼–å·è·å–é”€å”®ä¿¡æ¯
+ * @return SellInfo
  */
 	@Override
 	public Sellinfo getSellInfoById(Carinfo carInfo) {
@@ -49,6 +51,7 @@ public class SellInfoDaoImpl extends BaseDao implements ISellInfoDao{
 		String sql="from Sellinfo where UId=? and CId=?";
 		
 		try {
+			//è·å–ç»“æœ
 			sellInfo2=	(Sellinfo) super.getHibernateTemplate().find(sql,new Object[]{ carInfo.getUId(),carInfo.getCId()}).get(0);
 			
 		} catch (Exception e) {
@@ -58,14 +61,16 @@ public class SellInfoDaoImpl extends BaseDao implements ISellInfoDao{
 		return sellInfo2;
 	}
 /**
- * Ôö¼ÓÏúÊÛÇé¿ö
+ * å¢åŠ é”€å”®ä¿¡æ¯
+ * @param sellInfo
+ * @return int
  */
 	@Override
 	public int addSellInfo(Sellinfo sellInfo) {
 		// TODO Auto-generated method stub
 		int count=0;
 		try{
-		 super.getHibernateTemplate().save(sellInfo);
+		 super.getHibernateTemplate().save(sellInfo); //åŠ å…¥
 		 count=1;
 		}
 		catch (Exception e) {
@@ -76,14 +81,16 @@ public class SellInfoDaoImpl extends BaseDao implements ISellInfoDao{
 		 return count;
 	}
 /**
- * É¾³ıÏúÊÛÇé¿ö
+ * åˆ é™¤é”€å”®ä¿¡æ¯
+ * @param sellInfo
+ * @return int
  */
 	@Override
 	public int deleteSellInfo(Sellinfo sellInfo) {
 		// TODO Auto-generated method stub
 		int count=0;
 		try{
-		 super.getHibernateTemplate().delete(sellInfo);
+		 super.getHibernateTemplate().delete(sellInfo); //åˆ é™¤
 		 count=1;
 		}
 		catch (Exception e) {
@@ -93,13 +100,18 @@ public class SellInfoDaoImpl extends BaseDao implements ISellInfoDao{
 		}
 		 return count;
 	}
+/**
+ * ä¿®æ”¹é”€å”®ä¿¡æ¯
+ * @param sellInfo
+ * @return int
+ */
 @Override
 public int updateSellInfo(Sellinfo sellInfo) {
 	// TODO Auto-generated method stub
 
 	StringBuffer sql=new StringBuffer("update  Sellinfo set pricetype=?,transferfee=?,stage=? where UId=? and CId=?");
 	
-	
+	//è¿”å›å—å½±å“çš„è¡Œæ•°
 	
 	return super.getHibernateTemplate().bulkUpdate(sql.toString(),new Object[]{sellInfo.getPricetype(),sellInfo.getTransferfee(),sellInfo.getStage()
 		,sellInfo.getUId(),sellInfo.getCId()});
