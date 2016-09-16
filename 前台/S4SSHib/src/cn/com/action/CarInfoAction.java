@@ -23,32 +23,35 @@ import cn.com.util.PriceUtil;
 
 import com.opensymphony.xwork2.ActionSupport;
 
-
+/**
+ * 汽车信息操作action类
+ * @author lej
+ */
 public class CarInfoAction extends ActionSupport implements SessionAware,
 		ServletRequestAware {
-	private String res = null;
-	private Map<Integer, Priceinterval> priceMap = null;
-	private Map<Integer, Carbrand> showBrandMap = null;
-	private Map<Integer, Cartype> showType = null;
-	private Map<Integer, Carage> ageMap = null;
-	private ICarInfoService carInfoService = null;
-	private IPageDao carPage = null;
-	private ICarBrandService carBrandService = null;
-	private ICarTypeService carTypeService = null;
-	private ITrendsService trendsService = null;
-	private IPriceIntervalService priceIntervalService = null;
-	private ICarAgeService carAgeService = null;
-	private HttpServletRequest request = null;
-	private Map<String, Object> session = null;
-	
-	private IDistanceService distanceService=null;
-	private   IEmissionstandardService emissionstandardService=null;
-	private IBasicInfoService basicInfoService=null;
-	private   ICarImagesInfoService carImagesInfoService=null;
-	private   IHardwareConfigService hardwareConfigService=null;
-	private	IProcedureInfoService procedureInfoService=null;
-	private	ISellInfoService sellInfoService=null;
-	private	ISystemConfigService systemConfigService=null;
+	private String res = null; //返回结果字段
+	private Map<Integer, Priceinterval> priceMap = null; //车价区间集合
+	private Map<Integer, Carbrand> showBrandMap = null; //名牌集合
+	private Map<Integer, Cartype> showType = null;  //热门车型集合
+	private Map<Integer, Carage> ageMap = null;   //热门车龄集合
+	private ICarInfoService carInfoService = null;  //汽车概要信息服务接口的引用
+	private IPageDao carPage = null; //分页处理操作接口引用
+	private ICarBrandService carBrandService = null;  //品服务接口的引用
+	private ICarTypeService carTypeService = null; //车型服务接口的引用
+	private ITrendsService trendsService = null; //公司动态消息服务接口的引用
+	private IPriceIntervalService priceIntervalService = null; //价格区间消息服务接口的引用
+	private ICarAgeService carAgeService = null;  //车龄服务接口的引用
+	private HttpServletRequest request = null;   //request
+	private Map<String, Object> session = null;  //session
+	 
+	private IDistanceService distanceService=null; //行驶距离服务接口的引用
+	private   IEmissionstandardService emissionstandardService=null;  //排放标准服务接口的引用
+	private IBasicInfoService basicInfoService=null;  //汽车基础信息服务的引用
+	private   ICarImagesInfoService carImagesInfoService=null; //汽车图片信息服务接口的引用
+	private   IHardwareConfigService hardwareConfigService=null; //汽车硬件配置信息服务接口的引用
+	private	IProcedureInfoService procedureInfoService=null;  //手续服务接口的引用
+	private	ISellInfoService sellInfoService=null;  //销售信息服务接口的引用
+	private	ISystemConfigService systemConfigService=null;  //汽车系统配置服务接口的引用
 	private Map<Integer, Carbrand> allBrandMap = new HashMap<Integer, Carbrand>();
 	public IBasicInfoService getBasicInfoService() {
 		return basicInfoService;
@@ -223,7 +226,7 @@ public class CarInfoAction extends ActionSupport implements SessionAware,
 	public void setCarAgeService(ICarAgeService carAgeService) {
 		this.carAgeService = carAgeService;
 	}
-
+       //HttpServletRequest对象
 	@Override
 	public void setServletRequest(HttpServletRequest arg0) {
 		// TODO Auto-generated method stub
@@ -237,31 +240,33 @@ public class CarInfoAction extends ActionSupport implements SessionAware,
 	public Map<String, Object> getSession() {
 		return session;
 	}
-
+       //session注入
 	@Override
 	public void setSession(Map<String, Object> arg0) {
 		// TODO Auto-generated method stub
 		this.session = arg0;
 	}
-
+  /**
+   * 默认action展示首页的请求
+   */
 	@Override
 	public String execute() throws Exception {
 		setOverAllUse();
 		// TODO Auto-generated method stub
 		Carinfo carInfo=new Carinfo();
-		carInfo.setCState("����");
-		// �����Ƽ�
+		carInfo.setCState("在售");
+		// 今日推荐
 		Map<Long, Carinfo> showCarMap = carInfoService
 				.getCarInfoByCountDesc(carInfo);
 		DbUtil.closeAll();
 		this.session.put("showcar", showCarMap);
 
-		// Ʒ��չʾ
+		// 品牌展示
 		
 		DbUtil.closeAll();
 		
 
-		// ����Ʒ���µ���������
+		// 热销品牌下的热销车辆
 		Map<Long, Carinfo> carMap = new HashMap<Long, Carinfo>();
 		for (Integer key : showBrandMap.keySet()) {
 			clerCarAtr(carInfo);
@@ -276,7 +281,7 @@ public class CarInfoAction extends ActionSupport implements SessionAware,
 			}
 		}
 		this.request.setAttribute("brandcar", carMap);
-		// ���µ���
+		// 最新到店
 		Map<Long, Carinfo> newCarMap = carInfoService
 				.getCarInfoBySjTime(carInfo);
 		DbUtil.closeAll();
@@ -285,7 +290,7 @@ public class CarInfoAction extends ActionSupport implements SessionAware,
 				.getFourthCarInfoBySjTime(carInfo);
 		DbUtil.closeAll();
 		this.request.setAttribute("fourthcar", fourthCarMap);
-
+                //首字母菜单数据处理
 		List<String> leftszm = new ArrayList<String>();
 		List<String> rightszm = new ArrayList<String>();
 		for (Integer key : allBrandMap.keySet()) {
@@ -307,7 +312,7 @@ public class CarInfoAction extends ActionSupport implements SessionAware,
 		Collections.sort(rightszm);
 		this.request.setAttribute("leftszm", leftszm);
 		this.request.setAttribute("rightszm", rightszm);
-
+                //热销车型下的车
 		Map<Long, Carinfo> typeCarMap = new HashMap<Long, Carinfo>();
 		for (Integer key : showType.keySet()) {
 			clerCarAtr(carInfo);
@@ -321,8 +326,9 @@ public class CarInfoAction extends ActionSupport implements SessionAware,
 				typeCarMap.put(key1, typeCar.get(key1));
 			}
 		}
+		//评论信息
 		Comment1 comment = new Comment1();
-		comment.setCAdmin("��ҳչʾ");
+		comment.setCAdmin("首页展示");
 	
 		this.request.setAttribute("com1",
 				commentService.getTheTowComment(comment, 1, 2));
@@ -331,21 +337,21 @@ public class CarInfoAction extends ActionSupport implements SessionAware,
 		this.request.setAttribute("com3",
 				commentService.getTheTowComment(comment, 3, 2));
 		Trends trends = new Trends();
-		trends.setTrType("ָ��");
+		trends.setTrType("指南");
 		List<Trends> trendsList1 = trendsService.getITrendsByTime(trends, 6);
 		this.session.put("zhinan", trendsList1);
-		trends.setTrType("��ŵ");
+		trends.setTrType("承诺");
 		List<Trends> trendsList2 = trendsService.getITrendsByTime(trends, 6);
 		this.session.put("chennuo", trendsList2);
-		trends.setTrType("�");
+		trends.setTrType("活动");
 
 		List<Trends> trendsList = trendsService.getITrendsByTime(trends, 5);
 		for (int i = 0; i < trendsList.size(); i++) {
 			this.request.setAttribute("active" + (i + 1) + "",
 					trendsList.get(i));
 		}
-		trends.setTrType("����");
-
+		trends.setTrType("新闻");
+                 //公司动态消息展示
 		List<Trends> newsList = trendsService.getITrendsByTime(trends, 11);
 		List<Trends> news1 = new ArrayList<Trends>();
 		List<Trends> news2 = new ArrayList<Trends>();
@@ -368,27 +374,31 @@ public class CarInfoAction extends ActionSupport implements SessionAware,
 
 		return super.execute();
 	}
-
+/**
+ * 注入多个页面需要用到的条件数据
+ * 
+ */
 	private void setOverAllUse() {
-		// �����۸�
+		// 热销价格
 		this.setPriceMap(priceIntervalService.getPriceIntervalByCount());
 
-		// ����Ʒ��
+		// 热销品牌
 		this.setShowBrandMap(carBrandService.getCarBrandByCount());
 
-		// ��������
+		// 热销车型
 		this.setShowType(carTypeService.getCarTypeByCount());
 
-		// ��������
+		// 热销车龄
 		this.setAgeMap(carAgeService.getCarAgeByCount());
 		allBrandMap=carBrandService.getAllBrand();
 		this.session.put("allbrand", allBrandMap);
 	}
 
-	
-	
-
-	  public String showList() throws Exception{
+	/**
+	 * 展示买车菜单action
+	 * 
+	 */
+		  public String showList() throws Exception{
 		  Carinfo carInfo=new Carinfo();
 		
 		  setOverAllUse();
@@ -399,6 +409,10 @@ public class CarInfoAction extends ActionSupport implements SessionAware,
 		
 		   return "showlist";
 	   }
+	     /**
+	    * 车辆详情展示action
+	    * 
+	    */
 		public String showDetails()throws Exception{
 			 setOverAllUse();
 			Carinfo carInfo=new Carinfo();
@@ -416,6 +430,9 @@ public class CarInfoAction extends ActionSupport implements SessionAware,
 		    }
 		
 		}
+		/**
+		 *审核中的车详情展示action
+		 */
 		public String showshdea()throws Exception{
 			 setOverAllUse();
 			Carinfo carInfo=new Carinfo();
@@ -423,10 +440,17 @@ public class CarInfoAction extends ActionSupport implements SessionAware,
 			getdea(this.request, carInfo);
 			return "showshdea";
 		}
+		/**
+		 *展示私人定制页面的action
+		 */
 		public String showsrdz()throws Exception{
 			setOverAllUse();
 			return "showsrdz";
 		}
+		/**
+		 * 进行车辆比较的action
+		 * 
+		 */
 		public String showCompare()throws Exception{
 			 setOverAllUse();
 			 Carinfo carInfo=new Carinfo();
@@ -443,14 +467,15 @@ public class CarInfoAction extends ActionSupport implements SessionAware,
 		 Systemconfig  systemConfig= systemConfigService.getSystemConfigById(carInfo);
 		 DbUtil.closeAll();
 		 Sellinfo sellInfo=sellInfoService.getSellInfoById(carInfo);
-		 DbUtil.closeAll();        
-				 Object pareCar=   this.session.get("pareCarInfo");
+		 DbUtil.closeAll();
+		 //从session中获取比较过的车的集合
+		Object pareCar=   this.session.get("pareCarInfo");
 	        Object pareSys=   this.session.get("pareSystemConfig");
 	        Object pareSell=   this.session.get("pareSellInfo");
 	        Object pareHar=   this.session.get("pareHardwareConfig");
 	        Object parePro=   this.session.get("pareProcedureInfo");
 	        Object pareBas=   this.session.get("pareBasic");
-	        
+	         //创建进行比较的车的各种信息的集合，指向空引用
 	        Map<Integer, Carinfo> pareCarInfo=null;
 	        Map<Integer, Systemconfig> pareSystemConfig=null;
 	        Map<Integer, Sellinfo> pareSellInfo=null;
@@ -458,21 +483,23 @@ public class CarInfoAction extends ActionSupport implements SessionAware,
 	        Map<Integer, Procedureinfo> pareProcedureInfo=null;
 	        Map<Integer, Basicinfo> pareBasic=null;
 	        boolean flag=false;
-	       
+	        //如果之前没有进行比较，则直接将该车加入进比较集合
 	        if(pareCar==null){
 	            pareCarInfo=new HashMap<Integer, Carinfo>();
 	            pareCarInfo.put(1, detailsMap.get(carInfo.getCId()));
 	        }
+	        //如果之前进行过比较
 	        if(pareCar!=null){
-	        	
+	        	//新的比较集合指向之前比较的集合
 	            pareCarInfo=(Map<Integer, Carinfo>) pareCar;
+	             //判断集合中是否存在现在选中的车
 	           for(Integer i:pareCarInfo.keySet()){
 	        	   if(pareCarInfo.get(i).getCId().equals(carInfo.getCId())){
 	        		   flag=true;
 	        	   }
 	           }
 	        
-	         
+	          //如果不存在，则按照不同的条件在比较集合中加入这辆车
 	          if(flag==false){
 	            if(pareCarInfo.size()==1){
 	            	 pareCarInfo.put(2, detailsMap.get(carInfo.getCId()));
@@ -487,6 +514,7 @@ public class CarInfoAction extends ActionSupport implements SessionAware,
 	            }
 	        }
 	        }
+	           //之后的操作与pareCar处相同
 	        if(pareSys==null){
 	            pareSystemConfig=new HashMap<Integer, Systemconfig>();
 	           pareSystemConfig.put(1, systemConfig);
@@ -607,6 +635,10 @@ public class CarInfoAction extends ActionSupport implements SessionAware,
 	     
 			return "showCompare";
 		}
+		/**
+		 * 会员操作栏中的直接比较action，即获取session中的比较集合
+		 * 
+		 */
 		public String zjbj()throws Exception{
 			 setOverAllUse();
 			 Object pareCar=   session.get("pareCarInfo");
@@ -630,15 +662,22 @@ public class CarInfoAction extends ActionSupport implements SessionAware,
 		    
 			return "zjbj";
 		}
+		/**
+		 *展示点击榜单的action
+		 * 
+		 */
 		public String djbd()throws Exception{
 			 setOverAllUse();
 			Carinfo carInfo=new Carinfo();
-			carInfo.setCState("����");
+			carInfo.setCState("在售");
 			 List<Carinfo>	tencar=	carInfoService.getTenCount(carInfo);
 			 this.request.setAttribute("trends", tencar);
 			
 			return "djbd";
 		}
+		/**
+		 * 展示交易榜单的action
+		 */
 		public String jybd()throws Exception{
 			 setOverAllUse();
 			Carinfo carinfo=new Carinfo();
@@ -657,7 +696,7 @@ public class CarInfoAction extends ActionSupport implements SessionAware,
 		}
 		
 		/**
-		 * �ÿ�carinfo������
+		 * 置空carinfo的属性
 		 * 
 		 * @param carInfo
 		 */
@@ -665,33 +704,39 @@ public class CarInfoAction extends ActionSupport implements SessionAware,
 			carInfo.setCBrand(null);
 			carInfo.setCType(null);
 		}
-		 
+      /**
+       * 分页处理的方法
+       * 
+       * 
+       */
 			private void fenye(HttpServletRequest req, Carinfo carInfo){
 				try {
-					carInfo.setCState("����");
+					carInfo.setCState("在售");
+					//设置当前页
 				int curPage=0;
 				if(req.getParameter("jumpPage")!=null){
 				 curPage =Integer.parseInt(req.getParameter("jumpPage"));
 			 }
-				//���þ������
+				//设置距离参数
 				String distance=null;
 				if(req.getParameter("distance")!=null){
 					distance = new String(req.getParameter("distance").getBytes("ISO8859-1"),"utf-8");
 					}
 			   Map<String, Integer> distanceMap=setDistance(distance);
-				//���ü۸����
+				//设置价格参数
 			   String price = null;
 				if(req.getParameter("price")!=null){
 					price = new String(req.getParameter("price").getBytes("ISO8859-1"),"utf-8");
 				}
 		      Map<String, Integer> priceMap=setPrice(price);
-		      //���ó������
+		      //设置车龄参数
 		      String age = null;
 				if(req.getParameter("age")!=null){
 					age = new String(req.getParameter("age").getBytes("ISO8859-1"),"utf-8");
 				}
 				
 		    Map<String, Integer> ageMap=setAge(age);
+		     //设置页面传递的各种汽车条件参数
 		    if(req.getParameter("bname")!=null&&!req.getParameter("bname").equals("")){
 		    	carInfo.setCBrand(new String(req.getParameter("bname").getBytes("ISO8859-1"),"utf-8"));
 		    }	
@@ -705,9 +750,9 @@ public class CarInfoAction extends ActionSupport implements SessionAware,
 				 carInfo.setCEmissionstandard(new String(req.getParameter("emsi").getBytes("ISO8859-1"),"utf-8"));
 			 }
 			long maxRowsCount=carPage.queryMsgCount(carInfo,priceMap.get("minPrice"),priceMap.get("maxPrice"),distanceMap.get("minDis"),distanceMap.get("maxDis"),ageMap.get("minAge"),ageMap.get("maxAge"));
-				//������ҳ�߼�<=>����
+				//处理分页逻辑<=>调用
 				PageUtil pageUtil=new PageUtil(7, maxRowsCount);
-				// ����ҳ���߼�
+				// 处理页码逻辑
 				if (curPage <= 1) {
 
 					pageUtil.setCurPage(1);
@@ -751,7 +796,7 @@ public class CarInfoAction extends ActionSupport implements SessionAware,
 				
 			 }
 			  /**
-		        * ���þ�������ķ���
+		        * 设置距离参数的方法
 		        * @param distance
 		        * @return
 		        */
@@ -770,7 +815,7 @@ public class CarInfoAction extends ActionSupport implements SessionAware,
 		    	   return distanceMap;
 		       }
 		       /**
-		        * ���ü۸�����ķ���
+		        * 设置价格参数的方法
 		        * @param price
 		        * @return
 		        */
@@ -790,7 +835,7 @@ public class CarInfoAction extends ActionSupport implements SessionAware,
 		    		return priceMap;
 		       }
 		       /**
-		        * ���ó�������ķ���
+		        * 设置车龄参数的方法
 		        * @param age
 		        * @return
 		        */
@@ -810,7 +855,7 @@ public class CarInfoAction extends ActionSupport implements SessionAware,
 		    		return ageMap;
 		       }
 		       /**
-		        * ��������ID�ķ����ķ���
+		        * 设置两个ID的方法的方法
 		        * @param req
 		        * @param resp
 		        * @param carInfo
@@ -822,6 +867,10 @@ public class CarInfoAction extends ActionSupport implements SessionAware,
 		    		carInfo.setCId(c_id);
 		    		carInfo.setUId(u_id);
 		       }
+	 /**
+	  * 绑定几个页面需要用到条件参数
+	  * 
+	  */
 		       private  void bindWhere(HttpServletRequest req){
 		    	   
 		    	   Map<Integer, Distance> distanceMap= distanceService.getDistanceByCount();
@@ -834,6 +883,10 @@ public class CarInfoAction extends ActionSupport implements SessionAware,
 		    DbUtil.closeAll();
 		    req.setAttribute("emisMap", emisMap);
 		       }
+      /**
+       * 获取车辆详细信息的方法
+       * @return Map<Long,CarInfo>
+       */
 		       private Map<Long, Carinfo> getdea(HttpServletRequest req,Carinfo carInfo){
 		    		 
 		    		    this.setID(req, carInfo);
