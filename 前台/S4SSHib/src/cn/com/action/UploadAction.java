@@ -19,14 +19,17 @@ import org.apache.struts2.interceptor.ServletResponseAware;
 import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
-
+/**
+ * å›¾ç‰‡ä¸Šä¼ action
+ * 
+ */
 public class UploadAction extends ActionSupport implements ServletResponseAware,ServletRequestAware,SessionAware {
-   private HttpServletResponse response;
-   private HttpServletRequest request;
-   private Map<String, Object> session;
-   private File file;
-   private String fileFileName;
-   private String fileFileContentType;
+   private HttpServletResponse response; //response
+   private HttpServletRequest request;  //request
+   private Map<String, Object> session;  //session
+   private File file;  //æ–‡ä»¶
+   private String fileFileName;  //æ–‡ä»¶å
+   private String fileFileContentType; //æ–‡ä»¶å†…å®¹å½¢å¼
    private File filePath1;
    private String filePath1FileName;
    private String filePath1FileContentType;
@@ -237,26 +240,29 @@ public HttpServletRequest getServletRequest() {
 public Map<String, Object> getSession() {
 	return session;
 }
-
+  //æ³¨å…¥Session
 	@Override
 	public void setSession(Map<String, Object> arg0) {
 		// TODO Auto-generated method stub
 		this.session=arg0;
 	}
-
+  //æ³¨å…¥HttpServletRequest
 	@Override
 	public void setServletRequest(HttpServletRequest arg0) {
 		// TODO Auto-generated method stub
 		this.request=arg0;
 	}
-
+//æ³¨å…¥HttpServletResponse
 	@Override
 	public void setServletResponse(HttpServletResponse arg0) {
 		// TODO Auto-generated method stub
 		this.response=arg0;
 	}
 
-
+/**
+ * ä¸Šä¼ å›¾ç‰‡action
+ * 
+ */
 	@Override
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
@@ -264,26 +270,26 @@ public Map<String, Object> getSession() {
 
 	        try {
 
-	  		  bancfsc(request);
+	  		  bancfsc(request);//é˜²æ­¢é‡å¤ä¸Šä¼ 
 	  		  if(this.getFile()!=null&&this.getFile().exists()){
 	            File f = this.getFile();
 	           
-	            String filepath =request.getServletContext().getRealPath("/tepimages")+"/";
+	            String filepath =request.getServletContext().getRealPath("/tepimages")+"/";//è·å–å·¥ç¨‹æœåŠ¡å™¨è·¯å¾„
 	           
 	         
-		          int p = this.getFileFileName().lastIndexOf("."); 
+		          int p = this.getFileFileName().lastIndexOf("."); //æˆªæ–­æ–‡ä»¶åå’Œæ‹“å±•å
 		         
-		          //ÎÄ¼şÀàĞÍ  
+		          //æ–‡ä»¶ç±»å‹  
 		      String    type=this.getFileFileName().substring(p,this.getFileFileName().length());     
 		   
-		          //ÎÄ¼şÃû³Æ  
+		          //æ–‡ä»¶åç§°  
 		      this.fileFileName= System.currentTimeMillis()+type;    
 	            FileInputStream inputStream = new FileInputStream(f);
 	            FileOutputStream outputStream = new FileOutputStream(filepath +  this.getFileFileName());
 	            byte[] buf = new byte[1024];
 	            int length = 0;
-	            while ((length = inputStream.read(buf)) != -1) {
-	                outputStream.write(buf, 0, length);
+	            while ((length = inputStream.read(buf)) != -1) {//è¯»å–
+	                outputStream.write(buf, 0, length); //å†™å…¥
 	            }
 	            inputStream.close();
 	            outputStream.flush();
@@ -291,7 +297,7 @@ public Map<String, Object> getSession() {
 	            session.put("sctname", this.getFileFileName());
 	            PrintWriter out=response.getWriter();  
 	  	      String result =  this.getFileFileName() ;  
-	  	      out.print(result);  
+	  	      out.print(result);  //å¼‚æ­¥è¿”å›æ–‡ä»¶å
 	  	      out.close();  
 	  		  }
 	  		  if(this.getFilePath1()!=null&&this.getFilePath1().exists()){
@@ -302,10 +308,10 @@ public Map<String, Object> getSession() {
 	         
 		          int p = this.getFilePath1FileName().lastIndexOf("."); 
 		         
-		          //ÎÄ¼şÀàĞÍ  
+		          //æ–‡ä»¶ç±»å‹  
 		      String    type=this.getFilePath1FileName().substring(p,this.getFilePath1FileName().length());     
 		   
-		          //ÎÄ¼şÃû³Æ  
+		          //æ–‡ä»¶åç§°  
 		      this.filePath1FileName= System.currentTimeMillis()+type;    
 	            FileInputStream inputStream = new FileInputStream(f);
 	            FileOutputStream outputStream = new FileOutputStream(filepath +  this.getFilePath1FileName());
@@ -323,6 +329,7 @@ public Map<String, Object> getSession() {
 	  	      out.print(result);  
 	  	      out.close();  
 	  		  }
+	  		  //ä¹‹åçš„æ“ä½œåŒfileå¤„
 	  		 if(this.getFilePath2()!=null&&this.getFilePath2().exists()){
 		  			File f = this.getFilePath2();
 			           
@@ -331,10 +338,10 @@ public Map<String, Object> getSession() {
 		         
 			          int p = this.getFilePath2FileName().lastIndexOf("."); 
 			         
-			          //ÎÄ¼şÀàĞÍ  
+			          //æ–‡ä»¶ç±»å‹  
 			      String    type=this.getFilePath2FileName().substring(p,this.getFilePath2FileName().length());     
 			   
-			          //ÎÄ¼şÃû³Æ  
+			          //æ–‡ä»¶åç§°  
 			      this.filePath2FileName= System.currentTimeMillis()+type;    
 		            FileInputStream inputStream = new FileInputStream(f);
 		            FileOutputStream outputStream = new FileOutputStream(filepath +  this.getFilePath2FileName());
@@ -360,10 +367,10 @@ public Map<String, Object> getSession() {
 		         
 			          int p = this.getFilePath3FileName().lastIndexOf("."); 
 			         
-			          //ÎÄ¼şÀàĞÍ  
+			          //æ–‡ä»¶ç±»å‹  
 			      String    type=this.getFilePath3FileName().substring(p,this.getFilePath3FileName().length());     
 			   
-			          //ÎÄ¼şÃû³Æ  
+			          //æ–‡ä»¶åç§°  
 			      this.filePath3FileName= System.currentTimeMillis()+type;    
 		            FileInputStream inputStream = new FileInputStream(f);
 		            FileOutputStream outputStream = new FileOutputStream(filepath +  this.getFilePath3FileName());
@@ -389,10 +396,10 @@ public Map<String, Object> getSession() {
 		         
 			          int p = this.getFilePath4FileName().lastIndexOf("."); 
 			         
-			          //ÎÄ¼şÀàĞÍ  
+			          //æ–‡ä»¶ç±»å‹  
 			      String    type=this.getFilePath4FileName().substring(p,this.getFilePath4FileName().length());     
 			   
-			          //ÎÄ¼şÃû³Æ  
+			          //æ–‡ä»¶åç§°  
 			      this.filePath4FileName= System.currentTimeMillis()+type;    
 		            FileInputStream inputStream = new FileInputStream(f);
 		            FileOutputStream outputStream = new FileOutputStream(filepath +  this.getFilePath4FileName());
@@ -418,10 +425,10 @@ public Map<String, Object> getSession() {
 		         
 			          int p = this.getFilePath5FileName().lastIndexOf("."); 
 			         
-			          //ÎÄ¼şÀàĞÍ  
+			          //æ–‡ä»¶ç±»å‹  
 			      String    type=this.getFilePath5FileName().substring(p,this.getFilePath5FileName().length());     
 			   
-			          //ÎÄ¼şÃû³Æ  
+			          //æ–‡ä»¶åç§°  
 			      this.filePath5FileName= System.currentTimeMillis()+type;    
 		            FileInputStream inputStream = new FileInputStream(f);
 		            FileOutputStream outputStream = new FileOutputStream(filepath +  this.getFilePath5FileName());
@@ -449,6 +456,10 @@ public Map<String, Object> getSession() {
 	   
 	      return "josn";
 	}
+	/**
+	 * é˜²æ­¢é‡å¤ä¸Šä¼ çš„æ–¹æ³•
+	 * 
+	 */
 	 private void bancfsc(HttpServletRequest request){
 		  String	sctname=(String)  request.getParameter("sctname");
 		  System.out.println(sctname);
