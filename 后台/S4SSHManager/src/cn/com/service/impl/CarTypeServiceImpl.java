@@ -6,9 +6,13 @@ import cn.com.pojo.*;
 
 import cn.com.dao.*;
 import cn.com.service.*;
+/**
+ * 车型服务实现类
+ * @author
+ */
 public class CarTypeServiceImpl  implements ICarTypeService,IPageDao{
-   private ICarTypeDao carTypeDao=null;
- private IPageDao  cartypePage=null;
+   private ICarTypeDao carTypeDao=null; //车型操作接口的引用
+ private IPageDao  cartypePage=null; //分页处理操作接口的引用
 
 public ICarTypeDao getCarTypeDao() {
 	return carTypeDao;
@@ -29,7 +33,10 @@ public void setCartypePage(IPageDao cartypePage) {
 	this.cartypePage = cartypePage;
 }
 
-
+        /**
+	 * 按热度获取车型信息的服务
+	 * @return Map<Integer,CarType>
+	 */
 @Override
 public Map<Integer, Cartype> getCarTypeByCount() {
 	// TODO Auto-generated method stub
@@ -37,12 +44,19 @@ public Map<Integer, Cartype> getCarTypeByCount() {
 }
 
 
+        /**
+	 * 获取所有车型信息的服务
+	 * @return  Map<Integer,CarType>
+	 */
 @Override
 public Map<Integer, Cartype> getAllCarType() {
 	// TODO Auto-generated method stub
 	return carTypeDao.getAllCarType();
 }
-
+/**
+ * 添加车型的服务
+ * @return boolean
+ */
 @Override
 public boolean addCarType(Cartype carType) {
 	// TODO Auto-generated method stub
@@ -52,7 +66,10 @@ public boolean addCarType(Cartype carType) {
 	}
 	return flag;
 }
-
+/**
+ * 删除车型的服务
+ * @return boolean
+ */
 @Override
 public boolean deleteCarType(Cartype carType) {
 	// TODO Auto-generated method stub
@@ -62,7 +79,10 @@ public boolean deleteCarType(Cartype carType) {
 	}
 	return flag;
 }
-
+/**
+ * 修改车型的服务
+ * @return boolean
+ */
 @Override
 public boolean updateType(Cartype carType) {
 	// TODO Auto-generated method stub
@@ -90,14 +110,22 @@ public List<Object> showMsgInfoList(int curPage, int rowsPrePage,
 	return null;
 }
 
-
+    /**
+     * 获取车型信息的记录总条数的服务
+     * @return int
+     */	
 @Override
 public Long queryPersonCarCount(Object object) {
 	// TODO Auto-generated method stub
 	return cartypePage.queryPersonCarCount(object);
 }
 
-
+/**
+ * 分页获取车型信息的服务
+ * @param curPage 当前页数
+ * @param rowsPrePage
+ * @return Map<Long,Object>
+ */	
 @Override
 public Map<Long, Object> showPersonCarList(int curPage, int rowsPrePage,
 		Object object) {
@@ -105,7 +133,10 @@ public Map<Long, Object> showPersonCarList(int curPage, int rowsPrePage,
 	return cartypePage.showPersonCarList(curPage, rowsPrePage, object);
 }
 
-
+/**
+ * 获取车型的服务
+ * @return CarType
+ */
 @Override
 public Cartype getCarType(Cartype carType) {
 	// TODO Auto-generated method stub
