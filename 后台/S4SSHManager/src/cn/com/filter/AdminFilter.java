@@ -14,7 +14,11 @@ import javax.servlet.http.HttpSession;
 
 import cn.com.pojo.*;
 
-
+ /**
+ * 权限过滤器
+ * 
+ * @author lej
+ */
 public class AdminFilter implements Filter{
 
 	@Override
@@ -31,17 +35,17 @@ public class AdminFilter implements Filter{
 		 HttpServletResponse resp=(HttpServletResponse) arg1;
 		 HttpSession session=req.getSession();
 		Object object=  session.getAttribute("userinfo");
-	if(object!=null){
+	if(object!=null){ //获取session中的用户对象并检验是否为空
 		Userinfo3 userInfo=(Userinfo3) object;
-		if(userInfo.getUAdmin().equals("����Ա")){
-			arg2.doFilter(arg0, arg1);
+		if(userInfo.getUAdmin().equals("管理员")){//检验用户权限
+			arg2.doFilter(arg0, arg1);//为管理员则通过
 		}
 		else{
-         resp.sendRedirect("/S4SSHManager/UserInfo_needLogin.action");
+         resp.sendRedirect("/S4SSHManager/UserInfo_needLogin.action");//否则转向登录页面
 		}
 	}
 	else{
-		resp.sendRedirect("/S4SSHManager/UserInfo_needLogin.action");
+		resp.sendRedirect("/S4SSHManager/UserInfo_needLogin.action");否则转向登录页面
 	}
 	}
 
