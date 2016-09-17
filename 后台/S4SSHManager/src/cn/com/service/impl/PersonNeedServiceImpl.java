@@ -7,10 +7,13 @@ import cn.com.pojo.*;
 import cn.com.service.*;
 import cn.com.dao.*;
 
-
+/**
+ * 个人需求信息服务实现类
+ *@author 
+ */
 public class PersonNeedServiceImpl implements IPersonNeedService,IPageDao{
-private IPersonNeedDao personNeedDao=null;
-private IPageDao personneedPage=null;
+private IPersonNeedDao personNeedDao=null; //个人需求操作接口的引用
+private IPageDao personneedPage=null;  //分页处理操作接口的引用
 
 	public IPersonNeedDao getPersonNeedDao() {
 	return personNeedDao;
@@ -24,6 +27,11 @@ public IPageDao getPersonneedPage() {
 public void setPersonneedPage(IPageDao personneedPage) {
 	this.personneedPage = personneedPage;
 }
+ /**
+   * 
+   * 添加个人需求信息的服务
+   *@return boolean 
+   */
 	@Override
 	public boolean addPersonNeed(Personneed personNeed) {
 		// TODO Auto-generated method stub
@@ -33,6 +41,11 @@ public void setPersonneedPage(IPageDao personneedPage) {
 		}
 		return flag;
 	}
+  /**
+   * 
+   * 删除个人需求信息的服务
+   *@return boolean 
+   */
 	@Override
 	public boolean deletePersonNeed(Personneed personNeed) {
 		// TODO Auto-generated method stub
@@ -42,6 +55,11 @@ public void setPersonneedPage(IPageDao personneedPage) {
 		}
 		return flag;
 	}
+  /**
+   * 
+   * 获取个人需求信息的服务
+   *@return PersonNeed
+   */
 	@Override
 	public Personneed getPerSonNeed(Personneed personNeed) {
 		// TODO Auto-generated method stub
@@ -60,17 +78,32 @@ public void setPersonneedPage(IPageDao personneedPage) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+    /**
+     * 获取符合条件的个人需求信息的记录总条数
+     * @return int
+     */	
 	@Override
 	public Long queryPersonCarCount(Object object) {
 		// TODO Auto-generated method stub
 		return personneedPage.queryPersonCarCount(object);
 	}
+/**
+ * 分页获取符合条件的个人需求信息
+ * @param curPage 当前页数
+ * @param rowsPrePage
+ * @return Map<Long,Object>
+ */	
 	@Override
 	public Map<Long, Object> showPersonCarList(int curPage, int rowsPrePage,
 			Object object) {
 		// TODO Auto-generated method stub
 		return personneedPage.showPersonCarList(curPage, rowsPrePage, object);
 	}
+  /**
+   * 
+   * 修改个人需求信息的服务
+   *@return boolean 
+   */
 	@Override
 	public boolean updatePersonNeed(Personneed personNeed) {
 		// TODO Auto-generated method stub
@@ -80,11 +113,20 @@ public void setPersonneedPage(IPageDao personneedPage) {
 		}
 		return flag;
 	}
+/**
+ * 
+ * 检查是否还有与某用户编号关联的个人需求的服务
+ * @return boolean
+ */
 	@Override
 	public boolean chekUidPerson(Personneed personneed) {
 		// TODO Auto-generated method stub
 		return personNeedDao.chekUidPerson(personneed);
 	}
+/**
+ * 根据用户编号删除个人需求信息的服务
+ *@return boolean  
+ */
 	@Override
 	public boolean deleteUidPerson(Personneed personneed) {
 		// TODO Auto-generated method stub
