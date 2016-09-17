@@ -4,25 +4,30 @@ import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
-
+/**
+ * åˆ†é¡µå·¥å…·ç±»
+ * 
+ * @author Administrator
+ * 
+ */
 public class PageUtil {
 	/**
-	 * ²éÑ¯·ÖÒ³
-	 * @param pageNo µÚ¼¸Ò³
-	 * @param pageSize Ò³Ãæ¼ÇÂ¼Êı
-	 * @param hql ²éÑ¯Óï¾ä
+	 * æŸ¥è¯¢åˆ†é¡µ
+	 * @param pageNo ç¬¬å‡ é¡µ
+	 * @param pageSize é¡µé¢è®°å½•æ•°
+	 * @param hql æŸ¥è¯¢è¯­å¥
 	 * @return List
 	 */
 
-	private int curPage;// µ±Ç°Ò³Âë
-	private int rowsPrePage;// Ã¿Ò³¼ÇÂ¼ÌõÊı
-	private int maxPage;// ×Ü¹²ÓĞ¶àÉÙÒ³
-	private Long maxRowsCount;// ×Ü¹²ÓĞ¶àÉÙÌõÊı¾İ
+	private int curPage;// å½“å‰é¡µç 
+	private int rowsPrePage;// æ¯é¡µè®°å½•æ¡æ•°
+	private int maxPage;// æ€»å…±æœ‰å¤šå°‘é¡µ
+	private Long maxRowsCount;// æ€»å…±æœ‰å¤šå°‘æ¡æ•°æ®
 
 	/**
-	 * ¹¹Ôì·½·¨
-	 * @param rowsPrePage Ã¿Ò³¼ÇÂ¼ÌõÊı
-	 * @param maxRowsCount ×Ü¹²ÓĞ¶àÉÙÌõÊı¾İ
+	 * æ„é€ æ–¹æ³•
+	 * @param rowsPrePage æ¯é¡µè®°å½•æ¡æ•°
+	 * @param maxRowsCount æ€»å…±æœ‰å¤šå°‘æ¡æ•°æ®
 	 */
 	public PageUtil(int rowsPrePage, Long maxRowsCount) {
 
@@ -35,7 +40,7 @@ public class PageUtil {
 
 	}
 
-	// ¼ÆËã×ÜÒ³Âë
+	// è®¡ç®—æ€»é¡µç 
 	public void maxPage() {
 
 		if (maxRowsCount % rowsPrePage == 0) {
@@ -80,9 +85,9 @@ public class PageUtil {
 	public static List querylist(int pageNo,int pageSize,String hql,List<Object> parmas ){
 		Session session=HibernateSessionFactory.getSession();
 		Query query=session.createQuery(hql);
-		int firstReusultIndex=pageSize*(pageNo-1);//¼ÆËã¼ÇÂ¼ÆğÊ¼Êı
-		query.setFirstResult(firstReusultIndex);//ÉèÖÃ¼ÇÂ¼ÆğÊ¼Êı
-		query.setMaxResults(pageSize);//ÉèÖÃ×î´ó¼ÇÂ¼Êı
+		int firstReusultIndex=pageSize*(pageNo-1);//è®¡ç®—è®°å½•èµ·å§‹æ•°
+		query.setFirstResult(firstReusultIndex);//è®¾ç½®è®°å½•èµ·å§‹æ•°
+		query.setMaxResults(pageSize);//è®¾ç½®æœ€å¤§è®°å½•æ•°
 	   if(parmas!=null){
 		   
 		   for(int i=0;i<parmas.size();i++){
