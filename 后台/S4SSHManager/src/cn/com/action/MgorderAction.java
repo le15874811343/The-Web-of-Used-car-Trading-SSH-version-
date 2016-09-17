@@ -19,15 +19,18 @@ import cn.com.util.DbUtil;
 import cn.com.util.PageUtil;
 
 import com.opensymphony.xwork2.ActionSupport;
-
+/**
+ * 订单管理引擎
+ * 
+ */
 public class MgorderAction extends ActionSupport implements ServletRequestAware,ServletResponseAware,SessionAware{
-	private HttpServletRequest request;
-	private Map<String, Object> session;
-	private HttpServletResponse response=null;
-	private IPerSonCarService perSonCarService=null;
-	private IPageDao perSonCarPage=null;
-	private	CarInfoServiceImpl carInfoServiceImpl=null;
-	private	PersonNeedServiceImpl personNeedServiceImpl=null;
+	private HttpServletRequest request;  //request
+	private Map<String, Object> session; //session
+	private HttpServletResponse response=null; //response
+	private IPerSonCarService perSonCarService=null; //个人汽车订单信息服务接口的引用
+	private IPageDao perSonCarPage=null; //分页处理操作接口的引用（指向个人汽车订单信息操作实现类）
+	private	CarInfoServiceImpl carInfoServiceImpl=null; //汽车概要信息服务接口的引用
+	private	PersonNeedServiceImpl personNeedServiceImpl=null; //个人需求服务接口的引用
 	public HttpServletResponse getServletResponse() {
 		return response;
 	}
@@ -81,30 +84,42 @@ public class MgorderAction extends ActionSupport implements ServletRequestAware,
 	public void setPersonNeedServiceImpl(PersonNeedServiceImpl personNeedServiceImpl) {
 		this.personNeedServiceImpl = personNeedServiceImpl;
 	}
+	/**
+	 * 展示暂停交易的订单action
+	 */
 	public String showzzjy() throws Exception {
 		// TODO Auto-generated method stub
 		Personcar perSonCar=new Personcar();
-		perSonCar.setPState("��ͣ����");
+		perSonCar.setPState("暂停交易");
 		this.fenye(request, perSonCar);
 		
 		return  "showzzjy";
 	}
+	/**
+	 * 展示交易中的订单action
+	 */
 	public String showjyz() throws Exception {
 		// TODO Auto-generated method stub
 		Personcar perSonCar=new Personcar();
-		perSonCar.setPState("�Ѷ�");
+		perSonCar.setPState("已定");
 		this.fenye(request,  perSonCar);
 		
 		return "showjyz";
 	}
+	/**
+	 * 展示交易完成的订单action
+	 */
 	public String showjywc() throws Exception {
 		// TODO Auto-generated method stub
 		Personcar perSonCar=new Personcar();
-		perSonCar.setPState("�������");
+		perSonCar.setPState("交易完成");
 		this.fenye(request, perSonCar);
 		
 		return "showjywc";
 	}
+	/**
+	 * 展示所有订单action
+	 */
 	public String showallord() throws Exception {
 		// TODO Auto-generated method stub
 		Personcar perSonCar=new Personcar();
@@ -113,6 +128,9 @@ public class MgorderAction extends ActionSupport implements ServletRequestAware,
 		
 		return "showallord";
 	}
+	/**
+	 * 通过取消交易请求action
+	 */
 	public String tgzz() throws Exception {
 		// TODO Auto-generated method stub
 		
@@ -123,24 +141,27 @@ public class MgorderAction extends ActionSupport implements ServletRequestAware,
 		perSonCar.setUId(Long.parseLong(uid));
 		perSonCar.setCId(Long.parseLong(cid));
 		perSonCar.setCUid(Long.parseLong(cuid));
-		perSonCar.setPState("��ͣ����");
+		perSonCar.setPState("暂停交易");
 		Carinfo carInfo=new Carinfo();
 		carInfo.setCId(Long.parseLong(cid));
-		carInfo.setCState("����");
+		carInfo.setCState("在售");
 		Personcar _PerSonCar=new Personcar();
 		_PerSonCar.setUId(Long.parseLong(cuid));
 		_PerSonCar.setCId(Long.parseLong(cid));
 		_PerSonCar.setCUid(Long.parseLong(cuid));
-		_PerSonCar.setPState("��ͣ����");
+		_PerSonCar.setPState("暂停交易");
 		
-		if(perSonCarService.updatePerSoncar(_PerSonCar, "����")&&perSonCarService.deletePersonByAll(perSonCar)&&carInfoServiceImpl.updateCarInfo(carInfo)){
+		if(perSonCarService.updatePerSoncar(_PerSonCar, "出售")&&perSonCarService.deletePersonByAll(perSonCar)&&carInfoServiceImpl.updateCarInfo(carInfo)){
 			 response.setContentType("text/html;charset=utf-8");
 				response.getWriter().print(1);
-				 response.getWriter().flush();//��ջ���,ˢ��
+				 response.getWriter().flush();//清空缓存,刷新
 				   response.getWriter().close();
 		}
 		return "tgzz";
 	}
+	/**
+	 * 强制中止交易action
+	 */
 	public String qzzz() throws Exception {
 		// TODO Auto-generated method stub
 		String uid=request.getParameter("uid");
@@ -150,24 +171,27 @@ public class MgorderAction extends ActionSupport implements ServletRequestAware,
 		perSonCar.setUId(Long.parseLong(uid));
 		perSonCar.setCId(Long.parseLong(cid));
 		perSonCar.setCUid(Long.parseLong(cuid));
-		perSonCar.setPState("�Ѷ�");
+		perSonCar.setPState("已定");
 		Carinfo carInfo=new Carinfo();
 		carInfo.setCId(Long.parseLong(cid));
-		carInfo.setCState("����");
+		carInfo.setCState("在售");
 		Personcar _PerSonCar=new Personcar();
 		_PerSonCar.setUId(Long.parseLong(cuid));
 		_PerSonCar.setCId(Long.parseLong(cid));
 		_PerSonCar.setCUid(Long.parseLong(cuid));
-		_PerSonCar.setPState("����");
+		_PerSonCar.setPState("被定");
 		
-		if(perSonCarService.updatePerSoncar(_PerSonCar, "����")&&perSonCarService.deletePersonByAll(perSonCar)&&carInfoServiceImpl.updateCarInfo(carInfo)){
+		if(perSonCarService.updatePerSoncar(_PerSonCar, "出售")&&perSonCarService.deletePersonByAll(perSonCar)&&carInfoServiceImpl.updateCarInfo(carInfo)){
 			 response.setContentType("text/html;charset=utf-8");
 				response.getWriter().print(1);
-				 response.getWriter().flush();//��ջ���,ˢ��
+				 response.getWriter().flush();//清空缓存,刷新
 				   response.getWriter().close();
 		}
 		return "qzzz";
 	}
+	/**
+	 * 拒绝中止交易action
+	 */
 	public String jjzz() throws Exception {
 		// TODO Auto-generated method stub
 		String uid=request.getParameter("uid");
@@ -178,17 +202,17 @@ public class MgorderAction extends ActionSupport implements ServletRequestAware,
 		perSonCar.setUId(Long.parseLong(uid));
 		perSonCar.setCId(Long.parseLong(cid));
 		perSonCar.setCUid(Long.parseLong(cuid));
-		perSonCar.setPState("��ͣ����");
+		perSonCar.setPState("暂停交易");
 		Personcar _PerSonCar=new Personcar();
 		_PerSonCar.setUId(Long.parseLong(cuid));
 		_PerSonCar.setCId(Long.parseLong(cid));
 		_PerSonCar.setCUid(Long.parseLong(cuid));
-		_PerSonCar.setPState("��ͣ����");
+		_PerSonCar.setPState("暂停交易");
 		try{
-		if(perSonCarService.updatePerSoncar(_PerSonCar, "����")&&perSonCarService.updatePerSoncar(perSonCar, "�Ѷ�")){
+		if(perSonCarService.updatePerSoncar(_PerSonCar, "被定")&&perSonCarService.updatePerSoncar(perSonCar, "已定")){
 			 response.setContentType("text/html;charset=utf-8");
 				response.getWriter().print(1);
-				 response.getWriter().flush();//��ջ���,ˢ��
+				 response.getWriter().flush();//清空缓存,刷新
 				   response.getWriter().close();
 		}
 		
@@ -199,21 +223,27 @@ public class MgorderAction extends ActionSupport implements ServletRequestAware,
 		}
 		return "jjzz";
 	}
+	/**
+	 * 展示已处理个人需求信息action
+	 */
 	public String yclsrdz() throws Exception {
 		// TODO Auto-generated method stub
 		String id=request.getParameter("pid");
 		Personneed personNeed=new Personneed();
 		personNeed.setPId(Long.parseLong(id));
-		personNeed.setPState("�Ѵ���");
+		personNeed.setPState("已处理");
 	
 		if(personNeedServiceImpl.updatePersonNeed(personNeed)){
 			 response.setContentType("text/html;charset=utf-8");
 				response.getWriter().print(1);
-				 response.getWriter().flush();//��ջ���,ˢ��
+				 response.getWriter().flush();//清空缓存,刷新
 				   response.getWriter().close();
 		}
 		return "yclsrdz";
 	}
+	/**
+	 * 删除个人需求信息action
+	 */
 	public String delsrdz() throws Exception {
 		// TODO Auto-generated method stub
 		String id=request.getParameter("pid");
@@ -224,11 +254,15 @@ public class MgorderAction extends ActionSupport implements ServletRequestAware,
 		if(personNeedServiceImpl.deletePersonNeed(personNeed) ){
 			 response.setContentType("text/html;charset=utf-8");
 				response.getWriter().print(1);
-				 response.getWriter().flush();//��ջ���,ˢ��
+				 response.getWriter().flush();//清空缓存,刷新
 				   response.getWriter().close();
 		}
 		return "delsrdz";
 	}
+	/**
+	 * 分页展示个人汽车订单的方法
+	 * 
+	 */
 private void fenye(HttpServletRequest req, Personcar perSonCar){
 		
 		
@@ -241,9 +275,9 @@ private void fenye(HttpServletRequest req, Personcar perSonCar){
 		
    
 	 Long maxRowsCount=perSonCarPage.queryPersonCarCount(perSonCar);
-		//������ҳ�߼�<=>����
+		//处理分页逻辑<=>调用
 		PageUtil pageUtil=new PageUtil(9, maxRowsCount);
-		// ����ҳ���߼�
+		// 处理页码逻辑
 		if (curPage <= 1) {
 
 			pageUtil.setCurPage(1);
