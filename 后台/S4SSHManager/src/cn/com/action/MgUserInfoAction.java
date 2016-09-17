@@ -16,21 +16,24 @@ import cn.com.service.*;
 import cn.com.util.DbUtil;
 
 import com.opensymphony.xwork2.ActionSupport;
-
+/**
+ * 用户信息管理action
+ * 
+ */
 public class MgUserInfoAction  extends ActionSupport implements ServletRequestAware,ServletResponseAware,SessionAware{
-	private HttpServletRequest request;
-	private Map<String, Object> session;
-	private HttpServletResponse response=null;
-	private IUserInfoService userInfoServiceImpl=null;
-	private IBasicInfoService iBasicInfoService=null;
-	private	IHardwareConfigService iHardwareConfigService=null;
-	private	ICarImagesInfoService iCarImagesInfoService=null;
-	private	IPerSonCarService iPerSonCarService=null;
-	private	ISellInfoService iSellInfoService=null;
-	private	ISystemConfigService iSystemConfigService=null;
-	private	IProcedureInfoService iProcedureInfoService=null;
-	private	IUserInfoService iUserinfoService=null;
-	private	ICarInfoService iCarInfoService=null;
+	private HttpServletRequest request;  //request
+	private Map<String, Object> session; //session
+	private HttpServletResponse response=null;  //response
+	private IUserInfoService userInfoServiceImpl=null; //用户信息服务接口的引用
+	private IBasicInfoService iBasicInfoService=null; //汽车基础信息服务接口的引用
+	private	IHardwareConfigService iHardwareConfigService=null; //汽车硬件配置信息服务接口的引用
+	private	ICarImagesInfoService iCarImagesInfoService=null; //汽车图片服务接口的引用
+	private	IPerSonCarService iPerSonCarService=null; //汽车个人订单服务接口的引用
+	private	ISellInfoService iSellInfoService=null; //销售信息服务接口的引用
+	private	ISystemConfigService iSystemConfigService=null; //汽车系统配置信服服务接口的引用
+	private	IProcedureInfoService iProcedureInfoService=null; //手续信息服务接口的引用
+	private	IUserInfoService iUserinfoService=null;//用户信息服务接口的引用
+	private	ICarInfoService iCarInfoService=null;//汽车概要信息服务接口的引用
 	private IPersonNeedService iPersonNeedService=null;
 	
 	
@@ -127,6 +130,9 @@ public class MgUserInfoAction  extends ActionSupport implements ServletRequestAw
 	public void setiCarInfoService(ICarInfoService iCarInfoService) {
 		this.iCarInfoService = iCarInfoService;
 	}
+	/**
+	 * 修改用户信息请求action
+	 */
 	public String uptadeuser() throws Exception {
 		// TODO Auto-generated method stub
 		String uid=request.getParameter("uid");
@@ -137,6 +143,9 @@ public class MgUserInfoAction  extends ActionSupport implements ServletRequestAw
 	
 		return "uptadeuser";
 	}
+	/**
+	 * 新增用户操作action
+	 */
 	public String reguser() throws Exception {
 		// TODO Auto-generated method stub
 
@@ -150,7 +159,7 @@ public class MgUserInfoAction  extends ActionSupport implements ServletRequestAw
 	     userInfo.setUTel(regname);
 	     if(userInfoServiceImpl.getUserInfoByUnique(userInfo)!=null){
 	    	 DbUtil.closeAll();
-	    	 regmessage="���û��Ѵ���";
+	    	 regmessage="该用户已存在";
 	    	
 	    	 
 	     }
@@ -161,13 +170,13 @@ public class MgUserInfoAction  extends ActionSupport implements ServletRequestAw
 		     userInfo.setUAdmin(admin);
 		     if(userInfoServiceImpl.addUserInfo(userInfo)){
 		    	 DbUtil.closeAll();
-		    	 regmessage="���ӳɹ�";
+		    	 regmessage="添加成功";
 		   
 		    	 request.setAttribute("regmessage", regmessage);
 		     }
 		     else{
 		    	 DbUtil.closeAll();
-		    	 regmessage="����ʧ��";
+		    	 regmessage="添加失败";
 		    	
 		     }
 	     }
@@ -175,6 +184,9 @@ public class MgUserInfoAction  extends ActionSupport implements ServletRequestAw
 			
 		return "reguser";
 	}
+	/**
+	 * 删除用户操作action（先删除子表，再删主表）
+	 */
 	public String del() throws Exception {
 		// TODO Auto-generated method stub
 		try{
@@ -293,14 +305,14 @@ public class MgUserInfoAction  extends ActionSupport implements ServletRequestAw
 			{
 				 response.setContentType("text/html;charset=utf-8");
 					response.getWriter().print(1);
-					 response.getWriter().flush();//��ջ���,ˢ��
+					 response.getWriter().flush();//清空缓存,刷新
 					   response.getWriter().close();
 			}
 			else
 			{
 				response.setContentType("text/html;charset=utf-8");
 				response.getWriter().print(0);
-				 response.getWriter().flush();//��ջ���,ˢ��
+				 response.getWriter().flush();//清空缓存,刷新
 				   response.getWriter().close();
 			}
 			}
@@ -308,7 +320,7 @@ public class MgUserInfoAction  extends ActionSupport implements ServletRequestAw
 			{
 				response.setContentType("text/html;charset=utf-8");
 				response.getWriter().print(0);
-				 response.getWriter().flush();//��ջ���,ˢ��
+				 response.getWriter().flush();//清空缓存,刷新
 				   response.getWriter().close();
 			}
 		}
@@ -318,6 +330,9 @@ public class MgUserInfoAction  extends ActionSupport implements ServletRequestAw
 		}
 		return "del";
 	}
+	/**
+	 * 展示用户详细信息操作action
+	 */
 	public String showdeauser() throws Exception {
 		// TODO Auto-generated method stub
 		 String uid=request.getParameter("uid");
@@ -328,6 +343,9 @@ public class MgUserInfoAction  extends ActionSupport implements ServletRequestAw
 	
 		return "showdeauser";
 	}
+	/**
+	 * 提交修改action
+	 */
 	public String update() throws Exception {
 		// TODO Auto-generated method stub
 		 String card=request.getParameter("card");
@@ -355,7 +373,7 @@ public class MgUserInfoAction  extends ActionSupport implements ServletRequestAw
 			 userInfo.setUAdr(adr);
 		 }
 		 if(userInfoServiceImpl.updateUserInfo(userInfo)){
-			String mesg="�޸ĳɹ�";
+			String mesg="修改成功";
 		Userinfo3 info=	userInfoServiceImpl.getUserInfoByUnique(userInfo);
 		 request.setAttribute("getuser", info);
 		 request.setAttribute("mesg", mesg);
