@@ -8,9 +8,13 @@ import cn.com.pojo.*;
 
 import cn.com.dao.*;
 import cn.com.service.*;
+/**
+ * 车系信息服务实现类
+ * @author lej
+ */
 public class ModelServiceImpl implements IModelService{
-  private IModelDao modelDao=null;
-  
+  private IModelDao modelDao=null; //车系信息服务接口的引用
+   
 
 public IModelDao getModelDao() {
 	return modelDao;
@@ -19,13 +23,21 @@ public IModelDao getModelDao() {
 public void setModelDao(IModelDao modelDao) {
 	this.modelDao = modelDao;
 }
-
+      /**
+       * 按条件获取车系信息的服务
+       * @parma model
+       *@return List<Model> 
+       */
 @Override
 public List<Model> getModelByWhere(Model model) {
 	// TODO Auto-generated method stub
 	return modelDao.getModelByWhere(model);
 }
-
+      /**
+       * 添加车系信息的服务
+       * @parma model
+       *@return boolean
+       */
 @Override
 public boolean addModel(Model model) {
 	// TODO Auto-generated method stub
@@ -35,7 +47,11 @@ public boolean addModel(Model model) {
 	}
 	return flag;
 }
-
+      /**
+       * 修改车系信息的服务
+       * @parma model
+       *@return boolean
+       */
 @Override
 public boolean updateModel(Model model) {
 	// TODO Auto-generated method stub
@@ -45,7 +61,11 @@ public boolean updateModel(Model model) {
 	}
 	return flag;
 }
-
+      /**
+       * 删除车系信息的服务
+       * @parma model
+       *@return boolean
+       */
 @Override
 public boolean deleteModel(Model model) {
 	// TODO Auto-generated method stub
