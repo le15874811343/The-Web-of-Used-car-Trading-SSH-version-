@@ -32,14 +32,17 @@ import cn.com.service.impl.UserInfoServiceImpl;
 import cn.com.util.DbUtil;
 
 import com.opensymphony.xwork2.ActionSupport;
-
+/**
+ * ç”¨æˆ·è‡ªä¸»ç®¡ç†action
+ * 
+ */
 public class UserInfoAction extends ActionSupport  implements SessionAware,ServletRequestAware,ServletResponseAware{
-  private HttpServletRequest  request;
-  private Map<String, Object>  session;
-  private IUserInfoService userInfoService=null;
+  private HttpServletRequest  request;  //request
+  private Map<String, Object>  session; //session
+  private IUserInfoService userInfoService=null; //ç”¨æˆ·ä¿¡æ¯æœåŠ¡æ¥å£çš„å¼•ç”¨
 
- private HttpServletResponse response;
- private String url;
+ private HttpServletResponse response; //response
+ private String url; //è·³è½¬é¡µé¢åœ°å€
  
 	@Override
 	public void setSession(Map<String, Object> arg0) {
@@ -84,6 +87,9 @@ public class UserInfoAction extends ActionSupport  implements SessionAware,Servl
 		// TODO Auto-generated method stub
 		this.response=arg0;
 	}
+	/**
+	 * ç™»å½•action
+	 */
 	@Override
 	public String execute() throws Exception {
 		// TODO Auto-generated method stub
@@ -101,7 +107,7 @@ public class UserInfoAction extends ActionSupport  implements SessionAware,Servl
 			DbUtil.closeAll();
 			
 			if(_userInfo!=null){
-				if(_userInfo.getUAdmin().equals("¹ÜÀíÔ±")){
+				if(_userInfo.getUAdmin().equals("ç®¡ç†å‘˜")){
 					Date date=new Date();
 					 DateFormat dateFormat=new SimpleDateFormat("HH");
 					session.put("time",dateFormat.format(date) );
@@ -110,7 +116,7 @@ public class UserInfoAction extends ActionSupport  implements SessionAware,Servl
 				
 			   }
 			   else{
-				  String loginmessage="Ã»ÓĞÈ¨ÏŞ";
+				  String loginmessage="æ²¡æœ‰æƒé™";
 					 String sRand= getYZM();
 					    session.put("sRand", sRand);
 					    request.setAttribute("loginmessage", loginmessage);
@@ -129,13 +135,13 @@ public class UserInfoAction extends ActionSupport  implements SessionAware,Servl
 				String loginmessage=null;
 				 if(userInfoService.getUserInfoByUnique(userInfo)==null){
 					 DbUtil.closeAll();
-					 loginmessage="¸ÃÓÃ»§²»´æÔÚ";
+					 loginmessage="è¯¥ç”¨æˆ·ä¸å­˜åœ¨";
 					 String sRand= getYZM();
 					    session.put("sRand", sRand);
 					   
 				 }
 				 else{
-					 loginmessage="ÓÃ»§Ãû»òÃÜÂë´íÎó,ÇëÖØĞÂÊäÈë";
+					 loginmessage="ç”¨æˆ·åæˆ–å¯†ç é”™è¯¯,è¯·é‡æ–°è¾“å…¥";
 					 String sRand= getYZM();
 					 session.put("sRand", sRand);
 					 
@@ -146,7 +152,7 @@ public class UserInfoAction extends ActionSupport  implements SessionAware,Servl
 			}
 		}
 		 else{
-			 String	 loginmessage="ÄãÒÑ¾­µÇÂ½¹ıÒ»¸öÕË»§ÁË";
+			 String	 loginmessage="ä½ å·²ç»ç™»é™†è¿‡ä¸€ä¸ªè´¦æˆ·äº†";
 			 String sRand= getYZM();
 			 session.put("sRand", sRand);
 			 request.setAttribute("loginmessage", loginmessage);
@@ -155,6 +161,9 @@ public class UserInfoAction extends ActionSupport  implements SessionAware,Servl
 		
 		
 	}
+	/**
+	 * éœ€è¦ç™»å½•è¯·æ±‚action
+	 */
 	public String needLogin() throws Exception{
 		 deleteYzm();
 		 bindWhere();
@@ -162,6 +171,9 @@ public class UserInfoAction extends ActionSupport  implements SessionAware,Servl
 		    session.put("sRand", sRand);
 		return "needlogin";
 	}
+	/**
+	 * éœ€è¦æ³¨å†Œè¯·æ±‚action
+	 */
 	public String needReg() throws Exception{
 		 deleteYzm();
 		 bindWhere();
@@ -171,11 +183,14 @@ public class UserInfoAction extends ActionSupport  implements SessionAware,Servl
 		 response.setContentType("text/html;charset=utf-8");
 		
 		 response.getWriter().println(sRand);
-		 response.getWriter().flush();//Çå¿Õ»º´æ,Ë¢ĞÂ
+		 response.getWriter().flush();//æ¸…ç©ºç¼“å­˜,åˆ·æ–°
 		 response.getWriter().close();
 		 
 		return null;
 	}
+	/**
+	 * æ³¨å†Œaction
+	 */
 	public String regUser() throws Exception {
 		deleteYzm();
 		 bindWhere();
@@ -188,7 +203,7 @@ public class UserInfoAction extends ActionSupport  implements SessionAware,Servl
 	     userInfo.setUTel(regname);
 	     if(userInfoService.getUserInfoByUnique(userInfo)!=null){
 	    	 DbUtil.closeAll();
-	    	 regmessage="´ËÊÖ»úºÅÒÑ±»×¢²á,Çë½øÈëµÇÂ¼Ãæ°åÊÔÊÔÕÒ»ØÃÜÂë°É";
+	    	 regmessage="æ­¤æ‰‹æœºå·å·²è¢«æ³¨å†Œ,è¯·è¿›å…¥ç™»å½•é¢æ¿è¯•è¯•æ‰¾å›å¯†ç å§";
 	    	 String sRand= getYZM();
 	    	 session.put("sRand", sRand);
 	    	 
@@ -197,17 +212,17 @@ public class UserInfoAction extends ActionSupport  implements SessionAware,Servl
 	    	 userInfo.setUName(realname);
 		     userInfo.setUPwd(regpwd);
 		     userInfo.setUSex(sex);
-		     userInfo.setUAdmin("ÆÕÍ¨ÓÃ»§");
+		     userInfo.setUAdmin("æ™®é€šç”¨æˆ·");
 		     if(userInfoService.addUserInfo(userInfo)){
 		    	 DbUtil.closeAll();
-		    String	 loginmessage="×¢²á³É¹¦,ÏÖÔÚ¾Í¿ªÊ¼µÇÂ¼°É";
+		    String	 loginmessage="æ³¨å†ŒæˆåŠŸ,ç°åœ¨å°±å¼€å§‹ç™»å½•å§";
 		    String sRand= getYZM();
 	    	 session.put("sRand", sRand);
 		    request.setAttribute("loginmessage", loginmessage);
 		     }
 		     else{
 		    	 DbUtil.closeAll();
-		    	 regmessage="×¢²áÊ§°Ü";
+		    	 regmessage="æ³¨å†Œå¤±è´¥";
 		    	 String sRand= getYZM();
 		    	 session.put("sRand", sRand);
 		     }
@@ -216,7 +231,9 @@ public class UserInfoAction extends ActionSupport  implements SessionAware,Servl
 	    
 	     return "execute";
 	}
-	
+	/**
+	 * ä¿®æ”¹ä¿¡æ¯action
+	 */
 	public String update() throws Exception{
 		deleteYzm();
 		 bindWhere();
@@ -258,6 +275,9 @@ public class UserInfoAction extends ActionSupport  implements SessionAware,Servl
 		 }
 		 
 	}
+	/**
+	 * ä¿®æ”¹å¯†ç action
+	 */
 	public String updatePwd() throws Exception{
 		deleteYzm();
 		 bindWhere();
@@ -268,7 +288,7 @@ public class UserInfoAction extends ActionSupport  implements SessionAware,Servl
 			  String npwd=request.getParameter("npwd");
 			  userInfo.setUPwd(npwd);
 			if(userInfoService.updateUserPwd(userInfo)){
-				 String updatemessage="ÃÜÂëĞŞ¸Ä³É¹¦";
+				 String updatemessage="å¯†ç ä¿®æ”¹æˆåŠŸ";
 				 request.setAttribute("updatemessage", updatemessage);
 				 request.getRequestDispatcher("admin/memberMyAccount.jsp").forward(request, response);
 				 return "updatepwdok";
@@ -278,12 +298,15 @@ public class UserInfoAction extends ActionSupport  implements SessionAware,Servl
 			}
 		  }
 		  else{
-			  String updatemessage="µ±Ç°ÃÜÂë´íÎó,ÇëÖØĞÂÊäÈë";
+			  String updatemessage="å½“å‰å¯†ç é”™è¯¯,è¯·é‡æ–°è¾“å…¥";
 			  request.setAttribute("updatemessage", updatemessage);
 			  request.getRequestDispatcher("admin/memberMyAccount.jsp").forward(request, response);
 			  return "updatepwdno";
 		  }
 	}
+	/**
+	 * æ›´æ–°éªŒè¯ç action
+	 */
 	public String updateYzm() throws Exception {
 		deleteYzm();
 		 bindWhere();
@@ -291,10 +314,13 @@ public class UserInfoAction extends ActionSupport  implements SessionAware,Servl
 		 response.setContentType("text/html;charset=utf-8");
 		 session.put("sRand", sRand);
 		 response.getWriter().println(sRand);
-		 response.getWriter().flush();//Çå¿Õ»º´æ,Ë¢ĞÂ
+		 response.getWriter().flush();//æ¸…ç©ºç¼“å­˜,åˆ·æ–°
 		 response.getWriter().close();
 		 return null;
 	}
+	/**
+	 * å›é¦–é¡µaction
+	 */
 	public String hsy() throws Exception{
 		deleteYzm();
 		 bindWhere();
@@ -305,6 +331,9 @@ public class UserInfoAction extends ActionSupport  implements SessionAware,Servl
 		 request.getRequestDispatcher(this.url).forward(request, response);
 		return null;
 	}
+	/**
+	 * æ³¨é”€action
+	 */
 	public String zhuXiao() throws Exception{
 		deleteYzm();
 		 bindWhere();
@@ -313,6 +342,10 @@ public class UserInfoAction extends ActionSupport  implements SessionAware,Servl
 		System.out.println(url);
 		 return "execute";
 	}
+	/**
+	 * è·å–éšæœºé¢œè‰²æ–¹æ³•
+	 * 
+	 */
 	private   Color getRandColor(int fc,int bc){  
         Random random = new Random();  
         if(fc > 255){  
@@ -326,21 +359,24 @@ public class UserInfoAction extends ActionSupport  implements SessionAware,Servl
         int b = fc +random.nextInt(bc-fc);  
         return new Color(r,g,b);  
     }  
-   
+          /**
+	    * ç”ŸæˆéªŒè¯ç çš„æ–¹æ³•
+	    * 
+	    */
 private String getYZM(){
 	 int width = 60;  
 	    int height = 40;  
 	    BufferedImage image = new BufferedImage(width,height,BufferedImage.TYPE_INT_RGB);  
-	    //´´½¨Í¼Ïó  
+	    //åˆ›å»ºå›¾è±¡  
 	    Graphics g = image.getGraphics();  
-	    //Éú³ÉËæ»ú¶ÔÏó  
+	    //ç”Ÿæˆéšæœºå¯¹è±¡  
 	    Random random = new Random();  
-	    //ÉèÖÃ±³¾°É«  
+	    //è®¾ç½®èƒŒæ™¯è‰²  
 	    g.setColor(getRandColor(200,250));  
 	    g.fillRect(0,0,width,height);  
-	    //ÉèÖÃ×ÖÌå  
+	    //è®¾ç½®å­—ä½“  
 	    g.setFont(new Font("Tines Nev Roman",Font.PLAIN,18));  
-	    //Ëæ»ú²úÉú¸ÉÈÅÏß  
+	    //éšæœºäº§ç”Ÿå¹²æ‰°çº¿  
 	    g.setColor(getRandColor(160,200));  
 	    for(int i = 0; i < 255; i++){  
 	        int x = random.nextInt(width);  
@@ -349,18 +385,18 @@ private String getYZM(){
 	        int y1 = random.nextInt(12); 
 	        g.drawLine(x,y,x-x1,y-y1);
 	    }  
-	    //Ëæ»ú²úÉúÈÏÖ¤Âë,4Î»Êı×Ö  
+	    //éšæœºäº§ç”Ÿè®¤è¯ç ,4ä½æ•°å­—  
 	    String sRand = "";  
 	    for(int i = 0; i < 4; i++){  
 	        String rand = String.valueOf(random.nextInt(10));  
 	        sRand  += rand;  
-	        //½«ÈÏÖ¤ÂëÏÔÊ¾µ½Í¼ÏóÖĞ  
+	        //å°†è®¤è¯ç æ˜¾ç¤ºåˆ°å›¾è±¡ä¸­  
 	        g.setColor(new Color(20 + random.nextInt(110),20 + random.nextInt(110),20 + random.nextInt(110)));  
 	        g.drawString(rand,13*i+6,16);  
 	    }  
-	    //Í¼ÏñÉúĞ§  
+	    //å›¾åƒç”Ÿæ•ˆ  
 	    g.dispose();  
-	    //Êä³öÍ¼Ïñµ½Ò³Ãæ  
+	    //è¾“å‡ºå›¾åƒåˆ°é¡µé¢  
 	    String url=this.request.getServletContext().getRealPath("/images")+"/"+sRand+".jpg";
 	   FileOutputStream fileOutputStream;
 	try {
@@ -377,6 +413,10 @@ private String getYZM(){
 	  
 	    return sRand;
 }
+  /**
+     * åˆ é™¤éªŒè¯ç çš„æ–¹æ³•
+     * 
+     */
 private void deleteYzm(){
 String	sRand=(String) session.get("sRand");
     String url=request.getServletContext().getRealPath("/images")+"/"+sRand+".jpg";
@@ -387,6 +427,10 @@ if(file.exists()){
 	
 }
 }
+
+     /**
+      * ç»‘å®šé¡µé¢è·³è½¬å‚æ•°çš„æ–¹æ³•
+      */
 	private void bindWhere(){
 		url=request.getParameter("url");
 		if(request.getParameter("bname")!=null){
