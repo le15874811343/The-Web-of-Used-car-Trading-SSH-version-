@@ -24,7 +24,7 @@ public class DistanceDaoImpl extends BaseDao implements IDistanceDao {
 
 		try {
 			List<Distance> dislist = PageUtil.querylist(1, 4, hql, null);//获取指定行数区间的结果集
-			;
+			
 			//遍历结果集，加入map中
 			for (Distance d : dislist) {
 				distanceMap.put(d.getDId(), d);
