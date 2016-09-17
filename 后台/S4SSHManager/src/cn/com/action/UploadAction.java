@@ -458,6 +458,11 @@ public Map<String, Object> getSession() {
 	   
 	      return "josn";
 	}
+	  /**
+	   * 检测重复上传的方法
+	   * 
+	   * 
+	   */
 	 private void bancfsc(HttpServletRequest request){
 		  String	sctname=(String)  request.getParameter("sctname");
 		  System.out.println(sctname);
