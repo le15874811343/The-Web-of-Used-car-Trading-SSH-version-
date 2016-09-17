@@ -37,8 +37,8 @@ public class MemberCenterAction extends ActionSupport implements ServletRequestA
    private ISellInfoService sellInfoService=null; //销售信息服务接口的引用
    private ICarImagesInfoService carImagesInfoService=null; //汽车图片信息服务接口的引用
    private ICommentService commentServiceImpl=null;  //评论信息服务接口的引用
-   private long tzCid;
-   private long tzUid;
+   private long tzCid; //跳转页面车编号参数
+   private long tzUid; //跳转页面用户编号参数
 public long getTzCid() {
 	return tzCid;
 }
