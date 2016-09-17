@@ -7,9 +7,12 @@ import cn.com.pojo.*;
 import cn.com.dao.IProcedureInfoDao;
 
 import cn.com.service.IProcedureInfoService;
-
+/**
+ * 手续信息服务实现类
+ * @author lej
+ */
 public class ProcedureInfoServiceImpl implements IProcedureInfoService{
-private IProcedureInfoDao procedureInfoDaoImpl=null;
+private IProcedureInfoDao procedureInfoDaoImpl=null; //手续信息操作接口的引用
 
 	public IProcedureInfoDao getProcedureInfoDaoImpl() {
 	return procedureInfoDaoImpl;
@@ -18,19 +21,31 @@ private IProcedureInfoDao procedureInfoDaoImpl=null;
 public void setProcedureInfoDaoImpl(IProcedureInfoDao procedureInfoDaoImpl) {
 	this.procedureInfoDaoImpl = procedureInfoDaoImpl;
 }
-
+  /**
+   * 
+   * 获取所有手续信息的服务
+   *@return Map<Long,ProcedureInfo> 
+   */
 	@Override
 	public Map<Long, Procedureinfo> getAllProcedureInfo() {
 		// TODO Auto-generated method stub
 		return procedureInfoDaoImpl.getAllProcedureInfo();
 	}
-
+  /**
+   * 
+   * 根据编号获取手续信息的服务
+   *@return ProcedureInfo
+   */
 	@Override
 	public Procedureinfo getProcedureInfoById(Carinfo carInfo) {
 		// TODO Auto-generated method stub
 		return procedureInfoDaoImpl.getProcedureInfoById(carInfo);
 	}
-
+  /**
+   * 
+   * 添加手续信息的服务
+   *@return boolean
+   */
 	@Override
 	public boolean addProcedureInfo(Procedureinfo procedureInfo) {
 		// TODO Auto-generated method stub
@@ -40,7 +55,11 @@ public void setProcedureInfoDaoImpl(IProcedureInfoDao procedureInfoDaoImpl) {
 		}
 		return flag;
 	}
-
+  /**
+   * 
+   * 修改手续信息的服务
+   *@return  boolean
+   */
 	@Override
 	public boolean updateProcedureInfo(Procedureinfo procedureInfo) {
 		// TODO Auto-generated method stub
@@ -51,7 +70,10 @@ public void setProcedureInfoDaoImpl(IProcedureInfoDao procedureInfoDaoImpl) {
 		
 		return flag;
 	}
-
+/**
+ * 根据车主编号删除手续信息的服务
+ *@return boolean  
+ */
 	@Override
 	public boolean deleteprocedureinfouser(Procedureinfo p) {
 		// TODO Auto-generated method stub
@@ -62,7 +84,10 @@ public void setProcedureInfoDaoImpl(IProcedureInfoDao procedureInfoDaoImpl) {
 		}
 		return flag;
 	}
-
+/**
+ * 根据车编号删除手续信息的服务
+ *@return boolean  
+ */
 	@Override
 	public boolean deletecidprocedureinfouser(Procedureinfo p) {
 		// TODO Auto-generated method stub
@@ -73,13 +98,21 @@ public void setProcedureInfoDaoImpl(IProcedureInfoDao procedureInfoDaoImpl) {
 		}
 		return flag;
 	}
-
+/**
+ * 
+ * 检查是否还有与某车主编号关联的手续信息的服务
+ * @return boolean
+ */
 	@Override
 	public boolean checkprocedureinfouser(Procedureinfo p) {
 		// TODO Auto-generated method stub
 		return procedureInfoDaoImpl.checkprocedureinfouser(p);
 	}
-
+/**
+ * 
+ * 检查是否还有与某车编号关联的手续信息的服务
+ * @return boolean
+ */
 	@Override
 	public boolean checkcidprocedureinfouser(Procedureinfo p) {
 		// TODO Auto-generated method stub
