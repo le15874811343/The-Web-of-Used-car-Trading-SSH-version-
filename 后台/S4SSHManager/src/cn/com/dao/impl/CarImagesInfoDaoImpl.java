@@ -6,16 +6,21 @@ import java.util.*;
 import cn.com.pojo.*;
 import cn.com.dao.*;
 import cn.com.util.*;
-
+/**
+ * 汽车图片信息操作实现类
+ * @author lej
+ */
 public class CarImagesInfoDaoImpl extends BaseDao implements ICarImagesInfoDao {
-	/**
-	 * ͨ��c_id����ѯ������Ƭ��Ϣ
-	 */
+  /**
+   * 根据编号获取汽车照片的方法
+   * @parma carInfo
+   * @return Map<Integer,String>
+   */
 	@Override
 	public Map<Integer, String> getCarImagesInfoByID(Carinfo carInfo) {
 		// TODO Auto-generated method stub
 		String sql = "from Imagesinfo where CId=? and UId=?";
-		Map<Integer, String> imgMap = new HashMap<Integer, String>();
+		Map<Integer, String> imgMap = new HashMap<Integer, String>(); 
 		
 	
 		
@@ -24,7 +29,8 @@ public class CarImagesInfoDaoImpl extends BaseDao implements ICarImagesInfoDao {
 					.getHibernateTemplate()
 					.find(sql,
 							new Object[] { carInfo.getCId(), carInfo.getUId() })
-					.get(0);
+					.get(0); //获取结果
+					//将对象的非空文件地址压入map中
 				if (carImagesInfo.getImage1() != null
 						&& !carImagesInfo.getImage1().equals("")) {
 					imgMap.put(1, carImagesInfo.getImage1());
@@ -73,13 +79,17 @@ public class CarImagesInfoDaoImpl extends BaseDao implements ICarImagesInfoDao {
 		}
 		return imgMap;
 	}
-
+/**
+ * 添加照片信息的方法
+ * @parma carImagesInfo
+ *@reutn int 
+ */
 	@Override
 	public int addCarImagesInfo(Imagesinfo carImagesInfo) {
 		// TODO Auto-generated method stub
 		int count = 0;
 		try {
-			super.getHibernateTemplate().save(carImagesInfo);
+			super.getHibernateTemplate().save(carImagesInfo);//加入
 			count = 1;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -87,14 +97,18 @@ public class CarImagesInfoDaoImpl extends BaseDao implements ICarImagesInfoDao {
 		}
 		return count;
 	}
-
+/**
+ *修改照片信息的方法 
+ * @parmas
+ * @return int
+ */
 	@Override
 	public int updateCarImagesInfo(Imagesinfo carImagesInfo) {
 		// TODO Auto-generated method stub
 
 		StringBuffer sql = new StringBuffer(
 				"update  Imagesinfo set image1=?,image2=?,image3=?,image4=?,image5=?,image6=?,image7=?,image8=?,image9=?,image10=? where u_id=? and c_id=?");
-
+                     //返回受影响的行数
 		return super.getHibernateTemplate().bulkUpdate(
 				sql.toString(),
 				new Object[] { carImagesInfo.getImage1(),
@@ -105,16 +119,19 @@ public class CarImagesInfoDaoImpl extends BaseDao implements ICarImagesInfoDao {
 						carImagesInfo.getImage10(), carImagesInfo.getUId(),
 						carImagesInfo.getCId() });
 	}
-
+/**
+ * 根据车主编号删除汽车照片信息的方法
+ *@return int  
+ */
 	@Override
 	public int deleteimagesinfouser(Imagesinfo c) {
 		// TODO Auto-generated method stub
 		String hql="from  Imagesinfo where UId=?";
 		int count=0;
-	List<Imagesinfo> imageslist=	super.getHibernateTemplate().find(hql,c.getUId());
+	List<Imagesinfo> imageslist=	super.getHibernateTemplate().find(hql,c.getUId());//获取持久化对象
 	try{
 	for(Imagesinfo i:imageslist){
-		super.getHibernateTemplate().delete(i);
+		super.getHibernateTemplate().delete(i); //删除
 	}
 	count=1;
 	}
@@ -124,13 +141,16 @@ public class CarImagesInfoDaoImpl extends BaseDao implements ICarImagesInfoDao {
 	}
 		return count;
 	}
-
+/**
+ * 根据车编号删除汽车照片信息的方法
+ *@return int  
+ */
 	@Override
 	public int deletecidimagesinfouser(Imagesinfo c) {
 		// TODO Auto-generated method stub
 		int count=0;
 		try{
-			super.getHibernateTemplate().delete(c);
+			super.getHibernateTemplate().delete(c); //删除
 			count=1;
 		}
 		catch (Exception e) {
@@ -138,16 +158,20 @@ public class CarImagesInfoDaoImpl extends BaseDao implements ICarImagesInfoDao {
 		}
 		return count;
 	}
-
+/**
+ * 
+ * 检查是否还有与某车主编号关联的汽车照片信息
+ * @return boolean
+ */
 	@Override
 	public boolean checkimageinfouser(Imagesinfo c) {
 		// TODO Auto-generated method stub
 		boolean flag=false;
 		String sql="from Imagesinfo where UId=?";
 		try {
-	List<Imagesinfo> imlist=	   super.getHibernateTemplate().find(sql,c.getUId());
+	List<Imagesinfo> imlist=	   super.getHibernateTemplate().find(sql,c.getUId()); //获取结果集
 	if(imlist.size()>0){
-		 flag=true;
+		 flag=true; //若结果集元素个数大于0,则返回为真
 	}
 			
 		} catch (Exception e) {
@@ -156,16 +180,20 @@ public class CarImagesInfoDaoImpl extends BaseDao implements ICarImagesInfoDao {
 		}
 		return flag;
 	}
-
+/**
+ * 
+ * 检查是否还有与某车编号关联的汽车照片信息
+ * @return boolean
+ */
 	@Override
 	public boolean checkcidimageinfouser(Imagesinfo c) {
 		// TODO Auto-generated method stub
 		boolean flag=false;
 		String sql="from Imagesinfo where CId=?";
 		try {
-	List<Imagesinfo> imlist=	   super.getHibernateTemplate().find(sql,c.getCId());
+	List<Imagesinfo> imlist=	   super.getHibernateTemplate().find(sql,c.getCId()); //获取结果集
 	if(imlist.size()>0){
-		 flag=true;
+		 flag=true; //若结果集元素个数大于0,则返回为真
 	}
 			
 		} catch (Exception e) {
