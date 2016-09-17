@@ -23,14 +23,17 @@ import cn.com.util.DbUtil;
 import cn.com.util.PageUtil;
 
 import com.opensymphony.xwork2.ActionSupport;
-
+ /**
+  * 公司动态消息管理action
+  * 
+  */
 public class TrendsAction  extends ActionSupport implements SessionAware,ServletRequestAware,ServletResponseAware{
-   private ITrendsService trendsService=null;
-   private IPageDao trendsPage=null;
-   private ICommentService commentService=null;
-   private IPageDao commentsPage=null;
-   private HttpServletRequest request=null;
-   private HttpServletResponse response=null;
+   private ITrendsService trendsService=null; //公司动态消息服务接口的引用
+   private IPageDao trendsPage=null; //分页处理操作接口的引用（指向公司动态消息操作实现类）
+   private ICommentService commentService=null;//评论信息服务接口的引用
+   private IPageDao commentsPage=null; //分页处理操作接口的引用（指向评论消息操作实现类）
+   private HttpServletRequest request=null;//request
+   private HttpServletResponse response=null;//response
    public HttpServletResponse getServletResponse() {
 		return response;
 	}
@@ -82,15 +85,21 @@ public void setServletRequest(HttpServletRequest arg0) {
 	// TODO Auto-generated method stub
 	this.request=arg0;
 }
+/**
+ * 展示新闻列表action
+ */
 public String shownewslist() throws Exception {
 	// TODO Auto-generated method stub
 	Trends trends=new Trends();
-	trends.setTrType("����");
+	trends.setTrType("新闻");
 	fenye(request, trends);
 	
 	
 	return "shownewslist";
 }
+/**
+ * 展示新闻详情action
+ */
 public String showtei() throws Exception{
 	String tr_id=	request.getParameter("tr_id");
 	Trends trends=new Trends();
@@ -100,13 +109,19 @@ public String showtei() throws Exception{
 
 	return "showtei";
 }
+/**
+ * 展示活动列表action
+ */
 public String showactive() throws Exception{
 	Trends trends=new Trends();
-	trends.setTrType("�");
+	trends.setTrType("活动");
 	fenye(request,  trends);
 
 	return "showActive";
 }
+/**
+ * 展示活动详情action
+ */
 public String showteia() throws Exception{
 	String tr_id=	request.getParameter("tr_id");
 	Trends trends=new Trends();
@@ -116,12 +131,18 @@ public String showteia() throws Exception{
  
 	return "showTeia";
 }
+/**
+ * 展示评价列表action
+ */
 public String showcom() throws Exception{
 	Comment1 comment=new Comment1();
 	fenyec(request, comment);
 
 	return "showCom";
 }
+/**
+ *展示评价详情action 
+ */
 public String showcomd() throws Exception{
 	String tr_id=	request.getParameter("cid");
 	Comment1 comment=new Comment1();
@@ -132,6 +153,9 @@ request.setAttribute("_trends", comment);
 
 	return "showComd";
 }
+/**
+ * 展示所有动态消息action
+ */
 public String showalltrends() throws Exception{
 	Trends trends=new Trends();
 	
@@ -139,6 +163,9 @@ public String showalltrends() throws Exception{
 
 	return "showalltrends";
 }
+/**
+ * 添加动态消息action
+ */
 public String addtrends() throws Exception{
 	String title=request.getParameter("maxAge");
 	String text=request.getParameter("zm");
@@ -155,11 +182,14 @@ public String addtrends() throws Exception{
 	   trends.setTrImg("tepimages/"+img);
      }
    if(trendsService.addTrends(trends)){
-	   request.setAttribute("mea", "���ӳɹ�");
+	   request.setAttribute("mea", "添加成功");
 	 
    }
 	return "addtrends";
 }
+/**
+ * 请求修改动态消息action
+ */
 public String uptrends() throws Exception{
 	String id=request.getParameter("tid");
 	Trends trends=new Trends();
@@ -169,6 +199,9 @@ trends=	trendsService.getTrendsByWhere(trends);
 session.put("utrends",trends );
 	return "uptrends";
 }
+/**
+ * 提交修改动态消息action
+ */
 public String tjuptrends() throws Exception{
 	String id=request.getParameter("tid");
 	
@@ -192,11 +225,14 @@ public String tjuptrends() throws Exception{
      }
    if(trendsService.updateTrends(trends)){
 	   session.put("utrends",trends );
-	   session.put("tmea","�޸ĳɹ�" );
+	   session.put("tmea","修改成功" );
 		
    }
 	return "tjuptrends";
 }
+/**
+ * 删除动态消息action
+ */
 public String deltrends() throws Exception{
 	String id=request.getParameter("tid");
 	Trends trends=new Trends();
@@ -204,11 +240,14 @@ public String deltrends() throws Exception{
 	if(trendsService.deleteTrends(trends)){
 		 response.setContentType("text/html;charset=utf-8");
 		response.getWriter().print(1);
-		 response.getWriter().flush();//��ջ���,ˢ��
+		 response.getWriter().flush();//清空缓存,刷新
 		   response.getWriter().close();
 	}
 	return "deltrends";
 }
+/**
+ * 添加新闻action
+ */
 public String addnews() throws Exception{
 	String title=request.getParameter("maxAge");
 	String text=request.getParameter("zm");
@@ -217,7 +256,7 @@ public String addnews() throws Exception{
 	Trends trends=new Trends();
 	trends.setTrTitle(title);
 	trends.setTrText(text);
-	trends.setTrType("����");
+	trends.setTrType("新闻");
 	
     Date date=new Date();
    trends.setTrDate(date);
@@ -226,11 +265,14 @@ public String addnews() throws Exception{
 	   trends.setTrImg("tepimages/"+img);
      }
    if(trendsService.addTrends(trends)){
-	   request.setAttribute("mea", "���ӳɹ�");
+	   request.setAttribute("mea", "添加成功");
 	   
    }
 	return "addnews";
 }
+/**
+ * 请求修改新闻action
+ */
 public String upnews() throws Exception{
 	String id=request.getParameter("tid");
 	Trends trends=new Trends();
@@ -241,6 +283,9 @@ session.put("utrends",trends );
 
 	return "upnews";
 }
+/**
+ * 提交修改新闻action
+ */
 public String tjupnews() throws Exception{
 	String id=request.getParameter("tid");
 	
@@ -251,7 +296,7 @@ public String tjupnews() throws Exception{
 	Trends trends=new Trends();
 	trends.setTrTitle(title);
 	trends.setTrText(text);
-	trends.setTrType("����");
+	trends.setTrType("新闻");
 	trends.setTrId(Long.parseLong(id));
 	
 	   trends.setTrImg(request.getParameter("qtp"));
@@ -263,11 +308,14 @@ public String tjupnews() throws Exception{
      }
    if(trendsService.updateTrends(trends)){
 	   session.put("utrends",trends );
-	   session.put("tmea","�޸ĳɹ�" );
+	   session.put("tmea","修改成功" );
 		
    }
 	return "tjupnews";
 }
+/**
+ * 添加活动action
+ */
 public String addactive() throws Exception{
 	String title=request.getParameter("maxAge");
 	String text=request.getParameter("zm");
@@ -276,7 +324,7 @@ public String addactive() throws Exception{
 	Trends trends=new Trends();
 	trends.setTrTitle(title);
 	trends.setTrText(text);
-	trends.setTrType("�");
+	trends.setTrType("活动");
 	
     Date date=new Date();
    trends.setTrDate(date);
@@ -285,11 +333,14 @@ public String addactive() throws Exception{
 	   trends.setTrImg("tepimages/"+img);
      }
    if(trendsService.addTrends(trends)){
-	   request.setAttribute("mea", "���ӳɹ�");
+	   request.setAttribute("mea", "添加成功");
 	  
    }
 	return "addactive";
 }
+/**
+ * 请求修改活动action
+ */
 public String upactive() throws Exception{
 	String id=request.getParameter("tid");
 	Trends trends=new Trends();
@@ -300,6 +351,9 @@ session.put("utrends",trends );
 
 	return "upactive";
 }
+/**
+ * 提交修改活动action
+ */
 public String tjupactive() throws Exception{
 	String id=request.getParameter("tid");
 	
@@ -310,7 +364,7 @@ public String tjupactive() throws Exception{
 	Trends trends=new Trends();
 	trends.setTrTitle(title);
 	trends.setTrText(text);
-	trends.setTrType("�");
+	trends.setTrType("活动");
 	trends.setTrId(Long.parseLong(id));
 	
 	   trends.setTrImg(request.getParameter("qtp"));
@@ -322,12 +376,14 @@ public String tjupactive() throws Exception{
      }
    if(trendsService.updateTrends(trends)){
 	   session.put("utrends",trends );
-	   session.put("tmea","�޸ĳɹ�" );
+	   session.put("tmea","修改成功" );
 		
    }
 	return "tjupactive";
 }
-
+/**
+ * 请求修改评价action
+ */
 public String upcom() throws Exception{
 	String cid=request.getParameter("cid");
 	Comment1 comment=new Comment1();
@@ -339,6 +395,9 @@ public String upcom() throws Exception{
 	
 	return "upcom";
 }
+/**
+ * 提交修改评价action
+ */
 public String tjupcom() throws Exception{
 	String cid=request.getParameter("cid");
 	String bt=request.getParameter("maxAge");
@@ -357,11 +416,14 @@ public String tjupcom() throws Exception{
   
    if(commentService.updateComment(comment)){
 	   session.put("ucomment", comment);
-	   session.put("cmea", "�޸ĳɹ�");
+	   session.put("cmea", "修改成功");
 		
    }
 	return "tjupcom";
 }
+/**
+ * 删除评价action
+ */
 public String delcom() throws Exception{
 	String cid=request.getParameter("cid");
 	Comment1 comment=new Comment1();
@@ -370,11 +432,15 @@ public String delcom() throws Exception{
 	if(commentService.deleteComment(comment)){
 		 response.setContentType("text/html;charset=utf-8");
 			response.getWriter().print(1);
-			 response.getWriter().flush();//��ջ���,ˢ��
+			 response.getWriter().flush();//清空缓存,刷新
 			   response.getWriter().close();
 	}
 	return "delcom";
 }
+	/**
+	 * 分页展示动态消息的方法
+	 * 
+	 */
 private void fenye(HttpServletRequest req,Trends trends){
 	
 	
@@ -387,9 +453,9 @@ private void fenye(HttpServletRequest req,Trends trends){
 	
 
  long maxRowsCount=trendsPage.queryPersonCarCount(trends);
-	//������ҳ�߼�<=>����
+	//处理分页逻辑<=>调用
 	PageUtil pageUtil=new PageUtil(2, maxRowsCount);
-	// ����ҳ���߼�
+	// 处理页码逻辑
 	if (curPage <= 1) {
 
 		pageUtil.setCurPage(1);
@@ -422,6 +488,10 @@ private void fenye(HttpServletRequest req,Trends trends){
 	
 	
  }
+         /**
+	  * 分页展示评价的方法
+	  * 
+	  */
 private void fenyec(HttpServletRequest req,Comment1 comment){
 
 try {
@@ -433,9 +503,9 @@ if(req.getParameter("jumpPage")!=null){
 
 
 long maxRowsCount=commentsPage.queryPersonCarCount(comment);
-//������ҳ�߼�<=>����
+//处理分页逻辑<=>调用
 PageUtil pageUtil=new PageUtil(2, maxRowsCount);
-// ����ҳ���߼�
+// 处理页码逻辑
 if (curPage <= 1) {
 
 	pageUtil.setCurPage(1);
