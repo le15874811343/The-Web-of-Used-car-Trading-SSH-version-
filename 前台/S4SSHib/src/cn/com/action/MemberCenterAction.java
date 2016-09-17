@@ -30,7 +30,7 @@ public class MemberCenterAction extends ActionSupport implements ServletRequestA
    private IPageDao personNeedPage=null;  //分页处理操作接口的引用（指向个人需求操作实现类）
    private HttpServletResponse response=null;//response
    private ICarTypeService carTypeService=null; //车型服务接口的引用
-   private IBasicInfoService basicInfoService=new BasicInfoServiceImpl(); //汽车基础信息服务接口的引用	
+   private IBasicInfoService basicInfoService=null; //汽车基础信息服务接口的引用	
    private IHardwareConfigService hardwareConfigService=null; //汽车硬件配置信息服务接口的引用
    private ISystemConfigService systemConfigService=null; //汽车系统配置信息服务接口的引用
    private IProcedureInfoService procedureInfoService=null; //手续过程信息服务接口的引用
