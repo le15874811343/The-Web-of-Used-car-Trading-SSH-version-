@@ -300,6 +300,7 @@ public Map<String, Object> getSession() {
 	  	      out.print(result);  //异步返回文件名
 	  	      out.close();  
 	  		  }
+	  		  //之后的操作同file处
 	  		  if(this.getFilePath1()!=null&&this.getFilePath1().exists()){
 	  			File f = this.getFilePath1();
 		           
@@ -329,7 +330,7 @@ public Map<String, Object> getSession() {
 	  	      out.print(result);  
 	  	      out.close();  
 	  		  }
-	  		  //之后的操作同file处
+	  		  
 	  		 if(this.getFilePath2()!=null&&this.getFilePath2().exists()){
 		  			File f = this.getFilePath2();
 			           
