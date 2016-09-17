@@ -24,26 +24,30 @@ import cn.com.util.*;
 
 
 import com.opensymphony.xwork2.ActionSupport;
-
+/**
+ * ä¼šå‘˜ä¸­å¿ƒæ“ä½œaction
+ * 
+ * 
+ */
 public class MemberCenterAction extends ActionSupport implements ServletRequestAware ,SessionAware,ServletResponseAware  {
-   private HttpServletRequest request=null;
-   private Map<String, Object> session=null;
-   private IPerSonCarService perSonCarService=null;
-   private IPageDao personCarPage=null;
-   private ICarInfoService carInfoService=null;
-   private IPersonNeedService personNeedService=null;
-   private IPageDao personNeedPage=null;
-   private HttpServletResponse response=null;
-   private ICarTypeService carTypeService=null;
-   private IBasicInfoService basicInfoService=new BasicInfoServiceImpl();	
-   private IHardwareConfigService hardwareConfigService=null;
-   private ISystemConfigService systemConfigService=null;
-   private IProcedureInfoService procedureInfoService=null;
-   private ISellInfoService sellInfoService=null;
-   private ICarImagesInfoService carImagesInfoService=null;
-   private ICommentService commentServiceImpl=null;
-   private long tzCid;
-   private long tzUid;
+   private HttpServletRequest request=null;   //request
+   private Map<String, Object> session=null;  //session
+   private IPerSonCarService perSonCarService=null;  //ä¸ªäººæ±½è½¦è®¢å•æœåŠ¡æ¥å£çš„å¼•ç”¨
+   private IPageDao personCarPage=null;  //åˆ†é¡µå¤„ç†æ“ä½œæ¥å£çš„å¼•ç”¨ï¼ˆæŒ‡å‘ä¸ªäººæ±½è½¦è®¢å•æ“ä½œå®ç°ç±»ï¼‰
+   private ICarInfoService carInfoService=null;  //æ±½è½¦æ¦‚è¦ä¿¡æ¯æœåŠ¡æ¥å£çš„å¼•ç”¨
+   private IPersonNeedService personNeedService=null; //ä¸ªäººéœ€æ±‚ä¿¡æ¯æœåŠ¡æ¥å£çš„å¼•ç”¨
+   private IPageDao personNeedPage=null;  //åˆ†é¡µå¤„ç†æ“ä½œæ¥å£çš„å¼•ç”¨ï¼ˆæŒ‡å‘ä¸ªäººéœ€æ±‚æ“ä½œå®ç°ç±»ï¼‰
+   private HttpServletResponse response=null; //response
+   private ICarTypeService carTypeService=null;  //è½¦å‹æœåŠ¡æ¥å£çš„å¼•ç”¨
+   private IBasicInfoService basicInfoService=null;	 //æ±½è½¦åŸºç¡€ä¿¡æ¯æœåŠ¡æ¥å£çš„å¼•ç”¨	
+   private IHardwareConfigService hardwareConfigService=null; //æ±½è½¦ç¡¬ä»¶é…ç½®ä¿¡æ¯æœåŠ¡æ¥å£çš„å¼•ç”¨
+   private ISystemConfigService systemConfigService=null; // æ±½è½¦ç³»ç»Ÿé…ç½®ä¿¡æ¯æœåŠ¡æ¥å£çš„å¼•ç”¨
+   private IProcedureInfoService procedureInfoService=null; //æ‰‹ç»­è¿‡ç¨‹ä¿¡æ¯æœåŠ¡æ¥å£çš„å¼•ç”¨
+   private ISellInfoService sellInfoService=null; //é”€å”®ä¿¡æ¯æœåŠ¡æ¥å£çš„å¼•ç”¨
+   private ICarImagesInfoService carImagesInfoService=null; //æ±½è½¦å›¾ç‰‡ä¿¡æ¯æœåŠ¡æ¥å£çš„å¼•ç”¨
+   private ICommentService commentServiceImpl=null;  //è¯„è®ºä¿¡æ¯æœåŠ¡æ¥å£çš„å¼•ç”¨
+   private long tzCid; //è·³è½¬é¡µé¢è½¦ç¼–å·å‚æ•°
+   private long tzUid; //è·³è½¬é¡µé¢ç”¨æˆ·ç¼–å·å‚æ•°
 public long getTzCid() {
 	return tzCid;
 }
@@ -167,15 +171,19 @@ public void setSession(Map<String, Object> arg0) {
 	// TODO Auto-generated method stub
 	this.session=arg0;
 }
+/**
+ * å±•ç¤ºä¼šå‘˜ä¿¡æ¯çš„action
+ * 
+ */
 public String showmenber() throws Exception {	
 	// TODO Auto-generated method stub
 	if(chekUser()!=null){
 		Personcar perSonCar = new Personcar();
 		perSonCar.setUId(chekUser().getUId());
-		perSonCar.setPState("ÊÕ²Ø");
+		perSonCar.setPState("æ”¶è—");
  long scCount=perSonCarService.getCarCountByWhere(perSonCar);
 
- perSonCar.setPState("ÒÑ¶¨");
+ perSonCar.setPState("å·²å®š");
  long ydCount=perSonCarService.getCarCountByWhere(perSonCar);
 
  request.setAttribute("scCount", scCount);
@@ -188,12 +196,15 @@ public String showmenber() throws Exception {
 	}
 	
 }
+/**
+ * å±•ç¤ºä¼šå‘˜æ”¶è—çš„è½¦action
+ */
 public String showmenberSc() throws Exception {
 	// TODO Auto-generated method stub
 	if(chekUser()!=null){
 		Personcar perSonCar=new Personcar();
 		perSonCar.setUId(chekUser().getUId());
-		perSonCar.setPState("ÊÕ²Ø");
+		perSonCar.setPState("æ”¶è—");
      fenye(request, perSonCar);
 
          return "showmenberSc";
@@ -203,12 +214,16 @@ public String showmenberSc() throws Exception {
 		return "nouser";
 	}
 }
+/**
+ * å±•ç¤ºä¼šå‘˜å·²è®¢çš„è½¦action
+ * 
+ */
 public String showmenberOrder() throws Exception {
 	// TODO Auto-generated method stub
 	if(chekUser()!=null){
 		Personcar perSonCar=new Personcar();
 		perSonCar.setUId(chekUser().getUId());
-		perSonCar.setPState("ÒÑ¶¨");
+		perSonCar.setPState("å·²å®š");
 		 fenye(request,  perSonCar);
      
         return "showmenberOrder";
@@ -218,12 +233,16 @@ public String showmenberOrder() throws Exception {
 		return "nouser";
 	}
 }
+/**
+ * å±•ç¤ºä¼šå‘˜å‡ºå”®çš„è½¦action
+ * 
+ */
 public String showmenberMc() throws Exception {
 	// TODO Auto-generated method stub
 	if(chekUser()!=null){
 		Personcar perSonCar=new Personcar();
 		perSonCar.setUId(chekUser().getUId());
-		perSonCar.setPState("³öÊÛ");
+		perSonCar.setPState("å‡ºå”®");
 		 fenye(request,  perSonCar);
            DbUtil.closeAll();
          
@@ -234,12 +253,16 @@ public String showmenberMc() throws Exception {
 		return "nouser";
 	}
 }
+/**
+ * å±•ç¤ºä¼šå‘˜å·²ä¹°è¿›çš„è½¦çš„action
+ * 
+ */
 public String showmenberYbcar() throws Exception {
 	// TODO Auto-generated method stub
 	if(chekUser()!=null){
 		Personcar perSonCar=new Personcar();
 		 perSonCar.setUId(chekUser().getUId());
-			perSonCar.setPState("½»Ò×Íê³É");
+			perSonCar.setPState("äº¤æ˜“å®Œæˆ");
 			 fenye(request,  perSonCar);
 	           DbUtil.closeAll();
 	          
@@ -250,12 +273,15 @@ public String showmenberYbcar() throws Exception {
 		return "nouser";
 	}
 }
+/**
+ * å±•ç¤ºä¼šå‘˜å®¡æ ¸ä¸­çš„è½¦çš„action
+ */
 public String showmenberSh() throws Exception {
 	// TODO Auto-generated method stub
 	if(chekUser()!=null){
 		Personcar perSonCar=new Personcar();
 		perSonCar.setUId(chekUser().getUId());
-		perSonCar.setPState("ÉóºËÖĞ");
+		perSonCar.setPState("å®¡æ ¸ä¸­");
 		 fenye(request, perSonCar);
            DbUtil.closeAll();
           
@@ -266,12 +292,16 @@ public String showmenberSh() throws Exception {
 		return "nouser";
 	}
 }
+/**
+ * å±•ç¤ºä¼šå‘˜æœªé€šè¿‡å®¡æ ¸çš„è½¦action
+ * 
+ */
 public String showmenberbjj() throws Exception {
 	// TODO Auto-generated method stub
 	if(chekUser()!=null){
 		Personcar perSonCar=new Personcar();
 		perSonCar.setUId(chekUser().getUId());
-		perSonCar.setPState("Î´Í¨¹ı");
+		perSonCar.setPState("æœªé€šè¿‡");
 		 fenye(request,  perSonCar);
            DbUtil.closeAll();
         return "showmenberbjj";
@@ -281,12 +311,16 @@ public String showmenberbjj() throws Exception {
 		return "nouser";
 	}
 }
+/**
+ * å±•ç¤ºä¼šå‘˜äº¤æ˜“ä¸­çš„è½¦action
+ * 
+ */
 public String showmenberJyz() throws Exception {
 	// TODO Auto-generated method stub
 	if(chekUser()!=null){
 		Personcar perSonCar=new Personcar();
 		perSonCar.setUId(chekUser().getUId());
-		perSonCar.setPState("±»¶¨");
+		perSonCar.setPState("è¢«å®š");
 		 fenye(request,  perSonCar);
            DbUtil.closeAll();
        
@@ -297,12 +331,16 @@ public String showmenberJyz() throws Exception {
 		return "nouser";
 	}
 }
+/**
+ * å±•ç¤ºä¼šå‘˜å·²å–å‡ºçš„è½¦action
+ * 
+ */
 public String showmenberymw() throws Exception {
 	// TODO Auto-generated method stub
 	if(chekUser()!=null){
 		Personcar perSonCar=new Personcar();
 		perSonCar.setUId(chekUser().getUId());
-		perSonCar.setPState("Âô³öÍê³É");
+		perSonCar.setPState("å–å‡ºå®Œæˆ");
 		 fenye(request,  perSonCar);
            DbUtil.closeAll();
         
@@ -313,12 +351,16 @@ public String showmenberymw() throws Exception {
 		return "nouser";
 	}
 }
+/**
+ * å±•ç¤ºä¼šå‘˜å–æ¶ˆä¹°è¿›çš„è½¦action
+ * 
+ */
 public String showmenberzzmr() throws Exception {
 	// TODO Auto-generated method stub
 	if(chekUser()!=null){
 		Personcar perSonCar=new Personcar();
 		perSonCar.setUId(chekUser().getUId());
-		perSonCar.setPState("ÔİÍ£½»Ò×");
+		perSonCar.setPState("æš‚åœäº¤æ˜“");
 		 fenye(request, perSonCar);
 	       DbUtil.closeAll();
 	    
@@ -329,12 +371,16 @@ public String showmenberzzmr() throws Exception {
 		return "nouser";
 	}
 }
+/**
+ * å±•ç¤ºä¼šå‘˜ä¸‹æ¶çš„è½¦action
+ * 
+ */
 public String showmenberXj() throws Exception {
 	// TODO Auto-generated method stub
 	if(chekUser()!=null){
 		Personcar perSonCar=new Personcar();
 		perSonCar.setUId(chekUser().getUId());
-		perSonCar.setPState("ÏÂ¼Ü");
+		perSonCar.setPState("ä¸‹æ¶");
 		 fenye(request, perSonCar);
            DbUtil.closeAll();
           
@@ -345,15 +391,19 @@ public String showmenberXj() throws Exception {
 		return "nouser";
 	}
 }
+/**
+ * ä¼šå‘˜ä¸Šæ¶è½¦action
+ * 
+ */
 public String showmenberSj() throws Exception {
 	// TODO Auto-generated method stub
 	if(chekUser()!=null){
 		 Carinfo carInfo=new Carinfo();
 		 Personcar perSonCar=new Personcar();
 			this.finishop(request, perSonCar, chekUser(),carInfo);
-		   perSonCar.setPState("ÏÂ¼Ü");
-		   carInfo.setCState("ÔÚÊÛ");
-			if(perSonCarService.updatePerSoncar(perSonCar, "³öÊÛ")){
+		   perSonCar.setPState("ä¸‹æ¶");
+		   carInfo.setCState("åœ¨å”®");
+			if(perSonCarService.updatePerSoncar(perSonCar, "å‡ºå”®")){
 				if(carInfoService.updateCarInfo(carInfo)){
 					return "showmenberSj";
 			
@@ -372,12 +422,16 @@ public String showmenberSj() throws Exception {
 		return "nouser";
 	}
 }
+/**
+ * ä¼šå‘˜å–æ¶ˆæ”¶è—action
+ * 
+ */
 public String qxsc() throws Exception {
 	// TODO Auto-generated method stub
 	if(chekUser()!=null){
 		Personcar perSonCar=new Personcar();
 		this.finishop(request, perSonCar, chekUser(),null);
-		perSonCar.setPState("ÊÕ²Ø");
+		perSonCar.setPState("æ”¶è—");
 	  perSonCar=perSonCarService.getPersoncar(perSonCar);
 		if(perSonCarService.deletePerSoncar(perSonCar)){
 		
@@ -393,6 +447,10 @@ public String qxsc() throws Exception {
 		return "nouser";
 	}
 }
+/**
+ * ä¼šå‘˜ç¡®è®¤æ”¶è´§action
+ * 
+ */
 public String qrsh() throws Exception {
 	// TODO Auto-generated method stub
 	if(chekUser()!=null){
@@ -400,16 +458,16 @@ public String qrsh() throws Exception {
 		Carinfo carInfo=new Carinfo();
         
 		this.finishop(request, perSonCar, chekUser(),carInfo);
-	   perSonCar.setPState("ÒÑ¶¨");
-	   carInfo.setCState("½»Ò×Íê³É");
+	   perSonCar.setPState("å·²å®š");
+	   carInfo.setCState("äº¤æ˜“å®Œæˆ");
 	  
 	    Date date=new Date();
 	   carInfo.setCMcsj( date);
-		if(perSonCarService.updatePerSoncar(perSonCar, "½»Ò×Íê³É")){
+		if(perSonCarService.updatePerSoncar(perSonCar, "äº¤æ˜“å®Œæˆ")){
 			if(carInfoService.updateCarInfo(carInfo)){
 				perSonCar.setUId(perSonCar.getCUid());
-				perSonCar.setPState("±»¶¨");
-				if(perSonCarService.updatePerSoncar(perSonCar, "Âô³öÍê³É")){
+				perSonCar.setPState("è¢«å®š");
+				if(perSonCarService.updatePerSoncar(perSonCar, "å–å‡ºå®Œæˆ")){
 					  return "qrsh";
 				}
 				else{
@@ -429,6 +487,10 @@ public String qrsh() throws Exception {
 		return "nouser";
 	}
 }
+/**
+ * ä¼šå‘˜å–æ¶ˆè®¢å•action
+ * 
+ */
 public String qxdd() throws Exception {
 	// TODO Auto-generated method stub
 	if(chekUser()!=null){
@@ -436,13 +498,13 @@ public String qxdd() throws Exception {
 		Carinfo carInfo=new Carinfo();
         
 		this.finishop(request, perSonCar, chekUser(),carInfo);
-	   perSonCar.setPState("ÒÑ¶¨");
+	   perSonCar.setPState("å·²å®š");
 	 
-		if(perSonCarService.updatePerSoncar(perSonCar, "ÔİÍ£½»Ò×")){
+		if(perSonCarService.updatePerSoncar(perSonCar, "æš‚åœäº¤æ˜“")){
 			
 				perSonCar.setUId(perSonCar.getCUid());
-				perSonCar.setPState("±»¶¨");
-				if(perSonCarService.updatePerSoncar(perSonCar, "ÔİÍ£½»Ò×")){
+				perSonCar.setPState("è¢«å®š");
+				if(perSonCarService.updatePerSoncar(perSonCar, "æš‚åœäº¤æ˜“")){
 					return "qxdd";
 			
 				}
@@ -459,15 +521,19 @@ public String qxdd() throws Exception {
 		return "nouser";
 	}
 	}
+	/**
+	 * ä¼šå‘˜é‡æ–°æäº¤å®¡æ ¸action
+	 * 
+	 */
 public String tjbjj() throws Exception {
 	// TODO Auto-generated method stub
 	if(chekUser()!=null){
 		Personcar perSonCar=new Personcar();
 		Carinfo carInfo=new Carinfo();
    	 this.finishop(request, perSonCar, chekUser(),carInfo);
-        perSonCar.setPState("Î´Í¨¹ı");
-        carInfo.setCState("ÉóºËÖĞ");
-        if(perSonCarService.updatePerSoncar(perSonCar, "ÉóºËÖĞ")){
+        perSonCar.setPState("æœªé€šè¿‡");
+        carInfo.setCState("å®¡æ ¸ä¸­");
+        if(perSonCarService.updatePerSoncar(perSonCar, "å®¡æ ¸ä¸­")){
 			if(carInfoService.updateCarInfo(carInfo)){
 				  return "tjbjj";
        	
@@ -485,6 +551,10 @@ public String tjbjj() throws Exception {
 		return "nouser";
 	}
 }
+/**
+ * ä¼šå‘˜æ”¶è—æ“ä½œaction
+ * 
+ */
 public String needsc() throws Exception {
 	// TODO Auto-generated method stub
 	if(chekUser()!=null){
@@ -494,7 +564,7 @@ public String needsc() throws Exception {
 			perSonCar.setCUid(Long.parseLong(c_uid));
 			perSonCar.setCId(Long.parseLong(c_id));
 				perSonCar.setUId(chekUser().getUId());
-				perSonCar.setPState("ÊÕ²Ø");
+				perSonCar.setPState("æ”¶è—");
 				Carinfo carInfo=new Carinfo();
 				carInfo.setCId(Long.parseLong(c_id));
 				carInfo.setUId(Long.parseLong(c_uid));
@@ -505,22 +575,22 @@ public String needsc() throws Exception {
 			
 			if(!chekUser().getUId().toString().equals(carInfo.getUId().toString()))
 			 {if(perSonCarService.getPerSonCarMapByWhere(perSonCar).size()>0){
-				 scmessage="±§Ç¸!:ÄãÒÑ¾­ÊÕ²Ø¹ıÕâÁ¾³µÁË,È¥»áÔ±ÖĞĞÄ-ÎÒµÄĞèÇó-ÎÒµÄÊÕ²ØÖĞ¿´¿´°É";
+				 scmessage="æŠ±æ­‰!:ä½ å·²ç»æ”¶è—è¿‡è¿™è¾†è½¦äº†,å»ä¼šå‘˜ä¸­å¿ƒ-æˆ‘çš„éœ€æ±‚-æˆ‘çš„æ”¶è—ä¸­çœ‹çœ‹å§";
 			}
 			else{ 
 			if(perSonCarService.addPerSonCar(perSonCar)&&carInfoService.updateCarInfo(_car)){
-				 scmessage="¹§Ï²!:ÊÕ²Ø³É¹¦,È¥»áÔ±ÖĞĞÄ-ÎÒµÄĞèÇó-ÎÒµÄÊÕ²ØÖĞ¿´¿´°É";
+				 scmessage="æ­å–œ!:æ”¶è—æˆåŠŸ,å»ä¼šå‘˜ä¸­å¿ƒ-æˆ‘çš„éœ€æ±‚-æˆ‘çš„æ”¶è—ä¸­çœ‹çœ‹å§";
 				
 			 }
 			}
 			}
 			else{
-				scmessage="²»ÔÊĞíÊÕ²Ø×Ô¼ºµÄ³µ";
+				scmessage="ä¸å…è®¸æ”¶è—è‡ªå·±çš„è½¦";
 			}
 			response.setContentType("text/html;charset=utf-8");
 			 
 			response.getWriter().println(scmessage);
-			response.getWriter().flush();//Çå¿Õ»º´æ,Ë¢ĞÂ
+			response.getWriter().flush();//æ¸…ç©ºç¼“å­˜,åˆ·æ–°
 			response.getWriter().close();
         return "josn";
 
@@ -529,6 +599,10 @@ public String needsc() throws Exception {
 		return "nouser";
 	}
 }
+/**
+ * ä¼šå‘˜è®¢è´­æ“ä½œaction
+ * 
+ */
 public String needdg() throws Exception {
 	// TODO Auto-generated method stub
 	if(chekUser()!=null){
@@ -549,12 +623,12 @@ public String needdg() throws Exception {
 			
 			}
 			else{
-				scmessage="²»ÔÊĞí¹ºÂò×Ô¼ºµÄ³µ";
+				scmessage="ä¸å…è®¸è´­ä¹°è‡ªå·±çš„è½¦";
 			}
 			response.setContentType("text/html;charset=utf-8");
 			 
 			response.getWriter().print(scmessage);
-			response.getWriter().flush();//Çå¿Õ»º´æ,Ë¢ĞÂ
+			response.getWriter().flush();//æ¸…ç©ºç¼“å­˜,åˆ·æ–°
 			response.getWriter().close();
 		
         return "josn";
@@ -564,6 +638,9 @@ public String needdg() throws Exception {
 		return "nouser";
 	}
 }
+/**
+ * ä¼šå‘˜ä»˜æ¬¾æ“ä½œaction
+ */
 public String fukuan() throws Exception {
 	// TODO Auto-generated method stub
 	if(chekUser()!=null){
@@ -576,35 +653,35 @@ public String fukuan() throws Exception {
 		Carinfo carInfo1=new Carinfo();
 		carInfo1.setCId(Long.parseLong(cid));
 		carInfo1.setUId(Long.parseLong(uid));
-		if(carInfoService.getCarByWhere(carInfo1).get(carInfo1.getCId()).getCState().equals("ÔÚÊÛ")){
+		if(carInfoService.getCarByWhere(carInfo1).get(carInfo1.getCId()).getCState().equals("åœ¨å”®")){
 		perSonCar.setUId(chekUser().getUId());
 		perSonCar.setCUid(Long.parseLong(uid));
 		perSonCar.setCId(Long.parseLong(cid));
-		perSonCar.setPState("ÒÑ¶¨");
+		perSonCar.setPState("å·²å®š");
 		
-		carInfo1.setCState("ÒÑ¶¨");
+		carInfo1.setCState("å·²å®š");
 		
 		Personcar _PerSonCar=new Personcar();
 	 _PerSonCar.setUId(Long.parseLong(uid));
 	 _PerSonCar.setCId(Long.parseLong(cid));
 	 _PerSonCar.setCUid(Long.parseLong(uid));
-	 _PerSonCar.setPState("³öÊÛ");
-		if(perSonCarService.addPerSonCar(perSonCar)&&perSonCarService.updatePerSoncar(_PerSonCar, "±»¶¨")){
+	 _PerSonCar.setPState("å‡ºå”®");
+		if(perSonCarService.addPerSonCar(perSonCar)&&perSonCarService.updatePerSoncar(_PerSonCar, "è¢«å®š")){
 			if(carInfoService.updateCarInfo(carInfo1)){
-				meeag="¹§Ï²!:¶©³µ³É¹¦,È¥»áÔ±ÖĞĞÄ-ÎÒµÄĞèÇó-ÎÒµÄ¶©µ¥ÖĞ¿´¿´°É";
+				meeag="æ­å–œ!:è®¢è½¦æˆåŠŸ,å»ä¼šå‘˜ä¸­å¿ƒ-æˆ‘çš„éœ€æ±‚-æˆ‘çš„è®¢å•ä¸­çœ‹çœ‹å§";
 			}
 			else{
-				meeag="²úÉú´íÎóÁË";
+				meeag="äº§ç”Ÿé”™è¯¯äº†";
 			}
 		}
 		}
 		else{
 		
-			meeag="¸Ã³µÒÑ¾­±»±ğÈËÇÀÏÈ¶©µ¥À²,ÔÙ¿´¿´±ğµÄ³µ°É!";
+			meeag="è¯¥è½¦å·²ç»è¢«åˆ«äººæŠ¢å…ˆè®¢å•å•¦,å†çœ‹çœ‹åˆ«çš„è½¦å§!";
 		}
 		response.setContentType("text/html;charset=utf-8");
 		 response.getWriter().print(meeag);
-		 response.getWriter().flush();//Çå¿Õ»º´æ,Ë¢ĞÂ
+		 response.getWriter().flush();//æ¸…ç©ºç¼“å­˜,åˆ·æ–°
 		 response.getWriter().close();
         return "josn";
 
@@ -613,6 +690,10 @@ public String fukuan() throws Exception {
 		return "nouser";
 	}
 }
+/**
+ * ä¼šå‘˜ä¸‹æ¶action
+ * 
+ */
 public String needxj() throws Exception {
 	// TODO Auto-generated method stub
 	if(chekUser()!=null){
@@ -623,26 +704,26 @@ public String needxj() throws Exception {
 		perSonCar.setUId(chekUser().getUId());
 		perSonCar.setCUid(Long.parseLong(uid));
 		perSonCar.setCId(Long.parseLong(cid));
-		perSonCar.setPState("³öÊÛ");
-		String state="ÏÂ¼Ü";
+		perSonCar.setPState("å‡ºå”®");
+		String state="ä¸‹æ¶";
 		Carinfo carInfo1=new Carinfo();
 		carInfo1.setCId(Long.parseLong(cid));
 		carInfo1.setUId(Long.parseLong(uid));
-		carInfo1.setCState("ÏÂ¼Ü");
+		carInfo1.setCState("ä¸‹æ¶");
 		String meeag=null;
 		if(perSonCarService.updatePerSoncar(perSonCar, state)){
 			
 			if(carInfoService.updateCarInfo(carInfo1)){
-				meeag="ÌáÊ¾:ÏÂ¼Ü³É¹¦,È¥»áÔ±ÖĞĞÄ-ÎÒµÄ³µ-ÏÂ¼ÜµÄ³µ¿´¿´°É";					}
+				meeag="æç¤º:ä¸‹æ¶æˆåŠŸ,å»ä¼šå‘˜ä¸­å¿ƒ-æˆ‘çš„è½¦-ä¸‹æ¶çš„è½¦çœ‹çœ‹å§";					}
 			else{
-				meeag="²úÉú´íÎóÁË";
+				meeag="äº§ç”Ÿé”™è¯¯äº†";
 			}
 	
 			
 			
 		}
 		 response.getWriter().print(meeag);
-		 response.getWriter().flush();//Çå¿Õ»º´æ,Ë¢ĞÂ
+		 response.getWriter().flush();//æ¸…ç©ºç¼“å­˜,åˆ·æ–°
 		 response.getWriter().close();
         return "josn";
 
@@ -651,6 +732,10 @@ public String needxj() throws Exception {
 		return "nouser";
 	}
 }
+/**
+ * ä¼šå‘˜éœ€æ±‚å–è½¦çš„çš„action
+ * 
+ */
 public String needmaiche() throws Exception {
 	// TODO Auto-generated method stub
 	if(chekUser()!=null){
@@ -667,6 +752,9 @@ public String needmaiche() throws Exception {
 		return "nouser";
 	}
 }
+/**
+ * ä¼šå‘˜æäº¤å–è½¦åŸºç¡€ä¿¡æ¯çš„action
+ */
 public String logincar() throws Exception {
 	// TODO Auto-generated method stub
 	if(chekUser()!=null){
@@ -689,6 +777,10 @@ public String logincar() throws Exception {
 		return "nouser";
 	}
 }
+/**
+ * ä¼šå‘˜æäº¤å–è½¦è¯¦ç»†ä¿¡æ¯çš„action
+ * 
+ */
 public String tjmc() throws Exception {
 	// TODO Auto-generated method stub
 	 Userinfo3 userInfo=chekUser();
@@ -700,7 +792,7 @@ public String tjmc() throws Exception {
 			Carinfo carInfo=new Carinfo();
 			carInfo.setUId(chekUser().getUId());
 			carInfo.setCSccount(new Long(0));
-			carInfo.setCState("ÉóºËÖĞ");
+			carInfo.setCState("å®¡æ ¸ä¸­");
 			carInfo.setCCount(new Long(0));
 			
 		    Date date=new Date();
@@ -903,14 +995,14 @@ Basicinfo basicInfo=new Basicinfo();
 						  carImagesInfo.setImage10("tepimages/"+image10+"");
 					  }
 					  if(carImagesInfoService.addCarImagesInfo(carImagesInfo)){
-						  perSonCar.setPState("ÉóºËÖĞ");
+						  perSonCar.setPState("å®¡æ ¸ä¸­");
 						  perSonCar.setUId(userInfo.getUId());
 						  perSonCar.setCUid(userInfo.getUId());
 						  perSonCar.setCId(_carInfo.getCId());
 						  if(perSonCarService.addPerSonCar(perSonCar)){
 							 this.setTzCid(perSonCar.getCId());
 							 this.setTzUid(perSonCar.getUId());
-							  request.setAttribute("xiaoxi", "Ìá½»³É¹¦,ÎÒÃÇ½«»áÂíÉÏ¶ÔÄúÌá¹©µÄĞÅÏ¢½øĞĞÉóºË,¿É½øÈë<a href='MemberCenter_showmenberSh.action'>»áÔ±ÖĞĞÄ-ÎÒµÄĞèÇó-ÉóºËÖĞµÄ³µ½øĞĞ²é¿´</a>");
+							  request.setAttribute("xiaoxi", "æäº¤æˆåŠŸ,æˆ‘ä»¬å°†ä¼šé©¬ä¸Šå¯¹æ‚¨æä¾›çš„ä¿¡æ¯è¿›è¡Œå®¡æ ¸,å¯è¿›å…¥<a href='MemberCenter_showmenberSh.action'>ä¼šå‘˜ä¸­å¿ƒ-æˆ‘çš„éœ€æ±‚-å®¡æ ¸ä¸­çš„è½¦è¿›è¡ŒæŸ¥çœ‹</a>");
 							 
 						  }
 					  }
@@ -934,6 +1026,10 @@ Basicinfo basicInfo=new Basicinfo();
 		return "nouser";
 	}
 }
+/**
+ * ä¼šå‘˜éœ€æ±‚æ›´æ”¹å‡ºå”®è½¦çš„ä¿¡æ¯æ“ä½œ,åŒæäº¤è¯¦æƒ…æ“ä½œaction
+ * 
+ */
 public String uptj() throws Exception {
 	// TODO Auto-generated method stub
 	 Userinfo3 userInfo=chekUser();
@@ -1143,7 +1239,7 @@ Basicinfo basicInfo=new Basicinfo();
 						  carImagesInfo.setImage10(image10);
 					  }
 					  if(carImagesInfoService.updateCarImagesInfo(carImagesInfo)){
-						  request.setAttribute("xiaoxi", "ĞŞ¸Ä³É¹¦,Çë½øÈë<a href='MemberCenter_showmenberbjj.action'>»áÔ±ÖĞĞÄ-ÎÒµÄ³µ-ÉóºËÎ´Í¨¹ıµÄ³µÔÙ´ÎÌá½»°É</a>");
+						  request.setAttribute("xiaoxi", "ä¿®æ”¹æˆåŠŸ,è¯·è¿›å…¥<a href='MemberCenter_showmenberbjj.action'>ä¼šå‘˜ä¸­å¿ƒ-æˆ‘çš„è½¦-å®¡æ ¸æœªé€šè¿‡çš„è½¦å†æ¬¡æäº¤å§</a>");
 							this.setTzCid(carInfo.getCId());
 							this.setTzUid(userInfo.getUId());
 						
@@ -1166,6 +1262,10 @@ Basicinfo basicInfo=new Basicinfo();
 		return "nouser";
 	}
 }
+/**
+ * ä¼šå‘˜æŸ¥çœ‹è½¦è¾†è¯¦æƒ…action
+ * 
+ */
 public String showdea() throws Exception {
 	// TODO Auto-generated method stub
 	if(chekUser()!=null){
@@ -1181,6 +1281,10 @@ public String showdea() throws Exception {
 		return "nouser";
 	}
 }
+/**
+ * 
+ * ä¼šå‘˜éœ€æ±‚æ›´æ”¹å–è½¦ä¿¡æ¯çš„action
+ */
 public String upmc() throws Exception {
 	// TODO Auto-generated method stub
 	if(chekUser()!=null){
@@ -1220,6 +1324,10 @@ for(Integer key:imgMap.keySet()){
 		return "nouser";
 	}
 }
+/**
+ * ä¼šå‘˜æäº¤ç§äººå®šåˆ¶çš„action
+ * 
+ */
 public String comment() throws Exception {
 	// TODO Auto-generated method stub
 	if(chekUser()!=null){
@@ -1238,7 +1346,7 @@ public String comment() throws Exception {
         personNeed.setPPrice(p_price);
         personNeed.setPTime(sdf.parse(p_time));
         personNeed.setPSeries(p_series);
-        personNeed.setPState("´¦ÀíÖĞ");
+        personNeed.setPState("å¤„ç†ä¸­");
       
 	    Date date=new Date();
 	    personNeed.setPTjtime(date);
@@ -1246,17 +1354,17 @@ public String comment() throws Exception {
 	  PersonNeedServiceImpl personNeedServiceImpl=new PersonNeedServiceImpl();
 	  if(personNeedServiceImpl.getPerSonNeed(personNeed)==null){
 	  if(personNeedServiceImpl.addPersonNeed(personNeed)){
-		  message="¹§Ï²£ºÌá½»³É¹¦,½øÈë»áÔ±ÖĞĞÄ¡ªÎÒµÄĞèÇó-Ë½ÈË¶¨ÖÆ¿´¿´°É";
+		  message="æ­å–œï¼šæäº¤æˆåŠŸ,è¿›å…¥ä¼šå‘˜ä¸­å¿ƒâ€”æˆ‘çš„éœ€æ±‚-ç§äººå®šåˆ¶çœ‹çœ‹å§";
 	  }
 	  else{
-		  message="±§Ç¸£º·¢ÉúÁËÒ»¸ö´íÎó";
+		  message="æŠ±æ­‰ï¼šå‘ç”Ÿäº†ä¸€ä¸ªé”™è¯¯";
 	  }
 	}
 	  else{
-		  message="Çë²»ÒªÖØ¸´Ìá½»";
+		  message="è¯·ä¸è¦é‡å¤æäº¤";
 	  }
 	  response.getWriter().print(message);
-	  response.getWriter().flush();//Çå¿Õ»º´æ,Ë¢ĞÂ
+	  response.getWriter().flush();//æ¸…ç©ºç¼“å­˜,åˆ·æ–°
 	  response.getWriter().close();
         return "josn";
 
@@ -1265,6 +1373,10 @@ public String comment() throws Exception {
 		return "nouser";
 	}
 }
+/**
+ * å±•ç¤ºä¼šå‘˜ç§äººå®šåˆ¶ä¿¡æ¯action
+ * 
+ */
 public String showsrdz() throws Exception {
 	// TODO Auto-generated method stub
 	if(chekUser()!=null){
@@ -1280,6 +1392,10 @@ public String showsrdz() throws Exception {
 		return "nouser";
 	}
 }
+/**
+ * 
+ * ä¼šå‘˜ç•™è¨€æ“ä½œaction
+ */
 public String liuyan() throws Exception {
 	// TODO Auto-generated method stub
 	if(chekUser()!=null){
@@ -1293,7 +1409,7 @@ public String liuyan() throws Exception {
 	    if(commentServiceImpl.addComment(comment)){
 	    	response.setContentType("text/html;charset=utf-8");
 			 response.getWriter().print(1);
-			 response.getWriter().flush();//Çå¿Õ»º´æ,Ë¢ĞÂ
+			 response.getWriter().flush();//æ¸…ç©ºç¼“å­˜,åˆ·æ–°
 			 response.getWriter().close();
 	    
 	    }
@@ -1305,7 +1421,9 @@ public String liuyan() throws Exception {
 	}
 }
 
-
+/**
+  * éªŒè¯ç”¨æˆ·æ˜¯å¦ç™»å½•çš„æ–¹æ³•
+  */
    private Userinfo3 chekUser(){
 	   Userinfo3 userinfo=null;
 		Object object = session.get("userinfo");
@@ -1314,6 +1432,11 @@ public String liuyan() throws Exception {
 		}
 	   return userinfo;
    }
+   
+        /**
+	 * åˆ†é¡µå¤„ç†ä¸ªäººè½¦è¾†è®¢å•ä¿¡æ¯çš„æ–¹æ³•
+	 * 
+	 */
    private void fenye(HttpServletRequest req, Personcar perSonCar){
 		
 		
@@ -1326,9 +1449,9 @@ public String liuyan() throws Exception {
 		
   
 	 long maxRowsCount=personCarPage.queryPersonCarCount(perSonCar);
-		//´¦Àí·ÖÒ³Âß¼­<=>µ÷ÓÃ
+		//å¤„ç†åˆ†é¡µé€»è¾‘<=>è°ƒç”¨
 		PageUtil pageUtil=new PageUtil(4, maxRowsCount);
-		// ´¦ÀíÒ³ÂëÂß¼­
+		// å¤„ç†é¡µç é€»è¾‘
 		if (curPage <= 1) {
 
 			pageUtil.setCurPage(1);
@@ -1361,6 +1484,10 @@ public String liuyan() throws Exception {
 		
 		
 	 }
+	  /**
+	  * åˆ†é¡µå¤„ç†ä¸ªäººéœ€æ±‚ä¿¡æ¯çš„æ–¹æ³•
+	  * 
+	  */
 private void fenyepn(HttpServletRequest req, Personneed personNeed){
 		
 		
@@ -1373,9 +1500,9 @@ private void fenyepn(HttpServletRequest req, Personneed personNeed){
 		
   
 	 long maxRowsCount=personNeedPage.queryPersonCarCount(personNeed);
-		//´¦Àí·ÖÒ³Âß¼­<=>µ÷ÓÃ
+		//å¤„ç†åˆ†é¡µé€»è¾‘<=>è°ƒç”¨
 		PageUtil pageUtil=new PageUtil(4, maxRowsCount);
-		// ´¦ÀíÒ³ÂëÂß¼­
+		// å¤„ç†é¡µç é€»è¾‘
 		if (curPage <= 1) {
 
 			pageUtil.setCurPage(1);
@@ -1408,6 +1535,11 @@ private void fenyepn(HttpServletRequest req, Personneed personNeed){
 		
 		
 	 }
+	   /**
+	  * ç»‘å®šè½¦è¾†æ¦‚è¦ä¿¡æ¯å¯¹è±¡å’Œä¸ªäººè½¦è¾†è®¢å•å¯¹è±¡ç¼–å·çš„æ–¹æ³•
+	  * 
+	  * 
+	  */
 	private void finishop(HttpServletRequest req,Personcar perSonCar,Userinfo3 userInfo,Carinfo carInfo){
 		String uid=req.getParameter("uid");
 		String cid=req.getParameter("cid");
