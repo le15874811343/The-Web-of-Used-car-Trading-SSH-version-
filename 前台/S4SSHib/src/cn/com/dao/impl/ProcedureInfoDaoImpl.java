@@ -83,7 +83,7 @@ public class ProcedureInfoDaoImpl extends BaseDao implements IProcedureInfoDao{
 	}
   /**
    * 
-   * 删除手续信息的方法
+   * 修改手续信息的方法
    *@return  int
    */
 	@Override
