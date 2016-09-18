@@ -43,7 +43,7 @@ public class CarInfoDaoImpl extends BaseDao implements ICarInfoDao,IPageDao{
 		List<Object> parmas=new ArrayList<Object>();
 		parmas.add(carInfo.getCBrand());
 		parmas.add(carInfo.getCState());
-		
+		 
 		List<Carinfo> clist= PageUtil.querylist(1, 4, hql, parmas);  //获取指定行数区间符合条件的汽车概要信息结果集
 		//遍历结果集 加入Map中
 		for(Carinfo c:clist){
