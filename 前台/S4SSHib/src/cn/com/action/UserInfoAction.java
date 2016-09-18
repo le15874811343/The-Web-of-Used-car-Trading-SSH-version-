@@ -1,37 +1,25 @@
 package cn.com.action;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Map;
-import java.util.Random;
-
+import java.util.*;
 import javax.imageio.ImageIO;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.apache.struts2.interceptor.RequestAware;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 import org.apache.struts2.interceptor.SessionAware;
-
-
 import cn.com.pojo.Userinfo3;
 import cn.com.service.IUserInfoService;
 import cn.com.service.impl.UserInfoServiceImpl;
 import cn.com.util.DbUtil;
-
 import com.opensymphony.xwork2.ActionSupport;
 /**
  * 用户信息处理action
