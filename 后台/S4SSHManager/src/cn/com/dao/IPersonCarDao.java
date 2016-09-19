@@ -72,6 +72,10 @@ public interface IPersonCarDao {
  * @return Personcar
  */
   	 public Personcar getPersoncar(Personcar personcar);
+  /**
+  * 检查是否还有与某车主编号关联的用户订单信息
+  * @return boolean
+  */
   	public boolean checkcuidperson(Personcar p);
 /**
  * 根据车主编号删除用户订单信息的方法
