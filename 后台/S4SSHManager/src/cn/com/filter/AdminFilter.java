@@ -45,7 +45,7 @@ public class AdminFilter implements Filter{
 		}
 	}
 	else{
-		resp.sendRedirect("/S4SSHManager/UserInfo_needLogin.action");否则转向登录页面
+		resp.sendRedirect("/S4SSHManager/UserInfo_needLogin.action");//否则转向登录页面
 	}
 	}
 
