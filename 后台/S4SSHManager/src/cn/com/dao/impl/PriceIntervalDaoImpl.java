@@ -38,7 +38,7 @@ public class PriceIntervalDaoImpl extends BaseDao implements IPriceIntervalDao ,
 	}
   /**
    * 
-   * 删除价格区间信息的方法
+   * 添加价格区间信息的方法
    * @return int
    */
 	@Override
