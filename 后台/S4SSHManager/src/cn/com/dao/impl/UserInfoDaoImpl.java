@@ -139,7 +139,10 @@ public class UserInfoDaoImpl extends BaseDao implements IUserInfoDao, IPageDao {
                  //返回受影响的行数
 		return super.getHibernateTemplate().bulkUpdate(sql.toString(), o);
 	}
-
+ /**
+   * 修改用户密码的方法
+   *@return int 
+   */
 	@Override
 	public int updateUserPwd(Userinfo3 userInfo) {
 		// TODO Auto-generated method stub
