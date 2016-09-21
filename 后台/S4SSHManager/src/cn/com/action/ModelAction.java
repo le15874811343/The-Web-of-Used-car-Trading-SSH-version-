@@ -796,6 +796,9 @@ if(priceIntervalServiceImpl.deletePriceInterval(priceInterval)){
 		   }
 		 return "tjuptype";
 	}
+	/**
+	 * 删除车型action
+	 */
 	 public String deltype() throws Exception{
 		 String tid=request.getParameter("tid");
 		 Cartype carType=new Cartype();
